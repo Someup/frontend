@@ -4,6 +4,7 @@ export const color = {
   primary: '#2C31FF',
   secondary: '#A9FFA9',
   tertiary: '#0D0F4D',
+  error: '#EC0A0A',
   white: '#FFFFFF',
   'gray-50': '#EDEDED',
   'gray-100': '#D4D4D4',
