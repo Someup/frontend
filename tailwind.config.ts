@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
   content: [
@@ -7,5 +8,10 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   plugins: [],
+  theme: {
+    fontFamily: {
+      sans: ['Pretendard Variable', ...defaultTheme.fontFamily.sans],
+    },
+  },
 };
 export default config;
