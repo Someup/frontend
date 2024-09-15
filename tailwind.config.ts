@@ -1,11 +1,13 @@
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import {
+  borderRadius,
   color,
   fontSize,
   fontWeight,
   letterSpacing,
   lineHeight,
+  spacing,
 } from './styles/base';
 
 const config: Config = {
@@ -17,13 +19,15 @@ const config: Config = {
   ],
   plugins: [],
   theme: {
-    fontFamily: {
-      sans: ['Pretendard Variable', ...defaultTheme.fontFamily.sans],
-    },
     fontSize,
     fontWeight,
     lineHeight,
     letterSpacing,
+    spacing,
+    borderRadius,
+    fontFamily: {
+      sans: ['Pretendard Variable', ...defaultTheme.fontFamily.sans],
+    },
     colors: color,
   },
 };

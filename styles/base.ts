@@ -53,3 +53,39 @@ export const letterSpacing = {
   wide: '.02em',
   wider: '.04em',
 };
+
+export const spacing = {
+  px: '1px',
+  ...Array.from({ length: 100 }, (_, i) => i / 2).reduce(
+    (acc, cur) => {
+      acc[cur] = `${cur * 4}px`;
+      return acc;
+    },
+    {} as Record<string, string>,
+  ),
+  28: '112px',
+  32: '128px',
+  36: '144px',
+  40: '160px',
+  44: '176px',
+  48: '192px',
+  52: '208px',
+  56: '224px',
+  60: '240px',
+  64: '256px',
+  72: '288px',
+  80: '320px',
+  96: '384px',
+};
+
+export const borderRadius = {
+  ...Array.from({ length: 50 }, (_, i) => i / 2).reduce(
+    (acc, cur) => {
+      //use rem(16px = 1rem)
+      acc[cur] = `${cur * 0.25}rem`;
+      return acc;
+    },
+    {} as Record<string, string>,
+  ),
+  full: '9999px',
+};
