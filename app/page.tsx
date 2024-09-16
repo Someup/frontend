@@ -1,3 +1,10 @@
+import SummaryInput from '@/components/summary/SummaryInput';
+
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      Home
+      <SummaryInput />
+    </div>
+  );
 }
