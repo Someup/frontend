@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import {
   borderRadius,
+  boxShadow,
   color,
   fontSize,
   fontWeight,
@@ -29,6 +30,9 @@ const config: Config = {
       sans: ['Pretendard Variable', ...defaultTheme.fontFamily.sans],
     },
     colors: color,
+    extend: {
+      boxShadow: boxShadow,
+    },
   },
 };
 export default config;

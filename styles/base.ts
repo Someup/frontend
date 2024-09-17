@@ -89,3 +89,11 @@ export const borderRadius = {
   ),
   full: '9999px',
 };
+
+export const boxShadow = {
+  inner: 'inset 0 0 0 1px rgba(0, 0, 0, 1)',
+  'inner-2': 'inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  'inner-4': 'inset 0 0 0 4px rgba(0, 0, 0, 1)',
+  'inner-6': 'inset 0 0 0 6px rgba(0, 0, 0, 1)',
+  'inner-8': 'inset 0 0 0 8px rgba(0, 0, 0, 1)',
+};
