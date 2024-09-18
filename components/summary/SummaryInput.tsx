@@ -3,7 +3,7 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { getIsSummaryAvailable } from '@/lib/api/summary';
+import { getIsSummaryAvailable } from '@/lib/service/summary/summaryService';
 
 const SummaryInput = () => {
   const [url, setUrl] = useState('');
@@ -13,9 +13,6 @@ const SummaryInput = () => {
     mutationFn: getIsSummaryAvailable,
     onSuccess: (data) => {
       router.push(`/result/${data.postId}`);
-    },
-    onError: (error) => {
-      alert(error.message);
     },
   });
 

@@ -6,12 +6,15 @@ import {
 } from '@tanstack/react-query';
 import getQueryClient from '@/components/utils/getQueryClient';
 
-type Props = {
+interface PrefetchBoundaryProps {
   fetchQueryOptions: FetchQueryOptions[] | FetchQueryOptions;
   children: ReactNode;
-};
+}
 
-export async function PrefetchBoundary({ fetchQueryOptions, children }: Props) {
+export async function PrefetchBoundary({
+  fetchQueryOptions,
+  children,
+}: PrefetchBoundaryProps) {
   const queryClient = getQueryClient();
 
   if (Array.isArray(fetchQueryOptions)) {

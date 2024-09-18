@@ -1,13 +1,8 @@
 'use client';
-import { getSummary } from '@/lib/api/summary';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import React from 'react';
+import { useSummaryResult } from '@/lib/service/summary/useSummaryService';
 
 const SummaryResult = ({ id }: { id: string }) => {
-  const { data } = useSuspenseQuery({
-    queryKey: ['summary', id],
-    queryFn: () => getSummary(id),
-  });
+  const { data } = useSummaryResult({ id });
 
   return <div>{data}</div>;
 };
