@@ -11,12 +11,15 @@ import {
   spacing,
 } from './styles/base';
 
+const isStorybook: boolean = process.env.MODE === 'storybook';
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './styles/**/*.{js,ts,jsx,tsx,mdx}',
+    ...(isStorybook ? ['./stories/**/*.{js,ts,jsx,tsx,mdx}'] : []),
   ],
   plugins: [],
   theme: {
