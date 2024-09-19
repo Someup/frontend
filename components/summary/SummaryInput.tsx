@@ -3,16 +3,16 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { getIsSummaryAvailable } from '@/lib/service/summary/summaryService';
+import { createSummary } from '@/lib/service/summary/summaryService';
 
 const SummaryInput = () => {
   const [url, setUrl] = useState('');
   const router = useRouter();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: getIsSummaryAvailable,
-    onSuccess: (data) => {
-      router.push(`/result/${data.postId}`);
+    mutationFn: createSummary,
+    onSuccess: (postId: number) => {
+      router.push(`/result/${postId}`);
     },
   });
 
@@ -22,7 +22,10 @@ const SummaryInput = () => {
       alert('올바른 URL을 입력해주세요.');
       return;
     }
-    mutate(url);
+    mutate({
+      url,
+      options: { level: 'brief', tone: 'formalTone', language: 'kr' },
+    });
   };
 
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
