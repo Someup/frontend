@@ -56,19 +56,13 @@ export const letterSpacing = {
 
 export const spacing = {
   px: '1px',
-  ...Array.from({ length: 100 }, (_, i) => i / 2).reduce(
+  ...Array.from({ length: 101 }, (_, i) => i / 2).reduce(
     (acc, cur) => {
       acc[cur] = `${cur * 4}px`;
       return acc;
     },
     {} as Record<string, string>,
-  ),
-  28: '112px',
-  32: '128px',
-  36: '144px',
-  40: '160px',
-  44: '176px',
-  48: '192px',
+  ), //w-0 ~ w-50
   52: '208px',
   56: '224px',
   60: '240px',
@@ -79,14 +73,13 @@ export const spacing = {
 };
 
 export const borderRadius = {
-  ...Array.from({ length: 50 }, (_, i) => i / 2).reduce(
+  ...Array.from({ length: 51 }, (_, i) => i / 2).reduce(
     (acc, cur) => {
-      //use rem(16px = 1rem)
       acc[cur] = `${cur * 0.25}rem`;
       return acc;
     },
     {} as Record<string, string>,
-  ),
+  ), // rounded-0 ~ rounded-25
   full: '9999px',
 };
 
