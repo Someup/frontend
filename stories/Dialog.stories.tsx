@@ -145,16 +145,15 @@ export const WithRadio: Story = {
                 className="grid w-full grid-cols-3 gap-0"
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="normal" id="summary-normal" />
-                  <Label htmlFor="summary-normal">중간 요약 (기본값)</Label>
+                  <RadioGroupItem value="normal">
+                    중간 요약 (기본값)
+                  </RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="brief" id="summary-brief" />
-                  <Label htmlFor="summary-brief">간단 요약</Label>
+                  <RadioGroupItem value="brief">간단 요약</RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="detail" id="summary-detail" />
-                  <Label htmlFor="summary-detail">상세 요약</Label>
+                  <RadioGroupItem value="detail">상세 요약</RadioGroupItem>
                 </div>
               </RadioGroup>
             </div>
@@ -169,18 +168,15 @@ export const WithRadio: Story = {
                 className="grid w-full grid-cols-3 gap-0"
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="formal" id="summary-tone-formal" />
-                  <Label htmlFor="summary-tone-formal">
+                  <RadioGroupItem value="formal">
                     공식적인 말투 (기본값)
-                  </Label>
+                  </RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="casual" id="summary-tone-casual" />
-                  <Label htmlFor="summary-tone-casual">재치있는 말투</Label>
+                  <RadioGroupItem value="casual">재치있는 말투</RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="cute" id="summary-tone-cute" />
-                  <Label htmlFor="summary-tone-cute">귀여운 말투</Label>
+                  <RadioGroupItem value="cute">귀여운 말투</RadioGroupItem>
                 </div>
               </RadioGroup>
             </div>
@@ -195,14 +191,12 @@ export const WithRadio: Story = {
                 className="grid w-full grid-cols-3 gap-0"
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="normal" id="summary-language-korean" />
-                  <Label htmlFor="summary-language-korean">
+                  <RadioGroupItem value="normal">
                     한국어 (기본값)
-                  </Label>
+                  </RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="brief" id="summary-language-english" />
-                  <Label htmlFor="summary-language-english">영어</Label>
+                  <RadioGroupItem value="brief">영어</RadioGroupItem>
                 </div>
               </RadioGroup>
             </div>
