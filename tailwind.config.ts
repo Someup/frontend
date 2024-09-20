@@ -1,12 +1,17 @@
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import {
+  borderRadius,
+  boxShadow,
   color,
   fontSize,
   fontWeight,
   letterSpacing,
   lineHeight,
+  spacing,
 } from './styles/base';
+
+const isStorybook: boolean = process.env.MODE === 'storybook';
 
 const config: Config = {
   content: [
@@ -14,17 +19,23 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './styles/**/*.{js,ts,jsx,tsx,mdx}',
+    ...(isStorybook ? ['./stories/**/*.{js,ts,jsx,tsx,mdx}'] : []),
   ],
   plugins: [],
   theme: {
-    fontFamily: {
-      sans: ['Pretendard Variable', ...defaultTheme.fontFamily.sans],
-    },
     fontSize,
     fontWeight,
     lineHeight,
     letterSpacing,
+    spacing,
+    borderRadius,
+    fontFamily: {
+      sans: ['Pretendard Variable', ...defaultTheme.fontFamily.sans],
+    },
     colors: color,
+    extend: {
+      boxShadow: boxShadow,
+    },
   },
 };
 export default config;

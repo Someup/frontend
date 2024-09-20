@@ -53,3 +53,40 @@ export const letterSpacing = {
   wide: '.02em',
   wider: '.04em',
 };
+
+export const spacing = {
+  px: '1px',
+  ...Array.from({ length: 101 }, (_, i) => i / 2).reduce(
+    (acc, cur) => {
+      acc[cur] = `${cur * 4}px`;
+      return acc;
+    },
+    {} as Record<string, string>,
+  ), //w-0 ~ w-50
+  52: '208px',
+  56: '224px',
+  60: '240px',
+  64: '256px',
+  72: '288px',
+  80: '320px',
+  96: '384px',
+};
+
+export const borderRadius = {
+  ...Array.from({ length: 51 }, (_, i) => i / 2).reduce(
+    (acc, cur) => {
+      acc[cur] = `${cur * 0.25}rem`;
+      return acc;
+    },
+    {} as Record<string, string>,
+  ), // rounded-0 ~ rounded-25
+  full: '9999px',
+};
+
+export const boxShadow = {
+  inner: 'inset 0 0 0 1px rgba(0, 0, 0, 1)',
+  'inner-2': 'inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  'inner-4': 'inset 0 0 0 4px rgba(0, 0, 0, 1)',
+  'inner-6': 'inset 0 0 0 6px rgba(0, 0, 0, 1)',
+  'inner-8': 'inset 0 0 0 8px rgba(0, 0, 0, 1)',
+};
