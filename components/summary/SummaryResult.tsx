@@ -2,9 +2,11 @@
 import { useSummaryResult } from '@/lib/service/summary/useSummaryService';
 
 const SummaryResult = ({ id }: { id: string }) => {
-  const { data } = useSummaryResult({ id });
+  const {
+    data: { content },
+  } = useSummaryResult({ id });
 
-  return <div>{data}</div>;
+  return <div>{content}</div>;
 };
 
 export default SummaryResult;
