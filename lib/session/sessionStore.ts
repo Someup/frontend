@@ -12,3 +12,5 @@ export const useSessionStore = create<SessionStore>((set) => ({
 }));
 
 export const useSession = () => useSessionStore((state) => state.session);
+
+export const getSession = () => useSessionStore.getState().session;
