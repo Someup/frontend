@@ -1,7 +1,11 @@
+export type SummaryLevelOption = 'base' | 'brief' | 'detail';
+export type SummaryToneOption = 'formal' | 'casual' | 'cute';
+export type SummaryLanguageOption = 'kr' | 'en';
 export interface SummaryOptions {
-  level: 'brief' | 'detail' | 'base';
-  tone: 'formal' | 'casual' | 'cute';
-  language: 'kr' | 'en';
+  level: SummaryLevelOption;
+  tone: SummaryToneOption;
+  language: SummaryLanguageOption;
+  keyword?: string;
 }
 
 export interface Post {

@@ -9,10 +9,26 @@ import Button from '@/components/ui/Button';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
+import SummaryOptionDialog from '@/components/summary/SummaryOptionDialog';
+import { SummaryOptions } from '@/types/PostTypes';
+import {
+  SummaryLanguageLabels,
+  SummaryLevelLabels,
+  SummaryToneLabels,
+} from '@/constants/SummaryOptionLabels';
 
 const SummaryInput = () => {
   const [url, setUrl] = useState('');
   const router = useRouter();
+  const [options, setOptions] = useState<SummaryOptions>({
+    level: 'base',
+    tone: 'casual',
+    language: 'kr',
+  });
+  const handleConfirm = (options: SummaryOptions) => {
+    setOptions(options);
+  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: createSummary,
@@ -29,7 +45,7 @@ const SummaryInput = () => {
     }
     mutate({
       url,
-      options: { level: 'brief', tone: 'formalTone', language: 'kr' },
+      options,
     });
   };
 
@@ -43,20 +59,25 @@ const SummaryInput = () => {
     setUrl(e.target.value);
   };
 
-  const currentOptions = '상세 요약, 비공식적 말투, 기본값(한국어)';
+  const currentOptions = `${SummaryLevelLabels[options.level]}, ${SummaryToneLabels[options.tone]}, ${SummaryLanguageLabels[options.language]}`;
 
   return (
     <div className="absolute bottom-0 left-1/2 mx-auto w-full max-w-[73.89%] -translate-x-1/2 -translate-y-1/2 transform">
-      <button
-        type="button"
-        className={cn(
-          typography({ scale: 'body-3' }),
-          'ml-auto mr-8 flex items-center gap-2 text-white',
-        )}
-      >
-        <Image src="/option_icon.svg" width={20} height={20} alt="option" />
-        설정
-      </button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              typography({ scale: 'body-3' }),
+              'ml-auto mr-8 flex items-center gap-2 text-white',
+            )}
+          >
+            <Image src="/option_icon.svg" width={20} height={20} alt="option" />
+            설정
+          </button>
+        </DialogTrigger>
+        <SummaryOptionDialog onConfirm={handleConfirm} />
+      </Dialog>
       <TextField
         placeholder="URL을 입력해주세요."
         onChange={handleChange}
