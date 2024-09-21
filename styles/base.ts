@@ -17,6 +17,7 @@ export const color = {
   'gray-800': '#212121',
   'gray-900': '#080808',
   black: '#000000',
+  transparent: 'transparent',
 };
 
 export const fontSize = {
