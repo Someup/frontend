@@ -8,6 +8,7 @@ import TextField from '@/components/ui/TextField';
 import Button from '@/components/ui/Button';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 const SummaryInput = () => {
   const [url, setUrl] = useState('');
@@ -45,16 +46,28 @@ const SummaryInput = () => {
   const currentOptions = '상세 요약, 비공식적 말투, 기본값(한국어)';
 
   return (
-    <>
+    <div className="absolute bottom-0 left-1/2 mx-auto w-full max-w-[73.89%] -translate-x-1/2 -translate-y-1/2 transform">
+      <button
+        type="button"
+        className={cn(
+          typography({ scale: 'body-3' }),
+          'ml-auto mr-8 flex items-center gap-2 text-white',
+        )}
+      >
+        <Image src="/option_icon.svg" width={20} height={20} alt="option" />
+        설정
+      </button>
       <TextField
         placeholder="URL을 입력해주세요."
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        className="max-w-[73.89%]"
       >
         <div className="flex items-end justify-between">
           <span
-            className={cn(typography({ scale: 'body-4' }), 'text-gray-800')}
+            className={cn(
+              typography({ scale: 'body-4' }),
+              'flex-shrink-0 text-gray-800',
+            )}
           >
             {currentOptions}
           </span>
@@ -68,7 +81,7 @@ const SummaryInput = () => {
           </Button>
         </div>
       </TextField>
-    </>
+    </div>
   );
 };
 
