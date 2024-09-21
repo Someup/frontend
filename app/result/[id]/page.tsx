@@ -3,7 +3,7 @@ import { PrefetchBoundary } from '@/components/utils/PrefetchBoundary';
 import SummaryResult from '@/components/summary/SummaryResult';
 import summaryQuerys from '@/lib/service/summary/summaryQueries';
 
-export function ResultPage({ params }: { params: { id: string } }) {
+function ResultPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   return (
