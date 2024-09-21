@@ -1,6 +1,6 @@
 export interface SummaryOptions {
-  level: 'brief' | 'detail';
-  tone: 'formalTone' | 'casualTone' | 'cuteTone';
+  level: 'brief' | 'detail' | 'base';
+  tone: 'formal' | 'casual' | 'cute';
   language: 'kr' | 'en';
 }
 
