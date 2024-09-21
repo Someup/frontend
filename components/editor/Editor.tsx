@@ -24,7 +24,7 @@ const Editor: ForwardRefExoticComponent<
 > = forwardRef<MDXEditorMethods, MDXEditorProps>(({ ...props }, ref) => {
   return (
     <MDXEditor
-      contentEditableClassName="prose"
+      contentEditableClassName="!p-0 prose max-w-full"
       plugins={[
         headingsPlugin(),
         listsPlugin(),
