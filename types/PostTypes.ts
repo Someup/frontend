@@ -1,7 +1,17 @@
 export interface SummaryOptions {
-  level: 'brief' | 'detail';
-  tone: 'formalTone' | 'casualTone' | 'cuteTone';
+  level: 'brief' | 'detail' | 'base';
+  tone: 'formal' | 'casual' | 'cute';
   language: 'kr' | 'en';
+}
+
+export interface Post {
+  title: string;
+  content: string;
+  url: string;
+  tagList: string[];
+  createdAt: string;
+  memoContent: string;
+  memoCreatedAt: string;
 }
 
 export interface RequestPostBody {
@@ -13,12 +23,4 @@ export interface RequestPostResponse {
   postId: number;
 }
 
-export interface GetPostResponse {
-  title: string;
-  content: string;
-  url: string;
-  tagList: string[];
-  createdAt: string;
-  memoContent: string;
-  memoCreatedAt: string;
-}
+export type GetPostResponse = Post;
