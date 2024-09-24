@@ -1,16 +1,21 @@
 'use client';
-import { useRef } from 'react';
+import { FunctionComponent, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { usePostDetail } from '@/lib/service/post/use-post-service';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
 
+interface PostDetailProps {
+  id: string;
+  readOnly?: boolean;
+}
+
 const Editor = dynamic(() => import('@/components/editor/Editor'), {
   ssr: false,
 });
 
-const PostDetail = ({ id }: { id: string }) => {
+const PostDetail: FunctionComponent<PostDetailProps> = ({ id, readOnly }) => {
   const {
     data: { content, url },
   } = usePostDetail({ id });
@@ -29,8 +34,7 @@ const PostDetail = ({ id }: { id: string }) => {
       >
         {url}
       </a>
-      <span className={cn(typography({ scale: 'head-2' }))}>요약</span>
-      <Editor markdown={content} ref={editorRef} readOnly />
+      <Editor markdown={content} ref={editorRef} readOnly={readOnly} />
     </div>
   );
 };
