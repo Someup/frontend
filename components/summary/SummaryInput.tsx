@@ -4,10 +4,31 @@ import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { createSummary } from '@/lib/service/summary/summaryService';
+import TextField from '@/components/ui/TextField';
+import Button from '@/components/ui/Button';
+import { typography } from '@/styles/typography';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
+import SummaryOptionDialog from '@/components/summary/SummaryOptionDialog';
+import { SummaryOptions } from '@/types/PostTypes';
+import {
+  SummaryLanguageLabels,
+  SummaryLevelLabels,
+  SummaryToneLabels,
+} from '@/constants/SummaryOptionLabels';
 
 const SummaryInput = () => {
   const [url, setUrl] = useState('');
   const router = useRouter();
+  const [options, setOptions] = useState<SummaryOptions>({
+    level: 'base',
+    tone: 'casual',
+    language: 'kr',
+  });
+  const handleConfirm = (options: SummaryOptions) => {
+    setOptions(options);
+  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: createSummary,
@@ -24,32 +45,64 @@ const SummaryInput = () => {
     }
     mutate({
       url,
-      options: { level: 'brief', tone: 'formalTone', language: 'kr' },
+      options,
     });
   };
 
-  const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       handleSummary();
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUrl(e.target.value);
   };
 
+  const currentOptions = `${SummaryLevelLabels[options.level]}, ${SummaryToneLabels[options.tone]}, ${SummaryLanguageLabels[options.language]}`;
+
   return (
-    <>
-      <input
-        type="url"
+    <div className="absolute bottom-0 left-1/2 mx-auto w-full max-w-[73.89%] -translate-x-1/2 -translate-y-1/2 transform">
+      <Dialog>
+        <DialogTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              typography({ scale: 'body-3' }),
+              'ml-auto mr-8 flex items-center gap-2 text-white',
+            )}
+          >
+            <Image src="/option_icon.svg" width={20} height={20} alt="option" />
+            설정
+          </button>
+        </DialogTrigger>
+        <SummaryOptionDialog onConfirm={handleConfirm} />
+      </Dialog>
+      <TextField
         placeholder="URL을 입력해주세요."
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-      />
-      <button onClick={handleSummary} disabled={isPending}>
-        {isPending ? '요약 중...' : '요약하기'}
-      </button>
-    </>
+      >
+        <div className="flex items-end justify-between">
+          <span
+            className={cn(
+              typography({ scale: 'body-4' }),
+              'flex-shrink-0 text-gray-800',
+            )}
+          >
+            {currentOptions}
+          </span>
+          <Button
+            variant="filled"
+            onClick={handleSummary}
+            disabled={isPending}
+            className="rounded-11"
+          >
+            요약하기
+          </Button>
+        </div>
+      </TextField>
+    </div>
   );
 };
 
