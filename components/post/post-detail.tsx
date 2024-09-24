@@ -5,8 +5,6 @@ import { usePostDetail } from '@/lib/service/post/use-post-service';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
-import PostSaveButton from '@/components/post/save-button';
-import FeedbackBox from '@/components/post/feadback-box';
 
 const Editor = dynamic(() => import('@/components/editor/Editor'), {
   ssr: false,
@@ -33,10 +31,6 @@ const PostDetail = ({ id }: { id: string }) => {
       </a>
       <span className={cn(typography({ scale: 'head-2' }))}>요약</span>
       <Editor markdown={content} ref={editorRef} readOnly />
-      <div className="relative">
-        <PostSaveButton />
-        <FeedbackBox />
-      </div>
     </div>
   );
 };

@@ -6,8 +6,8 @@ const PostSaveButton: FunctionComponent = () => {
     <Button
       type="button"
       variant="rounded"
-      className="absolute ml-auto h-23 w-24"
-      style={{ right: '-6rem', bottom: '20rem' }}
+      className="fixed ml-auto h-23 w-24"
+      style={{ right: '30px', bottom: '130px' }}
     >
       저장
     </Button>
