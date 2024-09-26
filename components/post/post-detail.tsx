@@ -3,8 +3,8 @@ import { FunctionComponent, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { usePostDetail } from '@/lib/service/post/use-post-service';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
-import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
+import { cn } from '@/lib/utils';
 
 interface PostDetailProps {
   id: string;

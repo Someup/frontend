@@ -1,16 +1,16 @@
-import SummaryResult from '@/components/summary/SummaryResult';
-import PostWriteSaveButton from '@/components/summary/post-write-save-button';
+import PostDetail from '@/components/post/post-detail';
+import PostSaveButton from '@/components/post/post-save-button';
 
 const WritePage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   return (
-    <div>
+    <>
       <div className="flex gap-4">
-        <SummaryResult id={id} readOnly />
-        <SummaryResult id={id} />
+        <PostDetail id={id} readOnly />
+        <PostDetail id={id} />
       </div>
-      <PostWriteSaveButton id={id} />
-    </div>
+      <PostSaveButton id={id} />
+    </>
   );
 };
 

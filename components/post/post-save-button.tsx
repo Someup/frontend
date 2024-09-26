@@ -2,13 +2,11 @@
 import Button from '@/components/ui/Button';
 import { FunctionComponent } from 'react';
 
-interface PostWriteSaveButtonProps {
+interface PostSaveButtonProps {
   id: string;
 }
 
-const PostWriteSaveButton: FunctionComponent<PostWriteSaveButtonProps> = ({
-  id,
-}) => {
+const PostSaveButton: FunctionComponent<PostSaveButtonProps> = ({ id }) => {
   const handleClick = () => {
     // open post save dialog
     console.log(id);
@@ -25,4 +23,4 @@ const PostWriteSaveButton: FunctionComponent<PostWriteSaveButtonProps> = ({
   );
 };
 
-export default PostWriteSaveButton;
+export default PostSaveButton;

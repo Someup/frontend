@@ -4,10 +4,10 @@ import PostDetail from '@/components/post/post-detail';
 import postQuerys from '@/lib/service/post/post-queries';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
-import FeedbackBox from '@/components/post/feadback-box';
-import PostResultSaveButton from '@/components/post/post-result-save-button';
+import FeedbackBox from '@/components/summary/feadback-box';
+import SummarySaveButton from '@/components/summary/summary-save-button';
 
-function ResultPage({ params }: { params: { id: string } }) {
+function SummaryPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   return (
@@ -25,10 +25,10 @@ function ResultPage({ params }: { params: { id: string } }) {
           <PostDetail id={id} />
         </PrefetchBoundary>
       </Suspense>
-      <PostResultSaveButton postId={id} isLoggedIn />
+      <SummarySaveButton postId={id} isLoggedIn />
       <FeedbackBox />
     </>
   );
 }
 
-export default ResultPage;
+export default SummaryPage;

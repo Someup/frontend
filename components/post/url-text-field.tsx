@@ -10,7 +10,7 @@ import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
-import OptionDialog from '@/components/post/option-dialog';
+import OptionDialog from '@/components/summary/option-dialog';
 import { SummaryOptions } from '@/types/summary-types';
 import {
   SummaryLanguageLabels,
@@ -33,7 +33,7 @@ const URLTextField = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: createPost,
     onSuccess: (postId: number) => {
-      router.push(`/result/${postId}`);
+      router.push(`/summary/${postId}`);
     },
   });
 

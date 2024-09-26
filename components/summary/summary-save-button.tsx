@@ -3,12 +3,12 @@ import Button from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
 import { FunctionComponent } from 'react';
 
-interface PostResultSaveButtonProps {
+interface SummarySaveButtonProps {
   postId: string;
   isLoggedIn: boolean;
 }
 
-const PostResultSaveButton: FunctionComponent<PostResultSaveButtonProps> = ({
+const SummarySaveButton: FunctionComponent<SummarySaveButtonProps> = ({
   postId,
   isLoggedIn,
 }) => {
@@ -35,4 +35,4 @@ const PostResultSaveButton: FunctionComponent<PostResultSaveButtonProps> = ({
   );
 };
 
-export default PostResultSaveButton;
+export default SummarySaveButton;
