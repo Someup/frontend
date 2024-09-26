@@ -22,7 +22,7 @@ function SummaryPage({ params }: { params: { id: string } }) {
       </span>
       <Suspense fallback={<div>Loading...</div>}>
         <PrefetchBoundary fetchQueryOptions={postQuerys.detail(id)}>
-          <PostDetail id={id} />
+          <PostDetail id={id} readOnly={true} />
         </PrefetchBoundary>
       </Suspense>
       <SummarySaveButton postId={id} isLoggedIn />
