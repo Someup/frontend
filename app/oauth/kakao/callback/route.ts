@@ -1,5 +1,6 @@
 import clientEnv from '@/lib/env/clientEnv';
-import { setServerToken } from '@/lib/session/token';
+import token from '@/lib/service/auth/token';
+import { LoginResponse } from '@/types/AuthTypes';
 import { redirect } from 'next/navigation';
 import { NextRequest } from 'next/server';
 
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest): Promise<void> {
   }
 
   const response = await fetch(
-    clientEnv.NEXT_PUBLIC_API_BASE_URL + '/v1/auth/login/kakao?code=' + code,
+    clientEnv.NEXT_PUBLIC_API_BASE_URL + '/auth/login/kakao?code=' + code,
     {
       method: 'POST',
       headers: {
@@ -25,15 +26,15 @@ export async function GET(request: NextRequest): Promise<void> {
     return redirect('/login');
   }
 
-  const { accessToken } = (await response.json()) as {
-    accessToken: string;
-  };
+  const { accessToken, refreshToken } =
+    (await response.json()) as LoginResponse;
 
-  if (!accessToken) {
+  if (!accessToken || !refreshToken) {
     return redirect('/login');
   }
 
-  setServerToken(accessToken);
+  token.accessToken.set(accessToken);
+  token.refreshToken.set(refreshToken);
 
   return redirect('/');
 }
