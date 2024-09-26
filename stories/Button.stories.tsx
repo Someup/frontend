@@ -87,3 +87,20 @@ export const Icon: Story = {
     </div>
   ),
 };
+
+export const Text: Story = {
+  args: {
+    variant: 'text',
+  },
+  render: (args) => (
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+      }}
+    >
+      <Button {...args} />
+      <Button {...args} disabled />
+    </div>
+  ),
+};
