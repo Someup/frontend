@@ -1,13 +1,17 @@
 import clientEnv from '@/lib/env/clientEnv';
-import token from '@/lib/service/auth/token';
+import {
+  accessTokenConfig,
+  refreshTokenConfig,
+} from '@/lib/service/auth/constants';
 import { LoginResponse } from '@/types/AuthTypes';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<void> {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
-
+  const cookie = cookies();
   if (!code) {
     redirect('/login');
   }
@@ -33,8 +37,14 @@ export async function GET(request: NextRequest): Promise<void> {
     return redirect('/login');
   }
 
-  token.accessToken.set(accessToken);
-  token.refreshToken.set(refreshToken);
+  cookie.set(accessTokenConfig.name, accessToken, {
+    maxAge: accessTokenConfig.expiration,
+    path: '/',
+  });
+  cookie.set(refreshTokenConfig.name, refreshToken, {
+    maxAge: refreshTokenConfig.expiration,
+    path: '/',
+  });
 
   return redirect('/');
 }
