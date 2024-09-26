@@ -1,8 +1,4 @@
 'use client';
-
-import SessionProvider, {
-  SessionProviderProps,
-} from '@/components/utils/SessionProvider';
 import {
   isServer,
   QueryClient,
@@ -39,19 +35,17 @@ function getQueryClient() {
   }
 }
 
-type ProvidersProps = {
+interface ProvidersProps {
   children: ReactNode;
-} & SessionProviderProps;
+}
 
-export default function Providers({ session, children }: ProvidersProps) {
+export default function Providers({ children }: ProvidersProps) {
   const queryClient = getQueryClient();
 
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }

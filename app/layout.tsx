@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ReactNode } from 'react';
 import Providers from '@/components/utils/Providers';
-import { getServerToken } from '@/lib/session/token';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,12 +13,10 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const token = getServerToken();
-
   return (
     <html lang="en">
       <body>
-        <Providers session={token}>{children}</Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
