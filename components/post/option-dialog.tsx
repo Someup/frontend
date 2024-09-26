@@ -18,15 +18,13 @@ import {
 } from '@/constants/SummaryOptionLabels';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
-import { SummaryOptions } from '@/types/PostTypes';
+import { SummaryOptions } from '@/types/summary-types';
 import { ChangeEvent, FunctionComponent, useId, useState } from 'react';
 
-interface SummaryOptionDialogProps {
+interface OptionDialogProps {
   onConfirm: (options: SummaryOptions) => void;
 }
-const SummaryOptionDialog: FunctionComponent<SummaryOptionDialogProps> = ({
-  onConfirm,
-}) => {
+const OptionDialog: FunctionComponent<OptionDialogProps> = ({ onConfirm }) => {
   const levelRadioGroupId = useId();
   const toneRadioGroupId = useId();
   const languageRadioGroupId = useId();
@@ -169,4 +167,4 @@ const SummaryOptionDialog: FunctionComponent<SummaryOptionDialogProps> = ({
   );
 };
 
-export default SummaryOptionDialog;
+export default OptionDialog;

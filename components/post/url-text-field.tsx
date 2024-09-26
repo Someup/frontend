@@ -3,22 +3,22 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { createSummary } from '@/lib/service/summary/summaryService';
+import { createPost } from '@/lib/service/post/post-service';
 import TextField from '@/components/ui/TextField';
 import Button from '@/components/ui/Button';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
-import SummaryOptionDialog from '@/components/summary/SummaryOptionDialog';
-import { SummaryOptions } from '@/types/PostTypes';
+import OptionDialog from '@/components/post/option-dialog';
+import { SummaryOptions } from '@/types/summary-types';
 import {
   SummaryLanguageLabels,
   SummaryLevelLabels,
   SummaryToneLabels,
 } from '@/constants/SummaryOptionLabels';
 
-const SummaryInput = () => {
+const URLTextField = () => {
   const [url, setUrl] = useState('');
   const router = useRouter();
   const [options, setOptions] = useState<SummaryOptions>({
@@ -31,7 +31,7 @@ const SummaryInput = () => {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createSummary,
+    mutationFn: createPost,
     onSuccess: (postId: number) => {
       router.push(`/result/${postId}`);
     },
@@ -76,7 +76,7 @@ const SummaryInput = () => {
             설정
           </button>
         </DialogTrigger>
-        <SummaryOptionDialog onConfirm={handleConfirm} />
+        <OptionDialog onConfirm={handleConfirm} />
       </Dialog>
       <TextField
         placeholder="URL을 입력해주세요."
@@ -106,7 +106,7 @@ const SummaryInput = () => {
   );
 };
 
-export default SummaryInput;
+export default URLTextField;
 
 function isValidURL(url: string) {
   const urlPattern =
