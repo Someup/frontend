@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
 import SummaryOptionDialog from '@/components/summary/SummaryOptionDialog';
-import { SummaryOptions } from '@/types/PostTypes';
+import { SummaryOptions } from '@/types/SummaryTypes';
 import {
   SummaryLanguageLabels,
   SummaryLevelLabels,
