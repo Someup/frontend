@@ -2,7 +2,7 @@ import {
   SummaryLanguageOption,
   SummaryLevelOption,
   SummaryToneOption,
-} from '@/types/SummaryTypes';
+} from '@/types/summary-types';
 
 export const SummaryLevelLabels: { [key in SummaryLevelOption]: string } = {
   base: '중간 요약',

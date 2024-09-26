@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
 import { FunctionComponent } from 'react';
 
-const SummaryFeedbackBox: FunctionComponent = () => {
+const FeedbackBox: FunctionComponent = () => {
   return (
     <div
       className={cn(
@@ -19,4 +19,4 @@ const SummaryFeedbackBox: FunctionComponent = () => {
   );
 };
 
-export default SummaryFeedbackBox;
+export default FeedbackBox;

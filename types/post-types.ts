@@ -1,4 +1,4 @@
-import { SummaryOptions } from '@/types/SummaryTypes';
+import { SummaryOptions } from '@/types/summary-types';
 
 export interface Post {
   title: string;

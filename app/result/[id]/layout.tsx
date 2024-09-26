@@ -1,11 +1,11 @@
 import { FunctionComponent, ReactNode } from 'react';
 import Header from '@/components/header/Header';
 
-interface SummaryLayoutProps {
+interface PostLayoutProps {
   children: ReactNode;
 }
 
-const SummaryLayout: FunctionComponent<SummaryLayoutProps> = ({ children }) => {
+const PostLayout: FunctionComponent<PostLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
       <Header />
@@ -14,4 +14,4 @@ const SummaryLayout: FunctionComponent<SummaryLayoutProps> = ({ children }) => {
   );
 };
 
-export default SummaryLayout;
+export default PostLayout;

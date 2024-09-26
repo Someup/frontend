@@ -1,7 +1,7 @@
 import Button from '@/components/ui/Button';
 import { FunctionComponent } from 'react';
 
-const SummarySaveButton: FunctionComponent = () => {
+const PostSaveButton: FunctionComponent = () => {
   return (
     <Button
       type="button"
@@ -14,4 +14,4 @@ const SummarySaveButton: FunctionComponent = () => {
   );
 };
 
-export default SummarySaveButton;
+export default PostSaveButton;

@@ -1,21 +1,21 @@
 'use client';
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { useSummaryResult } from '@/lib/service/summary/useSummaryService';
+import { usePostDetail } from '@/lib/service/post/use-post-service';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
-import SummarySaveButton from '@/components/summary/SummarySaveButton';
-import SummaryFeedbackBox from '@/components/summary/SummaryFeedbackBox';
+import PostSaveButton from '@/components/post/save-button';
+import FeedbackBox from '@/components/post/feadback-box';
 
 const Editor = dynamic(() => import('@/components/editor/Editor'), {
   ssr: false,
 });
 
-const SummaryResult = ({ id }: { id: string }) => {
+const PostDetail = ({ id }: { id: string }) => {
   const {
     data: { content, url },
-  } = useSummaryResult({ id });
+  } = usePostDetail({ id });
 
   const editorRef = useRef<MDXEditorMethods>(null);
   return (
@@ -34,11 +34,11 @@ const SummaryResult = ({ id }: { id: string }) => {
       <span className={cn(typography({ scale: 'head-2' }))}>요약</span>
       <Editor markdown={content} ref={editorRef} readOnly />
       <div className="relative">
-        <SummarySaveButton />
-        <SummaryFeedbackBox />
+        <PostSaveButton />
+        <FeedbackBox />
       </div>
     </div>
   );
 };
 
-export default SummaryResult;
+export default PostDetail;
