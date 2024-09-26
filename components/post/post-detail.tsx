@@ -1,26 +1,19 @@
 'use client';
-import { FunctionComponent, useRef } from 'react';
-import dynamic from 'next/dynamic';
+import { FunctionComponent } from 'react';
 import { usePostDetail } from '@/lib/service/post/use-post-service';
-import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
+import Editor from '@/components/editor/editor';
 
 interface PostDetailProps {
   id: string;
   readOnly?: boolean;
 }
-
-const Editor = dynamic(() => import('@/components/editor/Editor'), {
-  ssr: false,
-});
-
 const PostDetail: FunctionComponent<PostDetailProps> = ({ id, readOnly }) => {
   const {
     data: { content, url },
   } = usePostDetail({ id });
 
-  const editorRef = useRef<MDXEditorMethods>(null);
   return (
     <div>
       <a
@@ -34,7 +27,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({ id, readOnly }) => {
       >
         {url}
       </a>
-      <Editor markdown={content} ref={editorRef} readOnly={readOnly} />
+      <Editor markdown={content} readOnly={readOnly} />
     </div>
   );
 };

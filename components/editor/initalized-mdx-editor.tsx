@@ -19,12 +19,12 @@ import {
 } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
 
-const Editor: ForwardRefExoticComponent<
+const InitializedMDXEditor: ForwardRefExoticComponent<
   MDXEditorProps & RefAttributes<MDXEditorMethods>
 > = forwardRef<MDXEditorMethods, MDXEditorProps>(({ ...props }, ref) => {
   return (
     <MDXEditor
-      contentEditableClassName="!p-0 prose max-w-full"
+      contentEditableClassName="!p-0 prose max-w-full bg-white"
       plugins={[
         headingsPlugin(),
         listsPlugin(),
@@ -53,6 +53,6 @@ const Editor: ForwardRefExoticComponent<
   );
 });
 
-Editor.displayName = 'Editor';
+InitializedMDXEditor.displayName = 'Editor';
 
-export default Editor;
+export default InitializedMDXEditor;
