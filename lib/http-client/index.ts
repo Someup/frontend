@@ -1,18 +1,21 @@
 import clientEnv from '@/lib/env/clientEnv';
-import { getToken } from '@/lib/session/universal';
+import {
+  errorResponseHandler,
+  normalResponseHandler,
+  requestHandler,
+} from '@/lib/http-client/interceptors';
 import axios, { type AxiosInstance } from 'axios';
 const httpClient: AxiosInstance = axios.create({
   baseURL: clientEnv.NEXT_PUBLIC_API_BASE_URL,
   timeout: 5000,
 });
 
-httpClient.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+httpClient.interceptors.request.use(requestHandler);
+
+httpClient.interceptors.response.use(
+  normalResponseHandler,
+  errorResponseHandler,
+);
 
 console.log(
   'initialized httpClient in ',
