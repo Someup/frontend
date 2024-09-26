@@ -17,6 +17,7 @@ const buttonVariants = cva(
         rounded:
           'px-9.5 py-3 rounded-12 bg-primary disabled:bg-gray-100 active:bg-tertiary hover:bg-primary',
         icon: 'p-2 rounded-2 hover:bg-gray-100/40 text-black disabled:text-gray-400',
+        text: 'p-2.5 rounded-2 bg-transparent hover:bg-gray-100/40 text-black disabled:text-gray-400',
       },
     },
     defaultVariants: {
