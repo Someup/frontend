@@ -1,5 +1,4 @@
 'use client';
-
 import {
   isServer,
   QueryClient,
@@ -36,7 +35,11 @@ function getQueryClient() {
   }
 }
 
-export default function Providers({ children }: { children: ReactNode }) {
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+export default function Providers({ children }: ProvidersProps) {
   const queryClient = getQueryClient();
 
   return (
