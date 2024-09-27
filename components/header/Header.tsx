@@ -1,6 +1,5 @@
-import LoginDialog from '@/components/auth/login-dialog';
 import Button from '@/components/ui/Button';
-import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
+import UserButton from '@/components/user/user-button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
@@ -22,14 +21,8 @@ const Header: FunctionComponent = () => {
           <Link href="/about">소개</Link>
         </Button>
       </nav>
-      <div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="text">로그인</Button>
-          </DialogTrigger>
-          <LoginDialog />
-        </Dialog>
-      </div>
+
+      <UserButton />
     </div>
   );
 };
