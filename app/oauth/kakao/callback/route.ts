@@ -11,6 +11,7 @@ import { NextRequest } from 'next/server';
 export async function GET(request: NextRequest): Promise<void> {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
+  const previousUrl = searchParams.get('state');
   const cookie = cookies();
   if (!code) {
     redirect('/login');
@@ -46,5 +47,5 @@ export async function GET(request: NextRequest): Promise<void> {
     path: '/',
   });
 
-  return redirect('/');
+  return redirect(previousUrl || '/');
 }
