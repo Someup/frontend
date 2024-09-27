@@ -1,4 +1,4 @@
-import clientEnv from '@/lib/env/clientEnv';
+import clientEnv from '@/lib/env/client-env';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import React from 'react';

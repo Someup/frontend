@@ -1,7 +1,7 @@
-import clientEnv from '@/lib/env/clientEnv';
+import clientEnv from '@/lib/env/client-env';
 import httpClient from '@/lib/http-client';
 import token from '@/lib/service/auth/token';
-import { ReissueTokenResponse } from '@/types/AuthTypes';
+import { ReissueTokenResponse } from '@/types/auth-types';
 import axios from 'axios';
 
 export function logout() {

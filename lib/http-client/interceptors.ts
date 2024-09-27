@@ -1,5 +1,5 @@
 import httpClient from '@/lib/http-client';
-import { reissueToken } from '@/lib/service/auth/authService';
+import { reissueToken } from '@/lib/service/auth/auth-service';
 import token from '@/lib/service/auth/token';
 import { getAccessTokenUniversal } from '@/lib/service/auth/universal';
 import {

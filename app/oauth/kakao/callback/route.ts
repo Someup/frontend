@@ -1,9 +1,9 @@
-import clientEnv from '@/lib/env/clientEnv';
+import clientEnv from '@/lib/env/client-env';
 import {
   accessTokenConfig,
   refreshTokenConfig,
 } from '@/lib/service/auth/constants';
-import { LoginResponse } from '@/types/AuthTypes';
+import { LoginResponse } from '@/types/auth-types';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { NextRequest } from 'next/server';
