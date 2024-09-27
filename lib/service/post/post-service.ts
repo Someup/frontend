@@ -1,4 +1,4 @@
-import clientEnv from '@/lib/env/clientEnv';
+import clientEnv from '@/lib/env/client-env';
 import {
   GetPostResponse,
   RequestPostBody,
