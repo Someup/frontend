@@ -9,7 +9,9 @@ import Editor from '@/components/editor/editor';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
 import Input from '@/components/ui/Input';
+import FoldIcon from '@/assets/unfold.svg';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
+import { cn } from '@/lib/utils';
 
 interface PostEditorProps {
   id: string;
@@ -25,6 +27,10 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
   const [newTag, setNewTag] = useState('');
 
   const editorRef = useRef<MDXEditorMethods>(null);
+
+  const [textLength, setTextLength] = useState(content.trim().length);
+
+  const [fold, setFold] = useState(false);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
@@ -74,14 +80,34 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
 
   const isInsertTagEnable = newTagList.length < 5;
 
-  const [textLength, setTextLength] = useState(content.trim().length);
   const handleChange = (value: string) => {
     setTextLength(value.trim().length);
   };
 
+  const toggleFold = () => {
+    setFold(!fold);
+  };
+
   return (
     <>
-      <Editor markdown={content} readOnly />
+      <div className="flex flex-col items-stretch">
+        <Button
+          type="button"
+          variant="icon"
+          aria-label="접기"
+          onClick={toggleFold}
+        >
+          <FoldIcon />
+        </Button>
+        <Editor
+          markdown={content}
+          readOnly
+          className={cn(
+            'transition-all duration-500 ease-in-out',
+            fold ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100',
+          )}
+        />
+      </div>
       <div>
         <Input value={newTitle} onChange={handleTitleChange} />
         <div>
