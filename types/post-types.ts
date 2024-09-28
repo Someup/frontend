@@ -20,3 +20,18 @@ export interface RequestPostResponse {
 }
 
 export type GetPostResponse = Post;
+
+export interface FetchPostsRequest {
+  search?: string;
+  archiveId?: string;
+  page?: string;
+}
+
+export interface FetchPostsResponse {
+  postList: {
+    id: number;
+    title: string;
+    createdAt: string;
+    tagList: string[] | null;
+  }[];
+}
