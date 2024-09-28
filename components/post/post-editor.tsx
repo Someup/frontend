@@ -74,6 +74,11 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
 
   const isInsertTagEnable = newTagList.length < 5;
 
+  const [textLength, setTextLength] = useState(content.trim().length);
+  const handleChange = (value: string) => {
+    setTextLength(value.trim().length);
+  };
+
   return (
     <>
       <Editor markdown={content} readOnly />
@@ -96,7 +101,8 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
             />
           )}
         </div>
-        <Editor markdown={content} ref={editorRef} />
+        <Editor markdown={content} ref={editorRef} onChange={handleChange} />
+        <span>{`${textLength}/5000`}</span>
         <Button
           type="button"
           variant="filled"
