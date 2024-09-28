@@ -1,9 +1,15 @@
 'use client';
+import { FunctionComponent, useState, ChangeEvent, useRef } from 'react';
+import { AxiosError } from 'axios';
+import {
+  usePostDetail,
+  useUpdatePostMutation,
+} from '@/lib/service/post/use-post-service';
 import Editor from '@/components/editor/editor';
+import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
 import Input from '@/components/ui/Input';
-import { usePostDetail } from '@/lib/service/post/use-post-service';
-import { FunctionComponent, useState, ChangeEvent } from 'react';
+import { type MDXEditorMethods } from '@mdxeditor/editor';
 
 interface PostEditorProps {
   id: string;
@@ -12,10 +18,13 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
   const {
     data: { content, title, tagList },
   } = usePostDetail({ id });
+  const { mutate: updatePostMutate } = useUpdatePostMutation();
 
   const [newTitle, setNewTitle] = useState(title);
   const [newTagList, setNewTagList] = useState(tagList);
   const [newTag, setNewTag] = useState('');
+
+  const editorRef = useRef<MDXEditorMethods>(null);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
@@ -39,6 +48,28 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
     }
     setNewTagList([...newTagList, newTag]);
     setNewTag('');
+  };
+
+  const updatePost = () => {
+    updatePostMutate(
+      {
+        id,
+        body: {
+          title: newTitle,
+          content: editorRef.current?.getMarkdown().trim() ?? '',
+          tagList: newTagList,
+          memo: null,
+          archiveId: null,
+        },
+      },
+      {
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            console.error(error);
+          }
+        },
+      },
+    );
   };
 
   const isInsertTagEnable = newTagList.length < 5;
@@ -65,7 +96,15 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
             />
           )}
         </div>
-        <Editor markdown={content} />
+        <Editor markdown={content} ref={editorRef} />
+        <Button
+          type="button"
+          variant="filled"
+          onClick={updatePost}
+          className="ml-auto"
+        >
+          저장하기
+        </Button>
       </div>
     </>
   );
