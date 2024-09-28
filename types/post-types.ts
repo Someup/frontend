@@ -10,12 +10,12 @@ export interface Post {
   memoCreatedAt: string;
 }
 
-export interface RequestPostBody {
+export interface CreatePostBody {
   url: string;
   options: SummaryOptions;
 }
 
-export interface RequestPostResponse {
+export interface CreatePostResponse {
   postId: number;
 }
 

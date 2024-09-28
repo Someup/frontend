@@ -1,9 +1,8 @@
-import clientEnv from '@/lib/env/client-env';
 import httpClient from '@/lib/http-client';
 import {
   GetPostResponse,
-  RequestPostBody,
-  RequestPostResponse,
+  CreatePostBody,
+  CreatePostResponse,
   UpdatePostBody,
 } from '@/types/post-types';
 
@@ -13,31 +12,12 @@ import {
 export async function createPost({
   url,
   options,
-}: RequestPostBody): Promise<number> {
-  try {
-    const response = await fetch(`${clientEnv.NEXT_PUBLIC_API_BASE_URL}/post`, {
-      method: 'POST',
-      body: JSON.stringify({ url, options }),
-    });
-
-    if (!response.ok) {
-      if (response.status === 400) {
-        const errorData = await response.json();
-        throw new Error(`${errorData.message} || Unauthorized`);
-      }
-      if (response.status === 401) {
-        const errorData = await response.json();
-        throw new Error(`${errorData.message} || Bad Request`);
-      }
-      throw new Error('Failed to create post');
-    }
-
-    const data: RequestPostResponse = await response.json();
-    return data.postId;
-  } catch (error) {
-    console.error('Error creating post:', error);
-    throw new Error('Failed to create post');
-  }
+}: CreatePostBody): Promise<CreatePostResponse> {
+  const response = await httpClient.post<CreatePostResponse>('/post', {
+    url,
+    options,
+  });
+  return response.data;
 }
 
 // 테스트용 더미 데이터
@@ -53,29 +33,8 @@ export async function createPost({
  * 게시글 보기
  */
 export async function fetchPost(id: string): Promise<GetPostResponse> {
-  try {
-    const response = await fetch(
-      `${clientEnv.NEXT_PUBLIC_API_BASE_URL}/post/${id}`,
-    );
-
-    if (!response.ok) {
-      if (response.status === 400) {
-        const errorData = await response.json();
-        throw new Error(`${errorData.message || 'Bad Request'}`);
-      }
-      if (response.status === 401) {
-        const errorData = await response.json();
-        throw new Error(`${errorData.message || 'Unauthorized'}`);
-      }
-      throw new Error('Failed to fetch summary');
-    }
-
-    const data: GetPostResponse = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching summary:', error);
-    throw new Error('Failed to fetch summary');
-  }
+  const response = await httpClient.get(`/post/${id}`);
+  return response.data;
 }
 
 /**

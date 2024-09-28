@@ -32,7 +32,7 @@ const URLTextField = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createPost,
-    onSuccess: (postId: number) => {
+    onSuccess: ({ postId }) => {
       router.push(`/summary/${postId}`);
     },
   });
