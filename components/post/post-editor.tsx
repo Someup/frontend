@@ -8,7 +8,6 @@ import {
 import Editor from '@/components/editor/editor';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
-import Input from '@/components/ui/Input';
 import FoldIcon from '@/assets/unfold.svg';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
@@ -89,56 +88,89 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-stretch">
-        <Button
-          type="button"
-          variant="icon"
-          aria-label="접기"
-          onClick={toggleFold}
-        >
-          <FoldIcon />
-        </Button>
-        <Editor
-          markdown={content}
-          readOnly
+    <div className="flex h-full flex-col">
+      <div className="flex flex-grow overflow-hidden">
+        <div
           className={cn(
-            'transition-all duration-500 ease-in-out',
-            fold ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100',
+            'flex h-full flex-col transition-all duration-500 ease-in-out',
+            fold ? 'w-full' : 'w-1/2',
           )}
-        />
-      </div>
-      <div>
-        <Input value={newTitle} onChange={handleTitleChange} />
-        <div>
-          {newTagList.map((tag) => (
-            <Chip key={tag} onClose={() => deleteTag(tag)}>
-              {tag}
-            </Chip>
-          ))}
-          {isInsertTagEnable && (
+        >
+          <div className="flex flex-shrink-0 items-center p-4">
             <input
               type="text"
-              placeholder="태그를 입력하세요"
-              value={newTag}
-              onKeyDown={(e) => e.key === 'Enter' && addNewTag()}
-              onChange={handleTagChange}
-              onBlur={addNewTag}
+              value={newTitle}
+              onChange={handleTitleChange}
+              className="flex-1 text-3xl font-semibold"
             />
-          )}
+            <Button
+              type="button"
+              variant="icon"
+              aria-label="접기"
+              onClick={toggleFold}
+              className="ml-2"
+            >
+              <FoldIcon className={fold ? 'rotate-180' : ''} />
+            </Button>
+          </div>
+          <div className="mb-4 flex flex-wrap gap-2 px-4">
+            {newTagList.map((tag) => (
+              <Chip key={tag} onClose={() => deleteTag(tag)}>
+                {tag}
+              </Chip>
+            ))}
+            {isInsertTagEnable && (
+              <input
+                type="text"
+                placeholder="태그를 입력하세요"
+                value={newTag}
+                onKeyDown={(e) => e.key === 'Enter' && addNewTag()}
+                onChange={handleTagChange}
+                onBlur={addNewTag}
+                className="px-2 py-1"
+              />
+            )}
+          </div>
+          <Editor
+            markdown={content}
+            ref={editorRef}
+            onChange={handleChange}
+            className="flex-grow basis-0 overflow-y-auto px-4"
+          />
         </div>
-        <Editor markdown={content} ref={editorRef} onChange={handleChange} />
-        <span>{`${textLength}/5000`}</span>
-        <Button
-          type="button"
-          variant="filled"
-          onClick={updatePost}
-          className="ml-auto"
+        <div
+          className={cn(
+            'flex flex-col bg-gray-50 transition-all duration-500 ease-in-out',
+            fold ? 'w-0' : 'w-1/2',
+            'overflow-hidden',
+          )}
         >
-          저장하기
-        </Button>
+          <div
+            className={cn(
+              'transition-opacity duration-500 ease-in-out',
+              fold ? 'opacity-0' : 'opacity-100',
+            )}
+          >
+            <div className="p-4">
+              <h2 className="text-3xl font-semibold">{title}</h2>
+            </div>
+            <Editor
+              markdown={content}
+              readOnly
+              className="flex-grow basis-0 overflow-y-auto px-4"
+            />
+          </div>
+        </div>
       </div>
-    </>
+      <div className="flex-shrink-0 bg-white p-4 shadow-md">
+        <div className="flex items-center justify-between">
+          <span>{`${textLength}/5000`}</span>
+          <Button type="button" variant="filled" onClick={updatePost}>
+            저장하기
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 
