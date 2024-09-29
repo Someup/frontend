@@ -18,7 +18,7 @@ interface PostEditorProps {
 const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
   const {
     data: { content, title, tagList },
-  } = usePostDetail({ id });
+  } = usePostDetail(id);
   const { mutate: updatePostMutate } = useUpdatePostMutation();
 
   const [newTitle, setNewTitle] = useState(title);
