@@ -39,6 +39,10 @@ export const errorResponseHandler = async (error: any) => {
       isRefreshing = true;
 
       try {
+        if (!token.refreshToken.get()) {
+          throw new Error('Refresh token is missing');
+        }
+
         // reissue token
         const response = await reissueToken();
 
