@@ -39,10 +39,6 @@ export const errorResponseHandler = async (error: any) => {
       isRefreshing = true;
 
       try {
-        if (!token.refreshToken.get()) {
-          throw new Error('Refresh token is missing');
-        }
-
         // reissue token
         const response = await reissueToken();
 
@@ -50,12 +46,10 @@ export const errorResponseHandler = async (error: any) => {
           throw new Error('Failed to reissue token');
         }
 
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-          response.data;
+        const { accessToken: newAccessToken } = response.data;
 
         // update token
         token.accessToken.set(newAccessToken);
-        token.refreshToken.set(newRefreshToken);
 
         // update original request
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
