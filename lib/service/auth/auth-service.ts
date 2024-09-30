@@ -1,7 +1,17 @@
 import clientEnv from '@/lib/env/client-env';
 import token from '@/lib/service/auth/token';
-import { ReissueTokenResponse } from '@/types/auth-types';
+import { LoginResponse, ReissueTokenResponse } from '@/types/auth-types';
 import axios from 'axios';
+
+export async function loginKakao(code: string) {
+  return axios.post<LoginResponse>(
+    `${clientEnv.NEXT_PUBLIC_API_BASE_URL}/auth/login/kakao?code=${code}`,
+    undefined,
+    {
+      withCredentials: true,
+    },
+  );
+}
 
 export function logout() {
   const accessToken = token.accessToken.get();
