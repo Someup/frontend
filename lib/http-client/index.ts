@@ -8,6 +8,7 @@ import axios, { type AxiosInstance } from 'axios';
 const httpClient: AxiosInstance = axios.create({
   baseURL: clientEnv.NEXT_PUBLIC_API_BASE_URL,
   timeout: 5000,
+  withCredentials: true,
 });
 
 httpClient.interceptors.request.use(requestHandler);
