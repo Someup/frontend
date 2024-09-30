@@ -11,7 +11,6 @@ export function useLogout() {
     onSettled: () => {
       queryClient.clear();
       token.accessToken.remove();
-      token.refreshToken.remove();
       router.push('/');
     },
   });
