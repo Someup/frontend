@@ -10,16 +10,24 @@ export interface Post {
   memoCreatedAt: string;
 }
 
-export interface RequestPostBody {
+export interface CreatePostBody {
   url: string;
   options: SummaryOptions;
 }
 
-export interface RequestPostResponse {
+export interface CreatePostResponse {
   postId: number;
 }
 
 export type GetPostResponse = Post;
+
+export interface UpdatePostBody {
+  content: string;
+  title: string;
+  tagList: string[];
+  archiveId: number | null;
+  memo: string | null;
+}
 
 export interface FetchPostsRequest {
   search?: string;

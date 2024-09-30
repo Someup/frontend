@@ -4,8 +4,10 @@ import PostDetail from '@/components/post/post-detail';
 import postQuerys from '@/lib/service/post/post-queries';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
+import FeedbackBox from '@/components/summary/feadback-box';
+import SummarySaveButton from '@/components/summary/summary-save-button';
 
-function ResultPage({ params }: { params: { id: string } }) {
+function SummaryPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   return (
@@ -20,11 +22,13 @@ function ResultPage({ params }: { params: { id: string } }) {
       </span>
       <Suspense fallback={<div>Loading...</div>}>
         <PrefetchBoundary fetchQueryOptions={postQuerys.detail(id)}>
-          <PostDetail id={id} />
+          <PostDetail id={id} readOnly={true} />
         </PrefetchBoundary>
       </Suspense>
+      <SummarySaveButton postId={id} isLoggedIn />
+      <FeedbackBox />
     </>
   );
 }
 
-export default ResultPage;
+export default SummaryPage;

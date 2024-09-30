@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+div .mdxeditor-toolbar {
+  gap: 40px;
+  padding: 0 0 0 40px;
+}
