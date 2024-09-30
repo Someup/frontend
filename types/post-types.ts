@@ -28,3 +28,18 @@ export interface UpdatePostBody {
   archiveId: number | null;
   memo: string | null;
 }
+
+export interface FetchPostsRequest {
+  search?: string;
+  archiveId?: string;
+  page?: string;
+}
+
+export interface FetchPostsResponse {
+  postList: {
+    id: number;
+    title: string;
+    createdAt: string;
+    tagList: string[] | null;
+  }[];
+}
