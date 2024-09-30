@@ -1,23 +1,19 @@
 'use client';
-import { useRef } from 'react';
-import dynamic from 'next/dynamic';
+import { FunctionComponent } from 'react';
 import { usePostDetail } from '@/lib/service/post/use-post-service';
-import { type MDXEditorMethods } from '@mdxeditor/editor';
-import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
-import PostSaveButton from '@/components/post/save-button';
-import FeedbackBox from '@/components/post/feadback-box';
+import { cn } from '@/lib/utils';
+import Editor from '@/components/editor/editor';
 
-const Editor = dynamic(() => import('@/components/editor/Editor'), {
-  ssr: false,
-});
-
-const PostDetail = ({ id }: { id: string }) => {
+interface PostDetailProps {
+  id: string;
+  readOnly?: boolean;
+}
+const PostDetail: FunctionComponent<PostDetailProps> = ({ id, readOnly }) => {
   const {
     data: { content, url },
   } = usePostDetail({ id });
 
-  const editorRef = useRef<MDXEditorMethods>(null);
   return (
     <div>
       <a
@@ -31,12 +27,7 @@ const PostDetail = ({ id }: { id: string }) => {
       >
         {url}
       </a>
-      <span className={cn(typography({ scale: 'head-2' }))}>요약</span>
-      <Editor markdown={content} ref={editorRef} readOnly />
-      <div className="relative">
-        <PostSaveButton />
-        <FeedbackBox />
-      </div>
+      <Editor markdown={content} readOnly={readOnly} />
     </div>
   );
 };
