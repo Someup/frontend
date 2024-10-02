@@ -45,9 +45,7 @@ export const fontSize = {
   lg: '1.125rem', // 18px
   xl: '1.25rem', // 20px
   '2xl': '1.5rem', // 24px
-  '3xl': '2rem', // 32px
-  '4xl': '2.375rem', // 38px
-  '5xl': '3.75rem', // 60px
+  '3xl': '3rem', // 32px
 };
 
 export const fontWeight = {
