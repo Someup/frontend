@@ -11,11 +11,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         filled:
-          'px-9.5 py-3 rounded-2 bg-primary disabled:bg-gray-100 active:bg-tertiary hover:bg-primary/90',
+          'px-9.5 py-3 rounded-2 bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-400/90',
         outlined:
-          'px-8.5 py-2 rounded-2 bg-white text-primary border-4 border-primary disabled:border-gray-100 disabled:text-gray-100 active:border-tertiary active:text-tertiary hover:bg-gray-100/50',
+          'px-8.5 py-2 rounded-2 bg-white text-primary-400 border-4 border-primary-400 disabled:border-gray-100 disabled:text-gray-100 active:border-tertiary active:text-tertiary hover:bg-gray-100/50',
         rounded:
-          'px-9.5 py-3 rounded-12 bg-primary disabled:bg-gray-100 active:bg-tertiary hover:bg-primary',
+          'px-9.5 py-3 rounded-12 bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-400',
         icon: 'p-2 rounded-2 hover:bg-gray-100/40 text-black disabled:text-gray-400',
         text: 'p-2.5 rounded-2 bg-transparent hover:bg-gray-100/40 text-black disabled:text-gray-400',
       },
