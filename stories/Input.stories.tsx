@@ -1,6 +1,9 @@
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import type { Meta, StoryObj } from '@storybook/react';
+import Description from '@/components/ui/Description';
+import SearchFilled from '@/components/icons/SearchFilled';
+import ErrorMessage from '@/components/ui/ErrorMessage';
 
 const meta: Meta<typeof Input> = {
   component: Input,
@@ -22,6 +25,10 @@ const meta: Meta<typeof Input> = {
         'date',
         'file',
       ],
+      control: { type: 'radio' },
+    },
+    size: {
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
     placeholder: {
@@ -50,6 +57,7 @@ export const Default: Story = {
     >
       <Label htmlFor="input">라벨</Label>
       <Input {...args} id="input" />
+      <Description>설명입니다.</Description>
     </div>
   ),
 };
@@ -64,6 +72,7 @@ export const Placeholder: Story = {
     >
       <Label htmlFor="placeholder">라벨</Label>
       <Input {...args} id="placeholder" />
+      <Description>설명입니다.</Description>
     </div>
   ),
 };
@@ -78,6 +87,7 @@ export const Value: Story = {
     >
       <Label htmlFor="value">라벨</Label>
       <Input {...args} value="인풋 텍스트" id="value" />
+      <Description>설명입니다.</Description>
     </div>
   ),
 };
@@ -92,6 +102,40 @@ export const Disabled: Story = {
     >
       <Label htmlFor="disabled">라벨</Label>
       <Input {...args} disabled id="disabled" />
+      <Description>설명입니다.</Description>
+    </div>
+  ),
+};
+
+export const WithErrorMessage: Story = {
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '0.25rem',
+      }}
+    >
+      <Label htmlFor="error-message">라벨</Label>
+      <Input {...args} id="error-message" />
+      <ErrorMessage>에러 메시지입니다.</ErrorMessage>
+    </div>
+  ),
+};
+
+export const WithStartIcon: Story = {
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '0.25rem',
+      }}
+    >
+      <Label htmlFor="startIcon">라벨</Label>
+      <div className="relative">
+        <SearchFilled className="absolute left-4 top-3 h-5 w-5 text-gray-200" />
+        <Input {...args} className="pl-9.5" />
+      </div>
+      <Description>설명입니다.</Description>
     </div>
   ),
 };
