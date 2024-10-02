@@ -1,3 +1,4 @@
+import ArchiveList from '@/components/archive/archive-list';
 import PostList from '@/components/post/post-list';
 import PostSearchBar from '@/components/post/post-search-bar';
 import { Metadata } from 'next';
@@ -20,7 +21,7 @@ export default function ArchivePage({ searchParams }: ArchivePageProps) {
   const id = searchParams.id || '';
   const search = searchParams.search || '';
   return (
-    <div>
+    <div className="mt-17">
       <div className="p-10">
         <Link href="/archive">
           <h1 className="text-center text-[48px] font-semibold leading-1.3 tracking-wider">
@@ -28,11 +29,15 @@ export default function ArchivePage({ searchParams }: ArchivePageProps) {
           </h1>
         </Link>
       </div>
-      <div className="mx-auto max-w-screen-md">
+      <div className="mx-auto flex max-w-screen-xl">
         {/* archive list */}
-        <div></div>
+        <div className="w-full max-w-[224px]">
+          <Suspense fallback={<div>Loading...</div>}>
+            <ArchiveList selectedArchiveId={id} />
+          </Suspense>
+        </div>
         {/* post list */}
-        <main>
+        <main className="flex-1">
           <div className="p-2.5">
             <PostSearchBar defaultValue={search} />
           </div>
