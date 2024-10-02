@@ -6,22 +6,27 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
 
 const buttonVariants = cva(
-  `flex items-center justify-center whitespace-nowrap text-white  ring-tertiary transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2 disabled:pointer-events-none `,
+  `rounded-2 flex items-center justify-center whitespace-nowrap text-white  ring-tertiary transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2 disabled:pointer-events-none`,
   {
     variants: {
       variant: {
         filled:
-          'px-9.5 py-3 rounded-2 bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-400/90',
+          'bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-600 active:bg-primary-800',
         outlined:
-          'px-8.5 py-2 rounded-2 bg-white text-primary-400 border-4 border-primary-400 disabled:border-gray-100 disabled:text-gray-100 active:border-tertiary active:text-tertiary hover:bg-gray-100/50',
+          'shadow-[inset_0_0_0_4px_rgba(0,0,0,1)] shadow-primary-400 text-primary-400 hover:text-primary-600 active:text-primary-800 active:shadow-primary-800 disabled:shadow-gray-100 disabled:text-gray-100',
         rounded:
-          'px-9.5 py-3 rounded-12 bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-400',
-        icon: 'p-2 rounded-2 hover:bg-gray-100/40 text-black disabled:text-gray-400',
-        text: 'p-2.5 rounded-2 bg-transparent hover:bg-gray-100/40 text-black disabled:text-gray-400',
+          'bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-600 active:bg-primary-800 rounded-12',
+        icon: 'hover:bg-gray-100/40 text-black disabled:text-gray-400',
+      },
+      size: {
+        md: 'py-2 px-3',
+        lg: 'py-3 px-5',
+        square: 'p-2',
       },
     },
     defaultVariants: {
       variant: 'filled',
+      size: 'md',
     },
   },
 );
@@ -35,13 +40,13 @@ export interface IButtonProps
 const Button: React.ForwardRefExoticComponent<
   IButtonProps & React.RefAttributes<HTMLButtonElement>
 > = React.forwardRef<HTMLButtonElement, IButtonProps>(
-  ({ className, variant, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
         className={cn(
-          buttonVariants({ variant, className }),
-          typography({ scale: 'title-2' }),
+          buttonVariants({ variant, className, size }),
+          typography({ scale: size === 'lg' ? 'body-4' : 'body-6' }),
         )}
         ref={ref}
         {...props}

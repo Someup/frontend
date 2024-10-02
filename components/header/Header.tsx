@@ -17,7 +17,7 @@ const Header: FunctionComponent = () => {
             height={60}
           />
         </Link>
-        <Button variant="text" asChild>
+        <Button asChild>
           <Link href="/about">소개</Link>
         </Button>
       </nav>

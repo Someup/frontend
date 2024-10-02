@@ -12,6 +12,10 @@ const meta: Meta<typeof Button> = {
       options: ['filled', 'outlined', 'rounded', 'icon'],
       control: { type: 'radio' },
     },
+    size: {
+      options: ['md', 'lg'],
+      control: { type: 'radio' },
+    },
   },
 } satisfies Meta<typeof Button>;
 
@@ -63,6 +67,7 @@ export const Rounded: Story = {
 export const Icon: Story = {
   args: {
     variant: 'icon',
+    size: 'square',
     children: (
       <svg
         width="24"
@@ -74,23 +79,6 @@ export const Icon: Story = {
         <path d="M12 5L19.6 10.5L16.7 19.4H7.3L4.4 10.5L12 5ZM12 2.5L2 9.8L5.8 21.5H18.1L22 9.8L12 2.5Z" />
       </svg>
     ),
-  },
-  render: (args) => (
-    <div
-      style={{
-        display: 'flex',
-        gap: '1rem',
-      }}
-    >
-      <Button {...args} />
-      <Button {...args} disabled />
-    </div>
-  ),
-};
-
-export const Text: Story = {
-  args: {
-    variant: 'text',
   },
   render: (args) => (
     <div
