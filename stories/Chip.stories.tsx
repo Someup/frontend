@@ -9,6 +9,14 @@ const meta: Meta<typeof Chip> = {
   args: {
     children: 'Chip',
   },
+  argTypes: {
+    children: {
+      control: 'text',
+    },
+    selected: {
+      control: 'boolean',
+    },
+  },
   tags: ['autodocs'],
 } satisfies Meta<typeof Chip>;
 
