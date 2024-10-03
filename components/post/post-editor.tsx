@@ -131,7 +131,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
             markdown={content}
             ref={editorRef}
             onChange={handleChange}
-            className="flex-grow basis-0 overflow-y-auto px-4"
+            className="flex flex-grow basis-0 flex-col px-4"
           />
         </div>
         <div
