@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/Popover';
 import { cn } from '@/lib/utils';
+import { typography } from '@/styles/typography';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
@@ -54,7 +55,7 @@ export const WithPopover: Story = {
         <PopoverTrigger asChild>
           <button
             className={cn(
-              'px- group flex h-15 w-full max-w-64 items-center justify-between overflow-hidden rounded-2 bg-white px-4 py-2 text-base text-black shadow-[0_4px_14px_rgba(0,0,0,0.1)] ring-tertiary placeholder:text-base placeholder:font-regular placeholder:leading-1.5 placeholder:tracking-normal focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-gray-600 [&>span]:line-clamp-1',
+              'px- ring-tertiary group flex h-15 w-full max-w-64 items-center justify-between overflow-hidden rounded-2 bg-white px-4 py-2 text-base text-black shadow-[0_4px_14px_rgba(0,0,0,0.1)] placeholder:text-base placeholder:font-regular placeholder:leading-1.5 placeholder:tracking-normal focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-gray-600 [&>span]:line-clamp-1',
               !selected && 'text-gray-600',
             )}
           >
@@ -101,7 +102,7 @@ export const WithPopover: Story = {
                       setSelected(search);
                       setIsPopoverOpen(false);
                     }}
-                    className="block h-full w-full text-center text-gray-600 ring-tertiary hover:bg-gray-100/50 focus:bg-gray-100/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2"
+                    className="ring-tertiary block h-full w-full text-center text-gray-600 hover:bg-gray-100/50 focus:bg-gray-100/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2"
                   >
                     &apos;{search}&apos; 만들기
                   </button>
@@ -131,4 +132,42 @@ export const WithPopover: Story = {
       </Popover>
     );
   },
+};
+
+export const Profile: Story = {
+  render: () => (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button className="flex items-center space-x-2">
+          <div className="h-10 w-10 rounded-full bg-gray-500" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="max-w-[382px] rounded-2 border-none p-6 shadow-[16px_16px_16px_0_rgba(0,0,0,0.25)]"
+        align="start"
+      >
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5">
+            <div className="h-10 w-10 rounded-full bg-gray-500" />
+            <div className="flex flex-col">
+              <span
+                className={cn(typography({ scale: 'body-3' }), 'text-black')}
+              >
+                사용자 이름
+              </span>
+              <span
+                className={cn(typography({ scale: 'body-4' }), 'text-gray-400')}
+              >
+                abcd@gmail.com
+              </span>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <button>로그아웃</button>
+            <button>계정탈퇴</button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  ),
 };

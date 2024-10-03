@@ -19,7 +19,7 @@ const RadioGroupItem = ({
     <div className={cn('flex items-center', className)} {...props}>
       <Item
         id={itemId}
-        className="aspect-square h-4 w-4 rounded-full border border-gray-100 bg-white text-primary ring-offset-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-tertiary disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary data-[state=checked]:bg-primary"
+        className="focus-visible:ring-tertiary aspect-square h-4 w-4 rounded-full border border-gray-100 bg-white text-primary-400 ring-offset-2 focus:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary-400 data-[state=checked]:bg-primary-400"
         value={value}
       >
         <Indicator className="flex items-center justify-center">

@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="h-screen w-screen">
       <div className="h-[8%] bg-white" />
-      <div className="h-[65%] bg-primary">
+      <div className="h-[65%] bg-primary-400">
         <URLTextField />
       </div>
     </div>

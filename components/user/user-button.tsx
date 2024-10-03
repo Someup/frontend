@@ -33,7 +33,7 @@ export default function UserButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="text">로그인</Button>
+        <Button>로그인</Button>
       </DialogTrigger>
       <LoginDialog />
     </Dialog>
