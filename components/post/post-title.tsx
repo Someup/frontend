@@ -2,10 +2,11 @@ import { forwardRef, useImperativeHandle, useState, ChangeEvent } from 'react';
 
 interface TitleInputProps {
   initialTitle: string;
+  readOnly: boolean;
 }
 
 const PostTitle = forwardRef<{ getTitle: () => string }, TitleInputProps>(
-  ({ initialTitle }, ref) => {
+  ({ initialTitle, readOnly = false }, ref) => {
     const [title, setTitle] = useState(initialTitle);
     const [showError, setShowError] = useState(false);
 
@@ -21,17 +22,29 @@ const PostTitle = forwardRef<{ getTitle: () => string }, TitleInputProps>(
       getTitle: () => title,
     }));
 
+    if (readOnly) {
+      return (
+        <div className="flex flex-shrink-0 items-center justify-center p-4">
+          <div className="flex flex-col">
+            <h1 className="text-3xl font-semibold">{title}</h1>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div className="flex flex-col">
-        <input
-          value={title}
-          onChange={handleTitleChange}
-          className="flex-1 text-3xl font-semibold"
-          onBlur={handleBlur}
-        />
-        {showError && (
-          <p className="text-error">제목은 2자 이상 30자 이하여야 합니다.</p>
-        )}
+      <div className="flex flex-shrink-0 items-center justify-center p-4">
+        <div className="flex flex-col">
+          <input
+            value={title}
+            onChange={handleTitleChange}
+            className="flex-1 bg-transparent text-3xl font-semibold"
+            onBlur={handleBlur}
+          />
+          {showError && (
+            <p className="text-error">제목은 2자 이상 30자 이하여야 합니다.</p>
+          )}
+        </div>
       </div>
     );
   },

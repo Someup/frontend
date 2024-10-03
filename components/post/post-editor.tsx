@@ -82,9 +82,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           >
             <FoldIcon className={fold ? 'rotate-180' : ''} />
           </Button>
-          <div className="flex flex-shrink-0 items-center p-4">
-            <PostTitle initialTitle={title} ref={titleRef} />
-          </div>
+          <PostTitle initialTitle={title} ref={titleRef} readOnly={false} />
           <PostTags initialTagList={tagList} ref={tagListRef} />
           <Editor
             markdown={content}
@@ -114,9 +112,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               fold ? 'opacity-0' : 'opacity-100',
             )}
           >
-            <div className="p-4">
-              <h2 className="text-3xl font-semibold">{title}</h2>
-            </div>
+            <PostTitle initialTitle={title} ref={titleRef} readOnly />
             <Editor
               markdown={content}
               readOnly
