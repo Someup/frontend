@@ -12,6 +12,7 @@ import FoldIcon from '@/assets/unfold.svg';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
 import { PostStatus } from '@/types/post-types';
+import PostTitle from '@/components/post/post-title';
 
 interface PostEditorProps {
   id: string;
@@ -23,8 +24,8 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
     data: { content, title, tagList },
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
+  const titleRef = useRef<{ getTitle: () => string }>(null);
 
-  const [newTitle, setNewTitle] = useState(title);
   const [newTagList, setNewTagList] = useState(tagList);
   const [newTag, setNewTag] = useState('');
 
@@ -33,10 +34,6 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   const [textLength, setTextLength] = useState(content.trim().length);
 
   const [fold, setFold] = useState(false);
-
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(e.target.value);
-  };
 
   const deleteTag = (tag: string) => {
     setNewTagList(newTagList.filter((t) => t !== tag));
@@ -59,6 +56,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   };
 
   const updatePost = () => {
+    const newTitle = titleRef.current?.getTitle() ?? '';
     updatePostMutate(
       {
         id,
@@ -100,12 +98,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           )}
         >
           <div className="flex flex-shrink-0 items-center p-4">
-            <input
-              type="text"
-              value={newTitle}
-              onChange={handleTitleChange}
-              className="flex-1 text-3xl font-semibold"
-            />
+            <PostTitle initialTitle={title} ref={titleRef} />
             <Button
               type="button"
               variant="icon"
