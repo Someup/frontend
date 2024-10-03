@@ -1,5 +1,5 @@
 'use client';
-import { FunctionComponent, useState, ChangeEvent, useRef } from 'react';
+import { FunctionComponent, useState, useRef } from 'react';
 import { AxiosError } from 'axios';
 import {
   usePostDetail,
@@ -7,12 +7,12 @@ import {
 } from '@/lib/service/post/use-post-service';
 import Editor from '@/components/editor/editor';
 import Button from '@/components/ui/Button';
-import Chip from '@/components/ui/Chip';
 import FoldIcon from '@/assets/unfold.svg';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
 import { PostStatus } from '@/types/post-types';
 import PostTitle from '@/components/post/post-title';
+import PostTags from '@/components/post/post-tags';
 
 interface PostEditorProps {
   id: string;
@@ -25,35 +25,13 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
   const titleRef = useRef<{ getTitle: () => string }>(null);
-
-  const [newTagList, setNewTagList] = useState(tagList);
-  const [newTag, setNewTag] = useState('');
+  const tagListRef = useRef<{ getTagList: () => string[] }>(null);
 
   const editorRef = useRef<MDXEditorMethods>(null);
 
   const [textLength, setTextLength] = useState(content.trim().length);
 
   const [fold, setFold] = useState(false);
-
-  const deleteTag = (tag: string) => {
-    setNewTagList(newTagList.filter((t) => t !== tag));
-  };
-
-  const handleTagChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTag(e.target.value);
-  };
-
-  const addNewTag = () => {
-    if (!newTag || newTagList.length >= 5) {
-      return;
-    }
-    if (newTagList.includes(newTag)) {
-      setNewTag('');
-      return;
-    }
-    setNewTagList([...newTagList, newTag]);
-    setNewTag('');
-  };
 
   const updatePost = () => {
     const newTitle = titleRef.current?.getTitle() ?? '';
@@ -63,7 +41,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
         body: {
           title: newTitle,
           content: editorRef.current?.getMarkdown().trim() ?? '',
-          tagList: newTagList,
+          tagList: tagListRef.current?.getTagList() ?? [],
           memo: null,
           archiveId: null,
         },
@@ -77,8 +55,6 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
       },
     );
   };
-
-  const isInsertTagEnable = newTagList.length < 5;
 
   const handleChange = (value: string) => {
     setTextLength(value.trim().length);
@@ -109,24 +85,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               <FoldIcon className={fold ? 'rotate-180' : ''} />
             </Button>
           </div>
-          <div className="mb-4 flex flex-wrap gap-2 px-4">
-            {newTagList.map((tag) => (
-              <Chip key={tag} onClose={() => deleteTag(tag)}>
-                {tag}
-              </Chip>
-            ))}
-            {isInsertTagEnable && (
-              <input
-                type="text"
-                placeholder="태그를 입력하세요"
-                value={newTag}
-                onKeyDown={(e) => e.key === 'Enter' && addNewTag()}
-                onChange={handleTagChange}
-                onBlur={addNewTag}
-                className="px-2 py-1"
-              />
-            )}
-          </div>
+          <PostTags initialTagList={tagList} ref={tagListRef} />
           <Editor
             markdown={content}
             ref={editorRef}
