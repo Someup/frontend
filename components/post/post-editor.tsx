@@ -92,6 +92,14 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
             onChange={handleChange}
             className="flex flex-grow basis-0 flex-col px-4"
           />
+          <div className="flex-shrink-0 bg-white p-5">
+            <div className="flex items-center justify-between">
+              <span>{`${textLength}/5000`}</span>
+              <Button type="button" variant="filled" onClick={updatePost}>
+                저장하기
+              </Button>
+            </div>
+          </div>
         </div>
         <div
           className={cn(
@@ -115,14 +123,6 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               className="flex-grow basis-0 overflow-y-auto px-4"
             />
           </div>
-        </div>
-      </div>
-      <div className="flex-shrink-0 bg-white p-4 shadow-md">
-        <div className="flex items-center justify-between">
-          <span>{`${textLength}/5000`}</span>
-          <Button type="button" variant="filled" onClick={updatePost}>
-            저장하기
-          </Button>
         </div>
       </div>
     </div>
