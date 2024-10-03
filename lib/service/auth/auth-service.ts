@@ -15,11 +15,16 @@ export async function loginKakao(code: string) {
 
 export function logout() {
   const accessToken = token.accessToken.get();
-  return axios.post<void>(`${clientEnv.NEXT_PUBLIC_API_BASE_URL}/auth/logout`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
+  return axios.post<void>(
+    `${clientEnv.NEXT_PUBLIC_API_BASE_URL}/auth/logout`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      withCredentials: true,
     },
-  });
+  );
 }
 
 export function reissueToken() {
