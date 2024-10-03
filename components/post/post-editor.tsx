@@ -73,17 +73,17 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
             fold ? 'w-full' : 'w-1/2',
           )}
         >
+          <Button
+            type="button"
+            variant="icon"
+            aria-label="접기"
+            onClick={toggleFold}
+            className="h-6 w-6 p-0"
+          >
+            <FoldIcon className={fold ? 'rotate-180' : ''} />
+          </Button>
           <div className="flex flex-shrink-0 items-center p-4">
             <PostTitle initialTitle={title} ref={titleRef} />
-            <Button
-              type="button"
-              variant="icon"
-              aria-label="접기"
-              onClick={toggleFold}
-              className="ml-2"
-            >
-              <FoldIcon className={fold ? 'rotate-180' : ''} />
-            </Button>
           </div>
           <PostTags initialTagList={tagList} ref={tagListRef} />
           <Editor
