@@ -69,19 +69,21 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
       <div className="flex flex-grow overflow-hidden">
         <div
           className={cn(
-            'flex h-full flex-col transition-all duration-500 ease-in-out',
+            'mx-auto flex h-full max-w-[960px] flex-col transition-all duration-500 ease-in-out',
             fold ? 'w-full' : 'w-1/2',
           )}
         >
-          <Button
-            type="button"
-            variant="icon"
-            aria-label="접기"
-            onClick={toggleFold}
-            className="h-6 w-6 p-0"
-          >
-            <FoldIcon className={fold ? 'rotate-180' : ''} />
-          </Button>
+          <div className="flex h-12 items-center">
+            <Button
+              type="button"
+              variant="icon"
+              aria-label="접기"
+              onClick={toggleFold}
+              className="ml-6 h-6 w-6 p-0"
+            >
+              <FoldIcon className={fold ? 'rotate-180' : ''} />
+            </Button>
+          </div>
           <PostTitle initialTitle={title} ref={titleRef} readOnly={false} />
           <PostTags initialTagList={tagList} ref={tagListRef} />
           <Editor
@@ -102,7 +104,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
         <div
           className={cn(
             'flex flex-col bg-gray-50 transition-all duration-500 ease-in-out',
-            fold ? 'w-0' : 'w-1/2',
+            fold ? 'w-0 translate-x-full' : 'w-1/2 translate-x-0',
             'overflow-hidden',
           )}
         >
