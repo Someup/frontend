@@ -5,7 +5,7 @@ import TextButton from '@/components/ui/TextButton';
 import UserButton from '@/components/user/user-button';
 import { useUserProfile } from '@/lib/service/user/use-user-service';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, Suspense } from 'react';
 
 const MainHeader: FunctionComponent = () => {
   const userQuery = useUserProfile();
@@ -33,7 +33,9 @@ const MainHeader: FunctionComponent = () => {
             <DialogTrigger asChild>
               <TextButton>로그인</TextButton>
             </DialogTrigger>
-            <LoginDialog />
+            <Suspense>
+              <LoginDialog />
+            </Suspense>
           </Dialog>
         </nav>
       </div>
