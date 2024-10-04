@@ -156,7 +156,7 @@ const DropdownMenuLabel = React.forwardRef<
     ref={ref}
     className={cn(
       'px-4 py-2.5',
-      typography({ scale: 'title-4' }),
+      typography({ scale: 'body-4' }),
       inset && 'pl-8',
       className,
     )}
