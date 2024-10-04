@@ -6,6 +6,7 @@
 div .mdxeditor-toolbar {
   gap: 40px;
   padding: 0 0 0 24px;
+  margin-bottom: 16px;
   background-color: transparent;
   height: 32px;
 }
