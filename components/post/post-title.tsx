@@ -25,9 +25,7 @@ const PostTitle = forwardRef<{ getTitle: () => string }, TitleInputProps>(
     if (readOnly) {
       return (
         <div className="flex flex-shrink-0 items-center justify-center p-4">
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-semibold">{title}</h1>
-          </div>
+          <h1 className="text-center text-3xl font-semibold">{title}</h1>
         </div>
       );
     }
@@ -38,11 +36,13 @@ const PostTitle = forwardRef<{ getTitle: () => string }, TitleInputProps>(
           <input
             value={title}
             onChange={handleTitleChange}
-            className="flex-1 bg-transparent text-3xl font-semibold"
+            className="flex-1 bg-transparent text-center text-3xl font-semibold"
             onBlur={handleBlur}
           />
           {showError && (
-            <p className="text-error">제목은 2자 이상 30자 이하여야 합니다.</p>
+            <p className="text-error-400">
+              제목은 2자 이상 30자 이하여야 합니다.
+            </p>
           )}
         </div>
       </div>
