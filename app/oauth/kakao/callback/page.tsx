@@ -1,6 +1,10 @@
 import Callback from '@/app/oauth/kakao/callback/kakao-callback-client';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 export default function KaKaoCallbackClient() {
-  return <Callback />;
+  return (
+    <Suspense>
+      <Callback />
+    </Suspense>
+  );
 }
