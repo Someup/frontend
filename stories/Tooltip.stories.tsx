@@ -4,7 +4,6 @@ import {
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
-  TooltipPortal,
 } from '@/components/ui/Tooltip';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -24,41 +23,33 @@ export const Default: Story = {
           <TooltipTrigger asChild>
             <Button>Hover me</Button>
           </TooltipTrigger>
-          <TooltipPortal>
-            <TooltipContent side="top">
-              <p>Tooltips</p>
-            </TooltipContent>
-          </TooltipPortal>
+          <TooltipContent side="top">
+            <p>Tooltips</p>
+          </TooltipContent>
         </Tooltip>
         <Tooltip {...args} open={true}>
           <TooltipTrigger asChild>
             <Button>Hover me</Button>
           </TooltipTrigger>
-          <TooltipPortal>
-            <TooltipContent side="bottom">
-              <p>Tooltips</p>
-            </TooltipContent>
-          </TooltipPortal>
+          <TooltipContent side="bottom">
+            <p>Tooltips</p>
+          </TooltipContent>
         </Tooltip>
         <Tooltip {...args} open={true}>
           <TooltipTrigger asChild>
             <Button>Hover me</Button>
           </TooltipTrigger>
-          <TooltipPortal>
-            <TooltipContent side="left">
-              <p>Tooltips</p>
-            </TooltipContent>
-          </TooltipPortal>
+          <TooltipContent side="left">
+            <p>Tooltips</p>
+          </TooltipContent>
         </Tooltip>
         <Tooltip {...args} open={true}>
           <TooltipTrigger asChild>
             <Button>Hover me</Button>
           </TooltipTrigger>
-          <TooltipPortal>
-            <TooltipContent side="right">
-              <p>Tooltips</p>
-            </TooltipContent>
-          </TooltipPortal>
+          <TooltipContent side="right">
+            <p>Tooltips</p>
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </div>
@@ -73,15 +64,12 @@ export const LongText: Story = {
           <TooltipTrigger asChild>
             <Button>Hover me</Button>
           </TooltipTrigger>
-          <TooltipPortal>
-            <TooltipContent side="bottom">
-              <p>
-                A message which appears when a cursor is positioned over an
-                icon, image, hyperlink, or other element in a graphical user
-                interface.
-              </p>
-            </TooltipContent>
-          </TooltipPortal>
+          <TooltipContent side="bottom">
+            <p>
+              A message which appears when a cursor is positioned over an icon,
+              image, hyperlink, or other element in a graphical user interface.
+            </p>
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </div>

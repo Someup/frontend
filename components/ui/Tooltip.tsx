@@ -29,19 +29,21 @@ const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
 >(({ className, sideOffset = 4, children, ...props }, ref) => (
-  <TooltipPrimitive.Content
-    ref={ref}
-    sideOffset={sideOffset}
-    className={cn(
-      'z-50 max-w-[320px] overflow-hidden rounded-2 bg-gray-50 p-3 text-center text-black shadow-[0_8px_16px_0_rgba(0,0,0,0.16)]',
-      typography({ scale: 'body-6' }),
-      className,
-    )}
-    {...props}
-  >
-    {children}
-    <TooltipArrow />
-  </TooltipPrimitive.Content>
+  <TooltipPortal>
+    <TooltipPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(
+        'z-50 max-w-[320px] overflow-hidden rounded-2 bg-gray-50 p-3 text-center text-black shadow-[0_8px_16px_0_rgba(0,0,0,0.16)]',
+        typography({ scale: 'body-6' }),
+        className,
+      )}
+      {...props}
+    >
+      {children}
+      <TooltipArrow />
+    </TooltipPrimitive.Content>
+  </TooltipPortal>
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
