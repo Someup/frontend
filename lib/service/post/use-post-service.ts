@@ -4,12 +4,30 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import postQuerys from '@/lib/service/post/post-queries';
-import { FetchPostsRequest, Post, UpdatePostBody } from '@/types/post-types';
+import {
+  CreatePostRequest,
+  CreatePostResponse,
+  FetchPostsRequest,
+  Post,
+  UpdatePostBody,
+} from '@/types/post-types';
 import {
   fetchPost,
   updatePost,
   fetchPosts,
+  createPost,
 } from '@/lib/service/post/post-service';
+import { useRouter } from 'next/navigation';
+
+export function useCreatePostMutation() {
+  const router = useRouter();
+  return useMutation<CreatePostResponse, Error, CreatePostRequest>({
+    mutationFn: createPost,
+    onSuccess: ({ postId }) => {
+      router.push(`/summary/${postId}`);
+    },
+  });
+}
 
 export function usePostDetail(id: string) {
   return useSuspenseQuery<Post, Error>({

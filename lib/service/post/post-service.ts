@@ -4,7 +4,7 @@ import {
   FetchPostsRequest,
   FetchPostsResponse,
   GetPostResponse,
-  CreatePostBody,
+  CreatePostRequest,
   CreatePostResponse,
   UpdatePostBody,
 } from '@/types/post-types';
@@ -15,8 +15,8 @@ import {
 export async function createPost({
   url,
   options,
-}: CreatePostBody): Promise<CreatePostResponse> {
-  const response = await httpClient.post<CreatePostResponse>('/post', {
+}: CreatePostRequest): Promise<CreatePostResponse> {
+  const response = await httpClient.post<CreatePostResponse>('/posts', {
     url,
     options,
   });
@@ -36,7 +36,7 @@ export async function createPost({
  * 게시글 보기
  */
 export async function fetchPost(id: string): Promise<GetPostResponse> {
-  const response = await httpClient.get(`/post/${id}`);
+  const response = await httpClient.get(`/posts/${id}`);
   return response.data;
 }
 
@@ -47,7 +47,7 @@ export async function updatePost(
   id: string,
   body: UpdatePostBody,
 ): Promise<void> {
-  await httpClient.patch<void>(`/post/${id}`, body);
+  await httpClient.patch<void>(`/posts/${id}`, body);
 }
 
 export async function fetchPosts(
