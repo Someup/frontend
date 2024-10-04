@@ -79,7 +79,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               variant="icon"
               aria-label="접기"
               onClick={toggleFold}
-              className="ml-6 h-6 w-6 p-0"
+              className="ml-10 h-6 w-6 p-0"
             >
               <FoldIcon className={fold ? 'rotate-180' : ''} />
             </Button>
@@ -110,7 +110,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
         >
           <div
             className={cn(
-              'transition-opacity duration-500 ease-in-out',
+              'flex h-full flex-col transition-opacity duration-500 ease-in-out',
               fold ? 'opacity-0' : 'opacity-100',
             )}
           >
@@ -118,7 +118,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
             <Editor
               markdown={content}
               readOnly
-              className="flex-grow basis-0 overflow-y-auto px-4"
+              className="flex flex-grow basis-0 flex-col px-4"
             />
           </div>
         </div>

@@ -40,7 +40,7 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
     }));
 
     return (
-      <div className="mb-4 flex flex-wrap gap-2 px-4">
+      <div className="mb-4 ml-10 flex flex-wrap gap-2">
         {tagList.map((tag) => (
           <Chip key={tag} onClose={() => deleteTag(tag)}>
             {tag}
