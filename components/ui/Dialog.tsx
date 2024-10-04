@@ -50,7 +50,7 @@ const DialogContent: React.ForwardRefExoticComponent<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2 bg-white',
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-8 rounded-2 bg-white px-8 py-8',
         className,
       )}
       {...props}
@@ -69,7 +69,7 @@ const DialogHeader: {
   displayName: string;
 } = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn('flex items-start justify-between p-6', className)}
+    className={cn('flex flex-col items-center gap-4 text-center', className)}
     {...props}
   />
 );
@@ -82,10 +82,7 @@ const DialogFooter: {
   }: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element;
   displayName: string;
 } = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn('flex items-center justify-end gap-2 p-6', className)}
-    {...props}
-  />
+  <div className={cn('flex justify-center gap-4', className)} {...props} />
 );
 DialogFooter.displayName = 'DialogFooter';
 
@@ -101,7 +98,7 @@ const DialogTitle: React.ForwardRefExoticComponent<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn(typography({ scale: 'title-1' }), 'text-black', className)}
+    className={cn(typography({ scale: 'title-2' }), 'text-black', className)}
     {...props}
   />
 ));
@@ -121,7 +118,8 @@ const DialogDescription: React.ForwardRefExoticComponent<
   <DialogPrimitive.Description
     ref={ref}
     className={cn(
-      'text-lg leading-1.6 tracking-normal text-gray-500',
+      'items-center text-gray-500',
+      typography({ scale: 'body-4' }),
       className,
     )}
     {...props}

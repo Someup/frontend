@@ -32,34 +32,18 @@ export const Default: Story = {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <div>
-            <DialogTitle>Dialog Title</DialogTitle>
-            <DialogDescription>Description of the dialog</DialogDescription>
-          </div>
-          <DialogClose asChild>
-            <Button variant="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="currentColor"
-                className="h-6 w-6"
-              >
-                <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-              </svg>
-              <span className="sr-only">Close</span>
-            </Button>
-          </DialogClose>
+          <DialogTitle>정말로 탈퇴하시겠습니까?</DialogTitle>
+          <DialogDescription>
+            이 작업은 실행 취소할 수 없습니다.
+            <br />
+            계정과 모든 활동 기록이 영구적으로 삭제됩니다.
+          </DialogDescription>
         </DialogHeader>
-        <div className="px-6">
-          <p>This is Dialog for testing purpose.</p>
-        </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outlined">Cancel</Button>
+            <Button size="lg">취소하기</Button>
           </DialogClose>
-          <Button>Save</Button>
+          <Button size="lg">탈퇴하기</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -74,32 +58,21 @@ export const WithInput: Story = {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <div>
-            <DialogTitle>다이얼로그 제목</DialogTitle>
-          </div>
-          <DialogClose asChild>
-            <Button variant="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="currentColor"
-                className="h-6 w-6"
-              >
-                <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-              </svg>
-              <span className="sr-only">Close</span>
-            </Button>
-          </DialogClose>
+          <DialogTitle>새로운 아카이브 추가</DialogTitle>
+          <DialogDescription className="sr-only">
+            아카이브 제목을 입력하고 새로운 아카이브를 추가하세요!
+          </DialogDescription>
         </DialogHeader>
-        <div className="px-6">
-          <Label htmlFor="input-test-1">라벨</Label>
+        <div className="px-10">
+          <Label htmlFor="input-test-1" className="sr-only">
+            라벨
+          </Label>
           <Input placeholder="플레이스 홀더" id="input-test-1" />
         </div>
         <DialogFooter>
-          <Button>버튼라벨</Button>
-          <Button>버튼라벨</Button>
+          <DialogClose asChild>
+            <Button size="lg">확인하기</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -115,22 +88,9 @@ export const WithRadio: Story = {
       <DialogContent className="max-w-screen-md">
         <DialogHeader>
           <DialogTitle>요약 설정</DialogTitle>
-
-          <DialogClose asChild>
-            <Button variant="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="currentColor"
-                className="h-6 w-6"
-              >
-                <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-              </svg>
-              <span className="sr-only">Close</span>
-            </Button>
-          </DialogClose>
+          <DialogDescription>
+            요약 생성 시 사용할 설정을 선택하세요.
+          </DialogDescription>
         </DialogHeader>
         <div className="px-6">
           <div className="flex flex-col gap-12">
@@ -202,18 +162,19 @@ export const WithRadio: Story = {
             </div>
           </div>
           <div className="mt-5 flex flex-col gap-2.5">
-            <Label htmlFor="summary-essential">
-              꼭 포함되어야 할 주요 키워드
+            <Label htmlFor="summary-essential" size="lg">
+              꼭 포함되어야 할 주요 키워드&nbsp;
+              <span className="text-gray-400">(선택*)</span>
             </Label>
             <textarea
               id="summary-essential"
-              className="h-20 w-full rounded-2 border border-gray-300 p-2 outline-none ring-tertiary ring-offset-2 focus-visible:ring-2"
+              className="ring-tertiary h-20 w-full rounded-2 border border-gray-300 p-2 outline-none ring-offset-2 focus-visible:ring-2"
               placeholder="키워드를 입력하세요."
             />
           </div>
         </div>
         <DialogFooter>
-          <Button>확인</Button>
+          <Button size="lg">확인</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -235,7 +196,7 @@ export const Mobile: Story = {
         </DialogHeader>
         <div className="px-6 py-4 text-center">다이얼로그 내용</div>
         <DialogFooter className="flex-col gap-0 divide-y divide-gray-100 border-t border-gray-100 p-0">
-          <button className="w-full flex-1 p-4 text-primary">확인</button>
+          <button className="text-primary w-full flex-1 p-4">확인</button>
           <DialogClose asChild>
             <button className="w-full flex-1 p-4">취소</button>
           </DialogClose>
