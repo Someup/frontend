@@ -7,7 +7,7 @@ const FeedbackBox: FunctionComponent = () => {
   return (
     <div
       className={cn(
-        typography({ scale: 'title-4' }),
+        typography({ scale: 'title-3' }),
         'mx-auto my-5 flex h-24 items-center justify-between rounded-2 bg-gray-50 px-5',
       )}
     >
