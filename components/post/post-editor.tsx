@@ -65,7 +65,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col pt-15">
       <div className="flex flex-grow overflow-hidden">
         <div
           className={cn(

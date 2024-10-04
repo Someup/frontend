@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    height: 100vh;
+  }
+}
+
 div .mdxeditor-toolbar {
   gap: 40px;
   padding: 0 0 0 24px;
