@@ -4,15 +4,21 @@ import { usePostDetail } from '@/lib/service/post/use-post-service';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Editor from '@/components/editor/editor';
+import { PostStatus } from '@/types/post-types';
 
 interface PostDetailProps {
   id: string;
+  status: PostStatus;
   readOnly?: boolean;
 }
-const PostDetail: FunctionComponent<PostDetailProps> = ({ id, readOnly }) => {
+const PostDetail: FunctionComponent<PostDetailProps> = ({
+  id,
+  status,
+  readOnly,
+}) => {
   const {
     data: { content, url },
-  } = usePostDetail({ id });
+  } = usePostDetail({ id, status });
 
   return (
     <div>

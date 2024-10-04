@@ -16,7 +16,7 @@ const SummarySaveButton: FunctionComponent<SummarySaveButtonProps> = ({
 
   const handleClick = () => {
     if (isLoggedIn) {
-      router.push(`/write/${postId}`);
+      router.push(`/write/${postId}?status=draft`);
     } else {
       alert('로그인이 필요한 서비스입니다.');
       router.push('/login');

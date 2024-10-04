@@ -1,5 +1,7 @@
 import { SummaryOptions } from '@/types/summary-types';
 
+export type PostStatus = 'draft' | 'published';
+
 export interface Post {
   title: string;
   content: string;
@@ -10,13 +12,18 @@ export interface Post {
   memoCreatedAt: string;
 }
 
-export interface CreatePostBody {
+export interface CreatePostRequest {
   url: string;
   options: SummaryOptions;
 }
 
 export interface CreatePostResponse {
   postId: number;
+}
+
+export interface GetPostRequest {
+  id: string;
+  status: PostStatus;
 }
 
 export type GetPostResponse = Post;

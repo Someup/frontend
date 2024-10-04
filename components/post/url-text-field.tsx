@@ -1,9 +1,6 @@
 'use client';
 
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { createPost } from '@/lib/service/post/post-service';
 import TextField from '@/components/ui/TextField';
 import Button from '@/components/ui/Button';
 import { typography } from '@/styles/typography';
@@ -17,10 +14,10 @@ import {
   SummaryLevelLabels,
   SummaryToneLabels,
 } from '@/constants/SummaryOptionLabels';
+import { useCreatePostMutation } from '@/lib/service/post/use-post-service';
 
 const URLTextField = () => {
   const [url, setUrl] = useState('');
-  const router = useRouter();
   const [options, setOptions] = useState<SummaryOptions>({
     level: 'base',
     tone: 'casual',
@@ -30,12 +27,7 @@ const URLTextField = () => {
     setOptions(options);
   };
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: createPost,
-    onSuccess: ({ postId }) => {
-      router.push(`/summary/${postId}`);
-    },
-  });
+  const { mutate, isPending } = useCreatePostMutation();
 
   const handleSummary = () => {
     const isValidUrl = isValidURL(url);
