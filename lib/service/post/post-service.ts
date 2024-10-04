@@ -7,6 +7,7 @@ import {
   CreatePostRequest,
   CreatePostResponse,
   UpdatePostBody,
+  GetPostRequest,
 } from '@/types/post-types';
 
 /**
@@ -35,8 +36,11 @@ export async function createPost({
 /**
  * 게시글 보기
  */
-export async function fetchPost(id: string): Promise<GetPostResponse> {
-  const response = await httpClient.get(`/posts/${id}`);
+export async function fetchPost({
+  id,
+  status,
+}: GetPostRequest): Promise<GetPostResponse> {
+  const response = await httpClient.get(`/posts/${id}`, { params: { status } });
   return response.data;
 }
 

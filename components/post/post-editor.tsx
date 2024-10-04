@@ -11,14 +11,17 @@ import Chip from '@/components/ui/Chip';
 import FoldIcon from '@/assets/unfold.svg';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
+import { PostStatus } from '@/types/post-types';
 
 interface PostEditorProps {
   id: string;
+  status: PostStatus;
 }
-const PostEditor: FunctionComponent<PostEditorProps> = ({ id }) => {
+
+const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   const {
     data: { content, title, tagList },
-  } = usePostDetail(id);
+  } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
 
   const [newTitle, setNewTitle] = useState(title);

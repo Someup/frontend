@@ -21,8 +21,10 @@ function SummaryPage({ params }: { params: { id: string } }) {
         Summary Result
       </span>
       <Suspense fallback={<div>Loading...</div>}>
-        <PrefetchBoundary fetchQueryOptions={postQuerys.detail(id)}>
-          <PostDetail id={id} readOnly={true} />
+        <PrefetchBoundary
+          fetchQueryOptions={postQuerys.detail({ id, status: 'draft' })}
+        >
+          <PostDetail id={id} readOnly={true} status="draft" />
         </PrefetchBoundary>
       </Suspense>
       <SummarySaveButton postId={id} isLoggedIn />

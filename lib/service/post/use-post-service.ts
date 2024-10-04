@@ -8,6 +8,7 @@ import {
   CreatePostRequest,
   CreatePostResponse,
   FetchPostsRequest,
+  GetPostRequest,
   Post,
   UpdatePostBody,
 } from '@/types/post-types';
@@ -29,10 +30,10 @@ export function useCreatePostMutation() {
   });
 }
 
-export function usePostDetail(id: string) {
+export function usePostDetail(params: GetPostRequest) {
   return useSuspenseQuery<Post, Error>({
-    queryKey: postQuerys.detail(id).queryKey,
-    queryFn: () => fetchPost(id),
+    queryKey: postQuerys.detail(params).queryKey,
+    queryFn: () => fetchPost(params),
   });
 }
 
