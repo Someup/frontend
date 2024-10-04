@@ -14,7 +14,7 @@ function SummaryPage({ params }: { params: { id: string } }) {
     <>
       <span
         className={cn(
-          typography({ scale: 'head-2' }),
+          typography({ scale: 'head-1' }),
           'grid place-content-center',
         )}
       >
