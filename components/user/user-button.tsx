@@ -1,41 +1,72 @@
 'use client';
-import LoginDialog from '@/components/auth/login-dialog';
-import Button from '@/components/ui/Button';
-import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/Popover';
 import { useLogout } from '@/lib/service/auth/user-auth-service';
-import { useUserProfile } from '@/lib/service/user/use-user-service';
+import { cn } from '@/lib/utils';
+import { typography } from '@/styles/typography';
+import { User } from '@/types/user-types';
 
-export default function UserButton() {
-  const userQuery = useUserProfile();
+interface UserButtonProps {
+  user: User;
+}
+
+export default function UserButton({ user }: UserButtonProps) {
   const { mutate: logout } = useLogout();
-  if (userQuery.isLoading) {
-    return <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />;
-  }
-
-  if (userQuery.data) {
-    return (
-      <button
-        onClick={() => {
-          logout();
-        }}
-      >
-        <img
-          src={userQuery.data.profileImageUrl}
-          alt="profile"
-          className="h-8 w-8 rounded-full"
-          width={32}
-          height={32}
-        />
-      </button>
-    );
-  }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>로그인</Button>
-      </DialogTrigger>
-      <LoginDialog />
-    </Dialog>
+    <Popover>
+      <PopoverTrigger asChild>
+        <button className="flex items-center space-x-2">
+          <img
+            src={user.profileImageUrl}
+            alt="profile"
+            className="h-10 w-10 rounded-full bg-white"
+          />
+          <span className="sr-only">{user.name}</span>
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="max-w-[382px] rounded-2 border-none p-6 shadow-[16px_16px_16px_0_rgba(0,0,0,0.25)]"
+        align="start"
+      >
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5">
+            <img
+              src={user.profileImageUrl}
+              alt="profile"
+              className="h-10 w-10 rounded-full bg-white"
+            />
+            <div className="flex flex-col">
+              <span
+                className={cn(typography({ scale: 'body-3' }), 'text-black')}
+              >
+                {user.name}
+              </span>
+              <span
+                className={cn(typography({ scale: 'body-4' }), 'text-gray-400')}
+              >
+                {user.email}
+              </span>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <button
+              onClick={() => {
+                logout();
+              }}
+              className={cn(typography({ scale: 'body-6' }))}
+            >
+              로그아웃
+            </button>
+            <button className={cn(typography({ scale: 'body-6' }))}>
+              계정탈퇴
+            </button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
