@@ -12,7 +12,7 @@ interface PostDetailProps {
 const PostDetail: FunctionComponent<PostDetailProps> = ({ id, readOnly }) => {
   const {
     data: { content, url },
-  } = usePostDetail({ id });
+  } = usePostDetail(id);
 
   return (
     <div>
