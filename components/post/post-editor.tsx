@@ -93,8 +93,8 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
             className="flex flex-grow basis-0 flex-col px-4"
           />
           <div className="flex-shrink-0 bg-white p-5">
-            <div className="flex items-center justify-between">
-              <span>{`${textLength}/5000`}</span>
+            <div className="flex flex-col items-end gap-4">
+              <span className="text-gray-600">{`${textLength}/5000`}</span>
               <Button type="button" variant="filled" onClick={updatePost}>
                 저장하기
               </Button>
