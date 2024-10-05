@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import Editor from '@/components/editor/editor';
 import { PostStatus } from '@/types/post-types';
 import PostTitle from '@/components/post/post-title';
+import MemoTextField from '@/components/post/memo-text-field';
 
 interface PostDetailProps {
   id: string;
@@ -18,7 +19,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
   readOnly,
 }) => {
   const {
-    data: { content, url, title },
+    data: { content, url, title, memoContent, memoCreatedAt },
   } = usePostDetail({ id, status });
 
   return (
@@ -36,6 +37,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
         {url}
       </a>
       <Editor markdown={content} readOnly={readOnly} />
+      <MemoTextField initialMemo={memoContent} createdAt={memoCreatedAt} />
     </div>
   );
 };
