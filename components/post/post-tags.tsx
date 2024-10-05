@@ -24,7 +24,7 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
     };
 
     const addNewTag = () => {
-      if (!tag || tagList.length >= 5) {
+      if (!tag || !isInsertTagEnable) {
         return;
       }
       if (tagList.includes(tag)) {
