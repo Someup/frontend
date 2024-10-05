@@ -2,7 +2,7 @@ import { insertCodeBlock$, IS_CODE, usePublisher } from '@mdxeditor/editor';
 import { ToolbarButton } from '@/components/ui/Toolbar';
 import FormatButton from '@/components/editor/format-button';
 import CodeBlock from '@/assets/code-block.svg';
-import InlineCodeBlock from '@/assets/code-block.svg';
+import InlineCodeBlock from '@/assets/inline-code.svg';
 
 const CodeBlockGroups = () => {
   const insertCodeBlock = usePublisher(insertCodeBlock$);

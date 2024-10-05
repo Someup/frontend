@@ -3,7 +3,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    height: 100vh;
+  }
+}
+
 div .mdxeditor-toolbar {
   gap: 40px;
-  padding: 0 0 0 40px;
+  padding: 0 0 0 24px;
+  margin-bottom: 16px;
+  background-color: transparent;
+  height: 32px;
+}
+
+div .mdxeditor-root-contenteditable {
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow-y: auto;
 }

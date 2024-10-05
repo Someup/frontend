@@ -31,7 +31,7 @@ const InitializedMDXEditor = ({
 }: { editorRef: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) => {
   return (
     <MDXEditor
-      contentEditableClassName="!p-2 prose max-w-full bg-transparent"
+      contentEditableClassName="!p-2 prose max-w-full bg-transparent overflow-y-auto"
       plugins={[
         headingsPlugin(),
         listsPlugin(),
