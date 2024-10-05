@@ -89,6 +89,7 @@ export default function PostList({
           ref={ref}
           onClick={handleClickNextPageButton}
           disabled={!hasNextPage || isFetchingNextPage}
+          className="opacity-0"
         >
           {isFetchingNextPage
             ? 'Loading more...'
