@@ -8,6 +8,7 @@ import { PostStatus } from '@/types/post-types';
 import PostTitle from '@/components/post/post-title';
 import MemoTextField from '@/components/post/memo-text-field';
 import PostTags from '@/components/post/post-tags';
+import Link from 'next/link';
 
 interface PostDetailProps {
   id: string;
@@ -28,6 +29,16 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
   return (
     <div className="mx-auto flex-1">
       <PostTitle initialTitle={title} readOnly />
+      {isPublished && (
+        <div className="flex h-15 justify-end">
+          <Link
+            href={`/write/${id}?status=published`}
+            className={cn(typography({ scale: 'body-2' }))}
+          >
+            수정
+          </Link>
+        </div>
+      )}
       <a
         href={url}
         target="_blank"
