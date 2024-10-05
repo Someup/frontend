@@ -19,15 +19,19 @@ export default function RemoveArchiveDialog({
     <DialogContent>
       <DialogHeader>
         <div>
-          <DialogTitle className="text-center">아카이브 삭제하기</DialogTitle>
-          <DialogDescription className="text-center">
+          <DialogTitle className="text-center">
+            정말 삭제하시겠습니까?
+          </DialogTitle>
+          <DialogDescription className="mt-4 text-center">
             삭제한 아카이브는 되돌릴 수 없으며, 해당 아카이브에 저장된
             요약본들은 모두 삭제됩니다
           </DialogDescription>
         </div>
       </DialogHeader>
       <DialogFooter className="justify-center">
-        <Button onClick={onSubmit}>삭제하기</Button>
+        <Button size="lg" onClick={onSubmit}>
+          삭제하기
+        </Button>
       </DialogFooter>
     </DialogContent>
   );
