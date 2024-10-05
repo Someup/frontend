@@ -54,7 +54,7 @@ const URLTextField = () => {
   const currentOptions = `${SummaryLevelLabels[options.level]}, ${SummaryToneLabels[options.tone]}, ${SummaryLanguageLabels[options.language]}`;
 
   return (
-    <div className="absolute bottom-0 left-1/2 mx-auto w-full max-w-[73.89%] -translate-x-1/2 -translate-y-1/2 transform">
+    <div className="mx-auto w-full max-w-[912px] p-4">
       <Dialog>
         <DialogTrigger asChild>
           <button
@@ -74,6 +74,7 @@ const URLTextField = () => {
         placeholder="URL을 입력해주세요."
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        className="mt-3.5"
       >
         <div className="flex items-end justify-between">
           <span
@@ -85,10 +86,10 @@ const URLTextField = () => {
             {currentOptions}
           </span>
           <Button
-            variant="filled"
+            variant="rounded"
+            size="lg"
             onClick={handleSummary}
             disabled={isPending}
-            className="rounded-11"
           >
             요약하기
           </Button>
