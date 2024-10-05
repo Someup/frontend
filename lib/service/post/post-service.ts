@@ -8,6 +8,7 @@ import {
   CreatePostResponse,
   UpdatePostBody,
   GetPostRequest,
+  InsertMemoRequest,
 } from '@/types/post-types';
 
 /**
@@ -98,4 +99,24 @@ export async function fetchPosts(
       });
     }, 100);
   });
+}
+
+/**
+ * 메모 추가하기
+ */
+export async function insertMemo({
+  postId,
+  content,
+}: InsertMemoRequest): Promise<void> {
+  await httpClient.post(`/posts/${postId}/memos`, { content });
+}
+
+/**
+ * 메모 수정하기
+ */
+export async function updateMemo({
+  postId,
+  content,
+}: InsertMemoRequest): Promise<void> {
+  await httpClient.patch(`/posts/${postId}/memos`, { content });
 }

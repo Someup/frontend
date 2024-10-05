@@ -1,25 +1,38 @@
 'use client';
 import Button from '@/components/ui/Button';
 import TextField from '@/components/ui/TextField';
+import {
+  useInsertMemo,
+  useUpdateMemo,
+} from '@/lib/service/post/use-post-service';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 
 interface MemoTextFieldProps {
+  postId: string;
   initialMemo?: string;
   createdAt?: string;
 }
 
-const MemoTextField = ({ initialMemo, createdAt }: MemoTextFieldProps) => {
+const MemoTextField = ({
+  postId,
+  initialMemo = '',
+  createdAt,
+}: MemoTextFieldProps) => {
   const [memo, setMemo] = useState(initialMemo);
   const [isEditing, setIsEditing] = useState(false);
+  const { mutate: insertMemoMutate } = useInsertMemo();
+  const { mutate: updateMemoMutate } = useUpdateMemo();
 
   const insertMemo = () => {
     setIsEditing(false);
+    insertMemoMutate({ postId, content: memo });
   };
 
   const updateMemo = () => {
     setIsEditing(false);
+    updateMemoMutate({ postId, content: memo });
   };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,6 +56,7 @@ const MemoTextField = ({ initialMemo, createdAt }: MemoTextFieldProps) => {
       }
       setIsEditing(false);
     } else {
+      setIsEditing(true);
       textFieldRef.current?.focus();
     }
   };
@@ -61,8 +75,8 @@ const MemoTextField = ({ initialMemo, createdAt }: MemoTextFieldProps) => {
         onKeyDown={handleKeyDown}
         value={memo}
         className="w-full"
-        onFocus={() => setIsEditing(true)}
         ref={textFieldRef}
+        readOnly={!isEditing}
       >
         <div className="flex w-full items-end justify-between">
           {createdAt && (

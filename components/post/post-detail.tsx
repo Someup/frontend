@@ -63,7 +63,11 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
             editable={false}
             className="mt-2"
           />
-          <MemoTextField initialMemo={memoContent} createdAt={memoCreatedAt} />
+          <MemoTextField
+            postId={id}
+            initialMemo={memoContent}
+            createdAt={memoCreatedAt}
+          />
         </>
       )}
     </div>
