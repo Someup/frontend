@@ -13,6 +13,9 @@ import { cn } from '@/lib/utils';
 import { PostStatus } from '@/types/post-types';
 import PostTitle from '@/components/post/post-title';
 import PostTags from '@/components/post/post-tags';
+import { DialogTrigger, Dialog } from '@/components/ui/Dialog';
+import SavePostDialog from '@/components/post/post-save-dialog';
+import { useRouter } from 'next/navigation';
 
 interface PostEditorProps {
   id: string;
@@ -33,7 +36,9 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
 
   const [fold, setFold] = useState(false);
 
-  const updatePost = () => {
+  const router = useRouter();
+
+  const updatePost = (archiveId: number | null) => {
     const newTitle = titleRef.current?.getTitle() ?? '';
     updatePostMutate(
       {
@@ -43,7 +48,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           content: editorRef.current?.getMarkdown().trim() ?? '',
           tagList: tagListRef.current?.getTagList() ?? [],
           memo: null,
-          archiveId: null,
+          archiveId,
         },
       },
       {
@@ -51,6 +56,9 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           if (error instanceof AxiosError) {
             console.error(error);
           }
+        },
+        onSuccess: () => {
+          router.push('/archive');
         },
       },
     );
@@ -95,9 +103,14 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           <div className="flex-shrink-0 bg-white p-5">
             <div className="flex flex-col items-end gap-4">
               <span className="text-gray-600">{`${textLength}/5000`}</span>
-              <Button type="button" variant="filled" onClick={updatePost}>
-                저장하기
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button type="button" variant="filled">
+                    저장하기
+                  </Button>
+                </DialogTrigger>
+                <SavePostDialog onSubmit={updatePost} />
+              </Dialog>
             </div>
           </div>
         </div>
