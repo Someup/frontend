@@ -25,7 +25,7 @@ export function useCreatePostMutation() {
   return useMutation<CreatePostResponse, Error, CreatePostRequest>({
     mutationFn: createPost,
     onSuccess: ({ postId }) => {
-      router.push(`/summary/${postId}`);
+      router.push(`/result/${postId}`);
     },
   });
 }

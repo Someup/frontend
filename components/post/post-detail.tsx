@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 import Editor from '@/components/editor/editor';
 import { PostStatus } from '@/types/post-types';
 import PostTitle from '@/components/post/post-title';
-import SummarySaveButton from '@/components/summary/summary-save-button';
 
 interface PostDetailProps {
   id: string;
@@ -23,7 +22,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
   } = usePostDetail({ id, status });
 
   return (
-    <div className="mx-auto max-w-[960px] flex-1">
+    <div className="mx-auto flex-1">
       <PostTitle initialTitle={title} readOnly />
       <a
         href={url}
@@ -37,7 +36,6 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
         {url}
       </a>
       <Editor markdown={content} readOnly={readOnly} />
-      {status === 'draft' && <SummarySaveButton postId={id} isLoggedIn />}
     </div>
   );
 };

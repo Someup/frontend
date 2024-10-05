@@ -5,7 +5,7 @@ interface PostLayoutProps {
 }
 
 const PostLayout: FunctionComponent<PostLayoutProps> = ({ children }) => {
-  return <div className="mt-17 flex h-full w-full flex-col">{children}</div>;
+  return <div className="flex h-full w-full flex-col pt-17">{children}</div>;
 };
 
 export default PostLayout;
