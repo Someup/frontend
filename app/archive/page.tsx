@@ -12,10 +12,13 @@ interface ArchivePageProps {
   };
 }
 
-export const metadata: Metadata = {
-  title: '아카이브',
-  description: '아카이브 페이지입니다.',
-};
+export function generateMetadata({ searchParams }: ArchivePageProps): Metadata {
+  const search = searchParams.search;
+  return {
+    title: search ? `검색 결과: ${search}` : 'My Archive',
+    description: '아카이브 페이지입니다.',
+  };
+}
 
 export default function ArchivePage({ searchParams }: ArchivePageProps) {
   const id = searchParams.id || '';
