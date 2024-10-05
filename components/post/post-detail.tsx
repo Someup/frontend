@@ -5,6 +5,7 @@ import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Editor from '@/components/editor/editor';
 import { PostStatus } from '@/types/post-types';
+import PostTitle from '@/components/post/post-title';
 
 interface PostDetailProps {
   id: string;
@@ -17,18 +18,19 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
   readOnly,
 }) => {
   const {
-    data: { content, url },
+    data: { content, url, title },
   } = usePostDetail({ id, status });
 
   return (
-    <div>
+    <div className="mx-auto flex-1">
+      <PostTitle initialTitle={title} readOnly />
       <a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          typography({ scale: 'body-4' }),
-          'm-15 block break-all text-gray-100',
+          typography({ scale: 'body-6' }),
+          'ml-2 break-all text-gray-100',
         )}
       >
         {url}

@@ -16,7 +16,7 @@ const MainHeader: FunctionComponent = () => {
 
   if (!isHome) {
     return (
-      <div className="fixed z-50 flex h-15 w-full items-center justify-between bg-white px-6">
+      <div className="fixed top-0 z-50 flex h-15 w-full items-center justify-between bg-white px-6">
         <Image src="/header_logo.png" width={150} height={60} alt="logo" />
         {userQuery.data === undefined && (
           <Dialog>
