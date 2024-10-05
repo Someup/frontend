@@ -5,33 +5,33 @@ import MaxArchiveNumAlert from '@/components/archive/max-archive-num-alert';
 import PlusOutlined from '@/components/icons/PlusOutlined';
 import { DialogTrigger } from '@/components/ui/Dialog';
 import { ARCHIVE_MAX_NUM } from '@/lib/service/archive/constraints';
-import {
-  useArchives,
-  useCreateArchive,
-} from '@/lib/service/archive/use-archive-service';
+import { useCreateArchive } from '@/lib/service/archive/use-archive-service';
 import { useAllPostCount } from '@/lib/service/post/use-post-service';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
+import { Archive } from '@/types/archive-types';
 import { Dialog } from '@radix-ui/react-dialog';
 import Link from 'next/link';
 import { useState } from 'react';
 
 interface ArchiveListProps {
-  selectedArchiveId?: string;
+  selectedArchiveId?: number;
+  archives: Archive[];
 }
 
-export default function ArchiveList({ selectedArchiveId }: ArchiveListProps) {
-  const archivesQuery = useArchives();
+export default function ArchiveList({
+  selectedArchiveId,
+  archives,
+}: ArchiveListProps) {
   const postCountQuery = useAllPostCount();
   const createArchive = useCreateArchive();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [MaxArchiveAlertOpen, setMaxArchiveAlertOpen] = useState(false);
 
-  const createArchiveDisabled =
-    archivesQuery.data.archives.length > ARCHIVE_MAX_NUM;
+  const createArchiveDisabled = archives.length > ARCHIVE_MAX_NUM;
 
   const handleCreateArchive = (archiveName: string) => {
-    if (archivesQuery.data.archives.length > ARCHIVE_MAX_NUM) {
+    if (archives.length > ARCHIVE_MAX_NUM) {
       setIsDialogOpen(false);
       setMaxArchiveAlertOpen(true);
       return;
@@ -59,13 +59,13 @@ export default function ArchiveList({ selectedArchiveId }: ArchiveListProps) {
         전체
         <span>({postCountQuery.data.totalCount})</span>
       </Link>
-      {archivesQuery.data.archives.map((archive) => {
+      {archives.map((archive) => {
         return (
           <ArchiveListItem
             key={archive.id}
             archiveId={archive.id}
             archiveName={archive.name}
-            isSelected={archive.id.toString() === selectedArchiveId}
+            isSelected={archive.id === selectedArchiveId}
           />
         );
       })}

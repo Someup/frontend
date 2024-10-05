@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 interface PostListProps {
   search?: string;
-  archiveId?: string;
+  archiveId?: number;
 }
 
 export default function PostList({
@@ -26,7 +26,7 @@ export default function PostList({
   const { isFetching, fetchNextPage, data, hasNextPage, isFetchingNextPage } =
     usePosts({
       search,
-      archiveId,
+      archiveId: archiveId?.toString() || undefined,
     });
 
   const handleTagClick = (tag: string) => {
