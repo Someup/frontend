@@ -54,6 +54,13 @@ export async function updatePost(
   await httpClient.patch<void>(`/posts/${id}`, body);
 }
 
+/**
+ * 게시글 삭제하기
+ */
+export async function deletePost(id: string): Promise<void> {
+  await httpClient.delete<void>(`/posts/${id}`);
+}
+
 export async function fetchPosts(
   params: FetchPostsRequest,
 ): Promise<FetchPostsResponse> {

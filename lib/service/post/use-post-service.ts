@@ -1,5 +1,6 @@
 import {
   useMutation,
+  useQueryClient,
   useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';
@@ -17,6 +18,7 @@ import {
   updatePost,
   fetchPosts,
   createPost,
+  deletePost,
 } from '@/lib/service/post/post-service';
 import { useRouter } from 'next/navigation';
 
@@ -26,6 +28,19 @@ export function useCreatePostMutation() {
     mutationFn: createPost,
     onSuccess: ({ postId }) => {
       router.push(`/result/${postId}`);
+    },
+  });
+}
+
+export function useDeletePost() {
+  const queryClient = useQueryClient();
+  return useMutation<void, Error, string>({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      // eslint-disable-next-line no-void
+      void queryClient.invalidateQueries({
+        queryKey: postQuerys.list._def,
+      });
     },
   });
 }

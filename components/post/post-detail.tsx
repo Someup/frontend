@@ -9,6 +9,7 @@ import PostTitle from '@/components/post/post-title';
 import MemoTextField from '@/components/post/memo-text-field';
 import PostTags from '@/components/post/post-tags';
 import Link from 'next/link';
+import DeletePostButton from '@/components/post/delete-post-button';
 
 interface PostDetailProps {
   id: string;
@@ -30,13 +31,17 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
     <div className="mx-auto flex-1">
       <PostTitle initialTitle={title} readOnly />
       {isPublished && (
-        <div className="flex h-15 justify-end">
+        <div className="flex h-15 items-center justify-end">
           <Link
             href={`/write/${id}?status=published`}
             className={cn(typography({ scale: 'body-2' }))}
           >
             수정
           </Link>
+          {/**
+           * @todo fetchPost 응답으로 archiveId 받아 props 전달 필요
+           */}
+          <DeletePostButton postId={id} archiveId={''} />
         </div>
       )}
       <a
