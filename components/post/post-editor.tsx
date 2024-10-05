@@ -38,7 +38,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
 
   const router = useRouter();
 
-  const updatePost = (archiveId: number | null) => {
+  const updatePost = (archiveId: number) => {
     const newTitle = titleRef.current?.getTitle() ?? '';
     updatePostMutate(
       {
@@ -48,7 +48,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           content: editorRef.current?.getMarkdown().trim() ?? '',
           tagList: tagListRef.current?.getTagList() ?? [],
           memo: null,
-          archiveId,
+          archiveId: archiveId === -1 ? null : archiveId,
         },
       },
       {

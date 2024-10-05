@@ -30,12 +30,12 @@ import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 
 interface SavePostDialogProps {
-  initialArchiveId?: number | null;
-  onSubmit: (archiveId: number | null) => void;
+  initialArchiveId?: number;
+  onSubmit: (archiveId: number) => void;
 }
 
 const SavePostDialog: FunctionComponent<SavePostDialogProps> = ({
-  initialArchiveId = null,
+  initialArchiveId = -1,
   onSubmit,
 }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
@@ -43,19 +43,23 @@ const SavePostDialog: FunctionComponent<SavePostDialogProps> = ({
   const {
     data: { archives },
   } = useArchives();
+  const archivesWithAll = [{ id: -1, name: '전체' }, ...archives];
   const { mutate } = useCreateArchive();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedArchiveId, setSelectedArchiveId] = useState<number | null>(
-    initialArchiveId,
-  );
-  const selectedArchiveName = archives.find(
+  const [selectedArchiveId, setSelectedArchiveId] =
+    useState<number>(initialArchiveId);
+  const selectedArchiveName = archivesWithAll.find(
     (archive) => archive.id === selectedArchiveId,
   )?.name;
 
+  const handleSelectValueChange = (id: string) => {
+    setSelectedArchiveId(+id);
+  };
+
   const handleSelectArchive = (id: string) => {
     setIsPopoverOpen(false);
-    setSelectedArchiveId(+id);
+    handleSelectValueChange(id);
   };
 
   const createArchiveWithName = () => {
@@ -90,15 +94,22 @@ const SavePostDialog: FunctionComponent<SavePostDialogProps> = ({
               className={`transition-transform duration-200 ${isPopoverOpen ? 'rotate-180' : ''}`}
             />
           </PopoverTrigger>
-          <PopoverContent className="z-[51] w-[280px] rounded-2 border-none bg-white p-0 shadow-[0_4px_14px_rgba(0,0,0,0.1)]">
+          <PopoverContent
+            className="z-[51] w-[280px] rounded-2 border-none bg-white p-0 shadow-[0_4px_14px_rgba(0,0,0,0.1)]"
+            onWheel={(e) => e.stopPropagation()}
+          >
             <Command
               className="overflow-hidden rounded-2"
-              value={selectedArchiveName}
-              onValueChange={handleSelectArchive}
+              value={selectedArchiveId ? `${selectedArchiveId}` : ''}
+              onValueChange={handleSelectValueChange}
               filter={(value, search) => {
-                if (value.includes(search)) return 1;
+                const archiveName = archivesWithAll.find(
+                  (archive) => archive.id === +value,
+                )?.name;
+                if (archiveName && archiveName.includes(search)) return 1;
                 return 0;
               }}
+              disablePointerSelection
             >
               <CommandInput
                 className={cn(
@@ -119,7 +130,7 @@ const SavePostDialog: FunctionComponent<SavePostDialogProps> = ({
                   </button>
                 </CommandEmpty>
                 <CommandGroup>
-                  {archives.map(({ id, name }) => (
+                  {archivesWithAll.map(({ id, name }) => (
                     <CommandItem
                       key={id}
                       value={`${id}`}
