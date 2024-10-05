@@ -17,6 +17,7 @@ import {
   updatePost,
   fetchPosts,
   createPost,
+  fetchAllPostCount,
 } from '@/lib/service/post/post-service';
 import { useRouter } from 'next/navigation';
 
@@ -48,16 +49,23 @@ export function usePosts(
 ) {
   return useSuspenseInfiniteQuery({
     queryKey: postQuerys.list(params).queryKey,
-    queryFn: ({ pageParam = '1' }) =>
+    queryFn: ({ pageParam = '0' }) =>
       fetchPosts({
         ...params,
         page: pageParam,
       }),
-    initialPageParam: '1',
+    initialPageParam: '0',
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.postList?.length === 0
         ? undefined
-        : String(allPages.length + 1);
+        : String(allPages.length);
     },
+  });
+}
+
+export function useAllPostCount() {
+  return useSuspenseQuery({
+    queryKey: postQuerys.postCount().queryKey,
+    queryFn: fetchAllPostCount,
   });
 }

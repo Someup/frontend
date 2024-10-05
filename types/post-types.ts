@@ -50,3 +50,7 @@ export interface FetchPostsResponse {
     tagList: string[] | null;
   }[];
 }
+
+export interface FetchAllPostCountResponse {
+  totalCount: number;
+}
