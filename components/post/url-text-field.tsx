@@ -86,11 +86,10 @@ const URLTextField = () => {
             {currentOptions}
           </span>
           <Button
-            variant="filled"
+            variant="rounded"
             size="lg"
             onClick={handleSummary}
             disabled={isPending}
-            className="rounded-12"
           >
             요약하기
           </Button>
