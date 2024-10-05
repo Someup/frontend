@@ -6,17 +6,17 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
 
 const buttonVariants = cva(
-  `rounded-2 flex items-center justify-center whitespace-nowrap text-white  ring-tertiary transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2 disabled:pointer-events-none`,
+  `flex items-center justify-center whitespace-nowrap text-white  ring-tertiary transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2 disabled:pointer-events-none`,
   {
     variants: {
       variant: {
         filled:
-          'bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-600 active:bg-primary-800',
+          'rounded-2 bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-600 active:bg-primary-800',
         outlined:
-          'shadow-[inset_0_0_0_4px_rgba(0,0,0,1)] shadow-primary-400 text-primary-400 hover:text-primary-600 active:text-primary-800 active:shadow-primary-800 disabled:shadow-gray-100 disabled:text-gray-100',
+          'rounded-2 shadow-[inset_0_0_0_4px_rgba(0,0,0,1)] shadow-primary-400 text-primary-400 hover:text-primary-600 active:text-primary-800 active:shadow-primary-800 disabled:shadow-gray-100 disabled:text-gray-100',
         rounded:
           'bg-primary-400 disabled:bg-gray-100 active:bg-tertiary hover:bg-primary-600 active:bg-primary-800 rounded-12',
-        icon: 'hover:bg-gray-100/40 text-black disabled:text-gray-400',
+        icon: 'rounded-2 hover:bg-gray-100/40 text-black disabled:text-gray-400',
       },
       size: {
         md: 'py-2 px-3',
