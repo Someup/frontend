@@ -93,7 +93,11 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
             </Button>
           </div>
           <PostTitle initialTitle={title} ref={titleRef} readOnly={false} />
-          <PostTags initialTagList={tagList} ref={tagListRef} />
+          <PostTags
+            initialTagList={tagList}
+            ref={tagListRef}
+            className="mb-4 ml-10"
+          />
           <Editor
             markdown={content}
             ref={editorRef}
