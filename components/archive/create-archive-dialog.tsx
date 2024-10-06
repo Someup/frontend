@@ -22,6 +22,12 @@ export default function CreateArchiveDialog({
     onSubmit(archiveName);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <DialogContent>
       <DialogHeader className="justify-center">
@@ -35,10 +41,13 @@ export default function CreateArchiveDialog({
           placeholder="아카이브 제목을 입력해주세요."
           value={archiveName}
           onChange={(e) => setArchiveName(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <DialogFooter className="justify-center">
-        <Button onClick={handleSubmit}>확인하기</Button>
+        <Button size="lg" onClick={handleSubmit}>
+          확인하기
+        </Button>
       </DialogFooter>
     </DialogContent>
   );

@@ -1,5 +1,4 @@
 import httpClient from '@/lib/http-client';
-import { MOCK_POSTS } from '@/lib/service/post/mock';
 import {
   FetchPostsRequest,
   FetchPostsResponse,
@@ -8,6 +7,7 @@ import {
   CreatePostResponse,
   UpdatePostBody,
   GetPostRequest,
+  FetchAllPostCountResponse,
   InsertMemoRequest,
 } from '@/types/post-types';
 
@@ -65,40 +65,25 @@ export async function deletePost(id: string): Promise<void> {
 export async function fetchPosts(
   params: FetchPostsRequest,
 ): Promise<FetchPostsResponse> {
-  // return httpClient
-  //   .get<FetchPostsResponse>('/post', { params })
-  //   .then((res) => res.data);
-  console.log('fetchPosts', params);
-  const page = params.page ? Number(params.page) : 1;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        postList: MOCK_POSTS.filter((post) => {
-          if (params.search) {
-            if (params.search.startsWith('#')) {
-              const tag = params.search.slice(1);
-              return post.tagList.includes(tag);
-            } else {
-              return post.title.includes(params.search);
-            }
-          }
-          return true;
-        })
-          .filter((post) => {
-            if (params.archiveId) {
-              return post.archiveId === Number(params.archiveId);
-            }
-            return true;
-          })
-          .map((post) => ({
-            id: post.id * page,
-            title: post.title,
-            createdAt: post.createdAt,
-            tagList: post.tagList,
-          })),
-      });
-    }, 100);
-  });
+  const searchParams = new URLSearchParams();
+  if (params.search) {
+    searchParams.set('search', params.search);
+  }
+  if (params.archiveId) {
+    searchParams.set('archiveId', params.archiveId);
+  }
+  if (params.page) {
+    searchParams.set('page', params.page);
+  }
+  return httpClient
+    .get<FetchPostsResponse>('/posts', { params: searchParams })
+    .then((res) => res.data);
+}
+
+export async function fetchAllPostCount(): Promise<FetchAllPostCountResponse> {
+  const response =
+    await httpClient.get<FetchAllPostCountResponse>('/posts/count');
+  return response.data;
 }
 
 /**

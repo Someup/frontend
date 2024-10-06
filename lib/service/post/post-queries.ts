@@ -8,6 +8,9 @@ const postQuerys = createQueryKeys('posts', {
   list: (params: Pick<FetchPostsRequest, 'archiveId' | 'search'>) => ({
     queryKey: [{ params }],
   }),
+  postCount: () => ({
+    queryKey: ['postCount'],
+  }),
 });
 
 export default postQuerys;

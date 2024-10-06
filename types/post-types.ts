@@ -51,6 +51,10 @@ export interface FetchPostsResponse {
   }[];
 }
 
+export interface FetchAllPostCountResponse {
+  totalCount: number;
+}
+
 export interface InsertMemoRequest {
   postId: string;
   content: string;
