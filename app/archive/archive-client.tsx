@@ -12,11 +12,11 @@ interface ArchiveClientProps {
 }
 
 export default function ArchiveClient({ id, search }: ArchiveClientProps) {
-  const archivesQuery = useArchives();
+  const {
+    data: { archives },
+  } = useArchives();
 
-  const selectedArchive = archivesQuery.data.archives.find(
-    (archive) => archive.id === id,
-  );
+  const selectedArchive = archives.find((archive) => archive.id === id);
   const title = selectedArchive ? selectedArchive.name : '전체';
 
   return (
@@ -32,10 +32,7 @@ export default function ArchiveClient({ id, search }: ArchiveClientProps) {
         {/* archive list */}
         <div className="w-full max-w-[224px]">
           <Suspense fallback={<div>Loading...</div>}>
-            <ArchiveList
-              archives={archivesQuery.data.archives}
-              selectedArchiveId={id}
-            />
+            <ArchiveList archives={archives} selectedArchiveId={id} />
           </Suspense>
         </div>
         {/* post list */}
