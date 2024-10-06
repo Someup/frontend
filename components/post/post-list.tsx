@@ -26,7 +26,7 @@ export default function PostList({
   const { isFetching, fetchNextPage, data, hasNextPage, isFetchingNextPage } =
     usePosts({
       search,
-      archiveId: archiveId?.toString() || undefined,
+      archiveId: archiveId,
     });
 
   const handleTagClick = (tag: string) => {

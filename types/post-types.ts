@@ -38,7 +38,7 @@ export interface UpdatePostBody {
 
 export interface FetchPostsRequest {
   search?: string;
-  archiveId?: string;
+  archiveId?: number;
   page?: string;
 }
 
