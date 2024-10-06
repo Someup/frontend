@@ -7,8 +7,8 @@ import Link from 'next/link';
 import React, { Suspense } from 'react';
 
 interface ArchiveClientProps {
-  id: number;
-  search: string;
+  id?: number;
+  search?: string;
 }
 
 export default function ArchiveClient({ id, search }: ArchiveClientProps) {

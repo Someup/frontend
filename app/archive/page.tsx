@@ -18,8 +18,8 @@ export function generateMetadata({ searchParams }: ArchivePageProps): Metadata {
 }
 
 export default function ArchivePage({ searchParams }: ArchivePageProps) {
-  const id = Number(searchParams.id) || 0;
-  const search = searchParams.search || '';
+  const id = Number(searchParams.id) || undefined;
+  const search = searchParams.search;
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ArchiveClient id={id} search={search} />
