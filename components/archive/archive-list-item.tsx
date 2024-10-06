@@ -15,7 +15,7 @@ import {
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ArchiveListItemProps {
   archiveId: number;
@@ -55,9 +55,6 @@ export default function ArchiveListItem({
 
   const startEditing = () => {
     setIsEditing(true);
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
   };
 
   const updateArchive = () => {
@@ -91,6 +88,11 @@ export default function ArchiveListItem({
   };
 
   console.log('showDialog: ', handleDialogMenu());
+
+  useEffect(() => {
+    if (!isEditing || !inputRef.current) return;
+    inputRef.current.focus();
+  }, [isEditing]);
 
   return (
     <div
