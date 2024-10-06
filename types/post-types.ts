@@ -50,3 +50,8 @@ export interface FetchPostsResponse {
     tagList: string[] | null;
   }[];
 }
+
+export interface InsertMemoRequest {
+  postId: string;
+  content: string;
+}

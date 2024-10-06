@@ -8,12 +8,14 @@ import React, {
 
 interface PostTagsProps {
   initialTagList?: string[];
+  editable?: boolean;
+  className?: string;
 }
 const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
-  ({ initialTagList = [] }, ref) => {
+  ({ initialTagList = [], editable = true, className }, ref) => {
     const [tagList, setTagList] = useState<string[]>(initialTagList);
     const [tag, setTag] = useState('');
-    const isInsertTagEnable = tagList.length < 5;
+    const isInsertTagEnable = tagList.length < 5 && editable;
 
     const deleteTag = (tag: string) => {
       setTagList(tagList.filter((t) => t !== tag));
@@ -40,9 +42,9 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
     }));
 
     return (
-      <div className="mb-4 ml-10 flex flex-wrap gap-2">
+      <div className={`${className} flex flex-wrap gap-2`}>
         {tagList.map((tag) => (
-          <Chip key={tag} onClose={() => deleteTag(tag)}>
+          <Chip key={tag} onClose={editable ? () => deleteTag(tag) : undefined}>
             {tag}
           </Chip>
         ))}

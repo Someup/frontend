@@ -2,9 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
 
-const TextField: React.ForwardRefExoticComponent<
-  React.ComponentPropsWithoutRef<'textarea'>
-> = React.forwardRef<
+const TextField = React.forwardRef<
   HTMLTextAreaElement,
   React.ComponentPropsWithoutRef<'textarea'>
 >(({ className, children, ...props }, ref) => {

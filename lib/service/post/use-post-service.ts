@@ -1,5 +1,7 @@
+/* eslint-disable no-void */
 import {
   useMutation,
+  useQueryClient,
   useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';
@@ -9,6 +11,7 @@ import {
   CreatePostResponse,
   FetchPostsRequest,
   GetPostRequest,
+  InsertMemoRequest,
   Post,
   UpdatePostBody,
 } from '@/types/post-types';
@@ -17,6 +20,9 @@ import {
   updatePost,
   fetchPosts,
   createPost,
+  deletePost,
+  insertMemo,
+  updateMemo,
 } from '@/lib/service/post/post-service';
 import { useRouter } from 'next/navigation';
 
@@ -26,6 +32,18 @@ export function useCreatePostMutation() {
     mutationFn: createPost,
     onSuccess: ({ postId }) => {
       router.push(`/result/${postId}`);
+    },
+  });
+}
+
+export function useDeletePost() {
+  const queryClient = useQueryClient();
+  return useMutation<void, Error, string>({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: postQuerys.list._def,
+      });
     },
   });
 }
@@ -40,6 +58,30 @@ export function usePostDetail(params: GetPostRequest) {
 export function useUpdatePostMutation() {
   return useMutation<void, Error, { id: string; body: UpdatePostBody }>({
     mutationFn: ({ id, body }) => updatePost(id, body),
+  });
+}
+
+export function useInsertMemo() {
+  const queryClient = useQueryClient();
+  return useMutation<void, Error, InsertMemoRequest>({
+    mutationFn: insertMemo,
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: postQuerys.detail._def,
+      });
+    },
+  });
+}
+
+export function useUpdateMemo() {
+  const queryClient = useQueryClient();
+  return useMutation<void, Error, InsertMemoRequest>({
+    mutationFn: updateMemo,
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: postQuerys.detail._def,
+      });
+    },
   });
 }
 
