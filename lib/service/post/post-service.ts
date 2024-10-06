@@ -70,7 +70,7 @@ export async function fetchPosts(
     searchParams.set('search', params.search);
   }
   if (params.archiveId) {
-    searchParams.set('archiveId', params.archiveId);
+    searchParams.set('archiveId', params.archiveId.toString());
   }
   if (params.page) {
     searchParams.set('page', params.page);
