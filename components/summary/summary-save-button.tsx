@@ -25,12 +25,12 @@ const SummarySaveButton: FunctionComponent<SummarySaveButtonProps> = ({
   return (
     <Button
       type="button"
-      variant="rounded"
-      className="fixed ml-auto h-23 w-24"
-      style={{ right: '30px', bottom: '130px' }}
+      variant="filled"
+      size="lg"
+      className="ml-auto"
       onClick={handleClick}
     >
-      저장
+      저장하기
     </Button>
   );
 };

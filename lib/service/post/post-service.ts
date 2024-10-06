@@ -8,6 +8,7 @@ import {
   UpdatePostBody,
   GetPostRequest,
   FetchAllPostCountResponse,
+  InsertMemoRequest,
 } from '@/types/post-types';
 
 /**
@@ -54,6 +55,13 @@ export async function updatePost(
   await httpClient.patch<void>(`/posts/${id}`, body);
 }
 
+/**
+ * 게시글 삭제하기
+ */
+export async function deletePost(id: string): Promise<void> {
+  await httpClient.delete<void>(`/posts/${id}`);
+}
+
 export async function fetchPosts(
   params: FetchPostsRequest,
 ): Promise<FetchPostsResponse> {
@@ -76,4 +84,24 @@ export async function fetchAllPostCount(): Promise<FetchAllPostCountResponse> {
   const response =
     await httpClient.get<FetchAllPostCountResponse>('/posts/count');
   return response.data;
+}
+
+/**
+ * 메모 추가하기
+ */
+export async function insertMemo({
+  postId,
+  content,
+}: InsertMemoRequest): Promise<void> {
+  await httpClient.post(`/posts/${postId}/memos`, { content });
+}
+
+/**
+ * 메모 수정하기
+ */
+export async function updateMemo({
+  postId,
+  content,
+}: InsertMemoRequest): Promise<void> {
+  await httpClient.patch(`/posts/${postId}/memos`, { content });
 }
