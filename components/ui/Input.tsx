@@ -5,7 +5,7 @@ import { typography } from '@/styles/typography';
 import { cva, VariantProps } from 'class-variance-authority';
 
 const inputVariants = cva(
-  'ring-tertiary peer placeholder:tracking-normal placeholder:font-regular flex w-full rounded-2 bg-white shadow-inner shadow-gray-400 ring-offset-2  placeholder:text-gray-200 hover:shadow-primary-200 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:shadow-gray-200',
+  'ring-tertiary peer placeholder:tracking-normal placeholder:font-regular flex w-full rounded-2 bg-white shadow-inner shadow-gray-400 ring-offset-2  placeholder:text-gray-200 hover:shadow-primary-200 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:shadow-gray-200 aria-invalid:shadow-error-400',
   {
     variants: {
       size: {
