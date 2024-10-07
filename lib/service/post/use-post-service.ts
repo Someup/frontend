@@ -22,7 +22,6 @@ import {
   createPost,
   fetchAllPostCount,
   deletePost,
-  insertMemo,
   updateMemo,
 } from '@/lib/service/post/post-service';
 import { useRouter } from 'next/navigation';
@@ -59,18 +58,6 @@ export function usePostDetail(params: GetPostRequest) {
 export function useUpdatePostMutation() {
   return useMutation<void, Error, { id: string; body: UpdatePostBody }>({
     mutationFn: ({ id, body }) => updatePost(id, body),
-  });
-}
-
-export function useInsertMemo() {
-  const queryClient = useQueryClient();
-  return useMutation<void, Error, InsertMemoRequest>({
-    mutationFn: insertMemo,
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
-        queryKey: postQuerys.detail._def,
-      });
-    },
   });
 }
 
