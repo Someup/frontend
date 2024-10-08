@@ -58,7 +58,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           }
         },
         onSuccess: () => {
-          router.push('/archive');
+          router.push(`/archive?id=${archiveId}`);
         },
       },
     );
