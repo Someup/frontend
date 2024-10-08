@@ -1,7 +1,9 @@
+'use client';
 import Chip from '@/components/ui/Chip';
 import React, {
   ChangeEvent,
   forwardRef,
+  KeyboardEvent,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -36,6 +38,12 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
       setTagList([...tagList, tag]);
       setTag('');
     };
+    const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+      // e.isComposing이 true이면 IME 입력 중이므로, 이벤트를 무시합니다.
+      if (e.key === 'Enter') {
+        addNewTag();
+      }
+    };
 
     useImperativeHandle(ref, () => ({
       getTagList: () => tagList,
@@ -53,7 +61,7 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
             type="text"
             placeholder="태그를 입력하세요"
             value={tag}
-            onKeyDown={(e) => e.key === 'Enter' && addNewTag()}
+            onKeyUp={handleKeyUp}
             onChange={handleTagChange}
             onBlur={addNewTag}
             className="px-2 py-1"
