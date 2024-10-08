@@ -7,7 +7,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
-import { archiveSchema } from '@/lib/service/archive/constraints';
+import {
+  archiveSchema,
+  ARCHIVE_NAME_MAX_LENGTH,
+} from '@/lib/service/archive/constraints';
+
 import {
   useDeleteArchive,
   useUpdateArchive,
@@ -58,8 +62,11 @@ export default function ArchiveListItem({
   };
 
   const updateArchive = () => {
-    const name = newArchiveName.trim();
-    const { data, error } = archiveSchema.safeParse({ name });
+    if (newArchiveName === archiveName || newArchiveName === '') {
+      setIsEditing(false);
+      return;
+    }
+    const { data, error } = archiveSchema.safeParse({ name: newArchiveName });
     if (error) {
       error.errors.forEach((err) => {
         alert(err.message);
@@ -87,74 +94,74 @@ export default function ArchiveListItem({
     }
   };
 
-  console.log('showDialog: ', handleDialogMenu());
-
   useEffect(() => {
     if (!isEditing || !inputRef.current) return;
     inputRef.current.focus();
   }, [isEditing]);
 
-  return (
-    <div
-      className={cn(
-        typography({ scale: 'body-5' }),
-        'group flex items-center justify-between rounded-2 px-5 py-3',
-        isSelected ? 'text-primary-400' : 'text-black',
-      )}
-    >
-      {isEditing ? (
+  if (isEditing) {
+    return (
+      <div className="px-5 py-3">
         <input
           type="text"
           value={newArchiveName}
           onChange={(e) => setNewArchiveName(e.target.value)}
-          className="h-8 w-full text-black"
+          maxLength={ARCHIVE_NAME_MAX_LENGTH}
+          placeholder={archiveName}
+          className={cn(typography({ scale: 'body-5' }), 'w-full text-black')}
           ref={inputRef}
           onKeyDown={handleKeyDown}
           onBlur={updateArchive}
         />
-      ) : (
-        <>
-          <Link
-            href={`/archive?id=${archiveId}`}
-            className="flex h-8 w-full items-center"
-          >
-            {archiveName}
-          </Link>
-          <Dialog
-            open={true}
-            onOpenChange={(open) => {
-              if (!open) {
-                setDropdown(false);
-                setDialog(null);
-              }
-            }}
-          >
-            <DropdownMenu open={showDropdown} onOpenChange={setDropdown}>
-              <DropdownMenuTrigger asChild>
-                <button className="h-4 w-4 text-black opacity-0 group-hover:opacity-100">
-                  <ThreeDotsFilled className="h-4 w-4" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-[280px]">
-                <DropdownMenuItem onSelect={startEditing}>
-                  아카이브 제목 수정
-                </DropdownMenuItem>
+      </div>
+    );
+  }
 
-                <DialogTrigger asChild>
-                  <DropdownMenuItem
-                    onSelect={() => {
-                      setDialog('remove');
-                    }}
-                  >
-                    아카이브 삭제
-                  </DropdownMenuItem>
-                </DialogTrigger>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            {handleDialogMenu()}
-          </Dialog>
-        </>
-      )}
+  return (
+    <div className="group relative">
+      <Link
+        href={`/archive?id=${archiveId}`}
+        className={cn(
+          typography({ scale: 'body-5' }),
+          'flex items-center justify-between rounded-2 py-3 pl-5 pr-5 group-hover:pr-9',
+          isSelected ? 'text-primary-400' : 'text-black',
+        )}
+      >
+        <p className="line-clamp-1 block text-ellipsis">{archiveName}</p>
+      </Link>
+      <Dialog
+        open={true}
+        onOpenChange={(open) => {
+          if (!open) {
+            setDropdown(false);
+            setDialog(null);
+          }
+        }}
+      >
+        <DropdownMenu open={showDropdown} onOpenChange={setDropdown}>
+          <DropdownMenuTrigger asChild>
+            <button className="absolute right-5 top-3.5 h-4 w-4 text-black opacity-0 group-hover:opacity-100">
+              <ThreeDotsFilled className="h-4 w-4" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-[280px]">
+            <DropdownMenuItem onSelect={startEditing}>
+              아카이브 제목 수정
+            </DropdownMenuItem>
+
+            <DialogTrigger asChild>
+              <DropdownMenuItem
+                onSelect={() => {
+                  setDialog('remove');
+                }}
+              >
+                아카이브 삭제
+              </DropdownMenuItem>
+            </DialogTrigger>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        {handleDialogMenu()}
+      </Dialog>
     </div>
   );
 }
