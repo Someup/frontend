@@ -47,7 +47,7 @@ export default function ArchiveList({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       <Link
         href={`/archive`}
         className={cn(
