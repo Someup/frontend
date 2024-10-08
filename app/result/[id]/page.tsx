@@ -10,7 +10,7 @@ function ResultPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="mx-auto flex flex-1 flex-col">
+      <div className="mx-auto flex max-w-[960px] flex-col">
         <Suspense fallback={<div>Loading...</div>}>
           <PrefetchBoundary
             fetchQueryOptions={postQuerys.detail({ id, status: 'draft' })}

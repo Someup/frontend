@@ -8,15 +8,13 @@ function PostsPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="mx-auto flex w-full max-w-[960px] flex-col gap-7">
-        <Suspense fallback={<div>Loading...</div>}>
-          <PrefetchBoundary
-            fetchQueryOptions={postQuerys.detail({ id, status: 'published' })}
-          >
-            <PostDetail id={id} readOnly={true} status="published" />
-          </PrefetchBoundary>
-        </Suspense>
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <PrefetchBoundary
+          fetchQueryOptions={postQuerys.detail({ id, status: 'published' })}
+        >
+          <PostDetail id={id} readOnly={true} status="published" />
+        </PrefetchBoundary>
+      </Suspense>
     </>
   );
 }

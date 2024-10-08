@@ -37,7 +37,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
   const isPublished = status === 'published';
 
   return (
-    <div className="mx-auto w-full max-w-[960px] flex-1">
+    <div className="mx-auto w-full max-w-[960px]">
       {isPublished && (
         <Link
           href={`/archive/${archiveId}`}
