@@ -6,7 +6,12 @@ import Button from '@/components/ui/Button';
 import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { Dialog, DialogTrigger } from '@/components/ui/Dialog';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogFooter,
+} from '@/components/ui/Dialog';
 import OptionDialog from '@/components/summary/option-dialog';
 import { SummaryOptions } from '@/types/summary-types';
 import {
@@ -23,6 +28,8 @@ const URLTextField = () => {
     tone: 'casual',
     language: 'kr',
   });
+  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
+
   const handleConfirm = (options: SummaryOptions) => {
     setOptions(options);
   };
@@ -32,7 +39,7 @@ const URLTextField = () => {
   const handleSummary = () => {
     const isValidUrl = isValidURL(url);
     if (!isValidUrl) {
-      alert('올바른 URL을 입력해주세요.');
+      setIsErrorDialogOpen(true);
       return;
     }
     mutate({
@@ -55,6 +62,16 @@ const URLTextField = () => {
 
   return (
     <div className="mx-auto w-full max-w-[912px] p-4">
+      <Dialog open={isErrorDialogOpen} onOpenChange={setIsErrorDialogOpen}>
+        <DialogContent className="text-center">
+          유효하지 않은 형식의 URL 입니다.
+          <DialogFooter>
+            <Button size="lg" onClick={() => setIsErrorDialogOpen(false)}>
+              확인
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Dialog>
         <DialogTrigger asChild>
           <button
@@ -102,7 +119,6 @@ const URLTextField = () => {
 export default URLTextField;
 
 function isValidURL(url: string) {
-  const urlPattern =
-    /^(https?:\/\/)((([a-zA-Z0-9.-]+\.)+[a-zA-Z]{2,})|((\d{1,3}\.){3}\d{1,3}))(:\d+)?(\/[-a-zA-Z0-9%_.~+]*)*(\?[;&a-zA-Z0-9%_.~+=-]*)?(#[-a-zA-Z0-9_]*)?$/i;
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/g;
   return urlPattern.test(url);
 }
