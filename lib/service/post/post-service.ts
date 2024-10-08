@@ -87,21 +87,11 @@ export async function fetchAllPostCount(): Promise<FetchAllPostCountResponse> {
 }
 
 /**
- * 메모 추가하기
- */
-export async function insertMemo({
-  postId,
-  content,
-}: InsertMemoRequest): Promise<void> {
-  await httpClient.post(`/posts/${postId}/memos`, { content });
-}
-
-/**
- * 메모 수정하기
+ * 메모 추가/수정하기
  */
 export async function updateMemo({
   postId,
   content,
 }: InsertMemoRequest): Promise<void> {
-  await httpClient.patch(`/posts/${postId}/memos`, { content });
+  await httpClient.post(`/posts/${postId}/memos`, { content });
 }

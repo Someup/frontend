@@ -1,10 +1,7 @@
 'use client';
 import Button from '@/components/ui/Button';
 import TextField from '@/components/ui/TextField';
-import {
-  useInsertMemo,
-  useUpdateMemo,
-} from '@/lib/service/post/use-post-service';
+import { useUpdateMemo } from '@/lib/service/post/use-post-service';
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
@@ -22,13 +19,7 @@ const MemoTextField = ({
 }: MemoTextFieldProps) => {
   const [memo, setMemo] = useState(initialMemo);
   const [isEditing, setIsEditing] = useState(false);
-  const { mutate: insertMemoMutate } = useInsertMemo();
   const { mutate: updateMemoMutate } = useUpdateMemo();
-
-  const insertMemo = () => {
-    setIsEditing(false);
-    insertMemoMutate({ postId, content: memo });
-  };
 
   const updateMemo = () => {
     setIsEditing(false);
@@ -41,7 +32,7 @@ const MemoTextField = ({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
-      insertMemo();
+      updateMemo();
     }
   };
 
@@ -49,12 +40,7 @@ const MemoTextField = ({
 
   const handleClick = () => {
     if (isEditing) {
-      if (!initialMemo) {
-        insertMemo();
-      } else {
-        updateMemo();
-      }
-      setIsEditing(false);
+      updateMemo();
     } else {
       setIsEditing(true);
       textFieldRef.current?.focus();
