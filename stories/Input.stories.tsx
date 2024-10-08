@@ -40,6 +40,9 @@ const meta: Meta<typeof Input> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    'aria-invalid': {
+      control: { type: 'boolean' },
+    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof Input>;
@@ -116,7 +119,7 @@ export const WithErrorMessage: Story = {
       }}
     >
       <Label htmlFor="error-message">라벨</Label>
-      <Input {...args} id="error-message" />
+      <Input {...args} id="error-message" aria-invalid="true" />
       <ErrorMessage>에러 메시지입니다.</ErrorMessage>
     </div>
   ),

@@ -35,6 +35,9 @@ const config: Config = {
     colors: color,
     extend: {
       boxShadow: boxShadow,
+      aria: {
+        invalid: 'invalid="true"',
+      },
     },
   },
 };
