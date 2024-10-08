@@ -148,7 +148,9 @@ const SavePostDialog: FunctionComponent<SavePostDialogProps> = ({
       </DialogDescription>
       <DialogFooter className="justify-center">
         <DialogClose asChild>
-          <Button onClick={handleSubmit}>저장완료</Button>
+          <Button size="lg" onClick={handleSubmit}>
+            저장완료
+          </Button>
         </DialogClose>
       </DialogFooter>
     </DialogContent>

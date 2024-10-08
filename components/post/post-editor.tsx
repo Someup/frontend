@@ -109,7 +109,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               <span className="text-gray-600">{`${textLength}/5000`}</span>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button type="button" variant="filled">
+                  <Button size="lg" type="button" variant="filled">
                     저장하기
                   </Button>
                 </DialogTrigger>
