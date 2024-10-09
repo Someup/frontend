@@ -34,9 +34,19 @@ const config: Config = {
     },
     colors: color,
     extend: {
+      animation: {
+        'color-change': 'colorChange 2s steps(8) infinite',
+      },
       boxShadow: boxShadow,
       aria: {
         invalid: 'invalid="true"',
+      },
+      keyframes: {
+        colorChange: {
+          '0%': { fill: '#2c31ff' },
+          '12.5%': { fill: '#d4d4d4' },
+          '100%': { fill: '#d4d4d4' },
+        },
       },
     },
   },
