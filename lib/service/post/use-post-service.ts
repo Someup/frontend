@@ -57,8 +57,17 @@ export function usePostDetail(params: GetPostRequest) {
 }
 
 export function useUpdatePostMutation() {
+  const queryClient = useQueryClient();
   return useMutation<void, Error, { id: string; body: UpdatePostBody }>({
     mutationFn: ({ id, body }) => updatePost(id, body),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: postQuerys.detail._def,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: postQuerys.list._def,
+      });
+    },
   });
 }
 
