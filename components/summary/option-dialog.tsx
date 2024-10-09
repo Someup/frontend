@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/ui/Button';
 import {
   DialogClose,
@@ -22,16 +23,28 @@ import { SummaryOptions } from '@/types/summary-types';
 import { ChangeEvent, FunctionComponent, useId, useState } from 'react';
 
 interface OptionDialogProps {
+  initialOptions?: SummaryOptions;
   onConfirm: (options: SummaryOptions) => void;
 }
-const OptionDialog: FunctionComponent<OptionDialogProps> = ({ onConfirm }) => {
+const OptionDialog: FunctionComponent<OptionDialogProps> = ({
+  onConfirm,
+  initialOptions = {
+    language: 'kr',
+    level: 'base',
+    tone: 'casual',
+  },
+}) => {
   const levelRadioGroupId = useId();
   const toneRadioGroupId = useId();
   const languageRadioGroupId = useId();
 
-  const [level, setLevel] = useState<SummaryOptions['level']>('base');
-  const [tone, setTone] = useState<SummaryOptions['tone']>('casual');
-  const [language, setLanguage] = useState<SummaryOptions['language']>('kr');
+  const [level, setLevel] = useState<SummaryOptions['level']>(
+    initialOptions.level,
+  );
+  const [tone, setTone] = useState<SummaryOptions['tone']>(initialOptions.tone);
+  const [language, setLanguage] = useState<SummaryOptions['language']>(
+    initialOptions.language,
+  );
   const [keyword, setKeyword] = useState<string>('');
 
   const handleConfirmButtonClick = () => {
@@ -155,6 +168,7 @@ const OptionDialog: FunctionComponent<OptionDialogProps> = ({ onConfirm }) => {
       <DialogFooter className="p-0">
         <DialogClose asChild>
           <Button
+            size="lg"
             type="button"
             variant="filled"
             onClick={handleConfirmButtonClick}
