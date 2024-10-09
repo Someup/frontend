@@ -88,7 +88,11 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           }
         },
         onSuccess: () => {
-          router.push(`/archive?id=${archiveId}`);
+          if (status === 'draft') {
+            router.push(`/archive?id=${archiveId}`);
+          } else {
+            router.push(`/posts/${id}`);
+          }
         },
       },
     );
