@@ -28,7 +28,8 @@ export default function CreateArchiveDialog({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<ArchiveSchema>({
     resolver: zodResolver(archiveSchema),
     defaultValues: {
@@ -36,11 +37,13 @@ export default function CreateArchiveDialog({
     },
   });
 
-  const onSubmit = (values: ArchiveSchema) => {
-    createArchive.mutate(
+  const onSubmit = async (values: ArchiveSchema) => {
+    if (isSubmitting) return;
+    await createArchive.mutateAsync(
       { name: values.name },
       {
         onSuccess: () => {
+          reset();
           onSuccess(values.name);
         },
         onError: (error) => {
@@ -54,7 +57,12 @@ export default function CreateArchiveDialog({
   };
 
   return (
-    <DialogContent asChild>
+    <DialogContent
+      asChild
+      onCloseAutoFocus={() => {
+        reset();
+      }}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogHeader className="justify-center">
           <DialogTitle>새로운 아카이브 추가</DialogTitle>
@@ -71,8 +79,8 @@ export default function CreateArchiveDialog({
           <ErrorMessage>{errors.name?.message}</ErrorMessage>
         </div>
         <DialogFooter className="justify-center">
-          <Button size="lg" type="submit">
-            확인하기
+          <Button size="lg" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? '추가 중...' : '추가하기'}
           </Button>
         </DialogFooter>
       </form>
