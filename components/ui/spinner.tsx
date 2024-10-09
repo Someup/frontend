@@ -18,6 +18,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           height="24"
           rx="4"
           className="spinner-bar animate-color-change"
+          style={{ animationDelay: '-1.75s' }}
         />
         <rect
           x="67.7969"
@@ -27,7 +28,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           rx="4"
           transform="rotate(-135 67.7969 33.8577)"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-0.25s' }}
+          style={{ animationDelay: '-1.5s' }}
         />
         <rect
           x="72"
@@ -37,7 +38,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           rx="4"
           transform="rotate(-90 72 52)"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-0.5s' }}
+          style={{ animationDelay: '-1.25s' }}
         />
         <rect
           x="62.1406"
@@ -47,7 +48,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           rx="4"
           transform="rotate(-45 62.1406 67.7991)"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-0.75s' }}
+          style={{ animationDelay: '-1s' }}
         />
         <rect
           x="44"
@@ -56,7 +57,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           height="24"
           rx="4"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-1s' }}
+          style={{ animationDelay: '-0.75s' }}
         />
         <rect
           x="16.8867"
@@ -66,7 +67,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           rx="4"
           transform="rotate(-135 16.8867 84.7695)"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-1.25s' }}
+          style={{ animationDelay: '-0.5s' }}
         />
         <rect
           y="52"
@@ -75,7 +76,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           rx="4"
           transform="rotate(-90 0 52)"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-1.5s' }}
+          style={{ animationDelay: '-0.25s' }}
         />
         <rect
           x="11.2305"
@@ -85,7 +86,7 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           rx="4"
           transform="rotate(-45 11.2305 16.8872)"
           className="spinner-bar animate-color-change"
-          style={{ animationDelay: '-1.75s' }}
+          style={{ animationDelay: '0s' }}
         />
       </svg>
     </div>
