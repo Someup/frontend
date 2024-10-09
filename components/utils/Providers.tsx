@@ -1,4 +1,5 @@
 'use client';
+import { Toaster } from '@/components/ui/Toster';
 import {
   isServer,
   QueryClient,
@@ -48,6 +49,7 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster />
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
