@@ -28,7 +28,7 @@ export default function ArchiveList({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [MaxArchiveAlertOpen, setMaxArchiveAlertOpen] = useState(false);
 
-  const createArchiveDisabled = archives.length > ARCHIVE_MAX_NUM;
+  const createArchiveDisabled = archives.length >= ARCHIVE_MAX_NUM;
 
   const handleCreateArchive = (archiveName: string) => {
     if (archives.length > ARCHIVE_MAX_NUM) {
@@ -47,7 +47,7 @@ export default function ArchiveList({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       <Link
         href={`/archive`}
         className={cn(
