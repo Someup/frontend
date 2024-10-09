@@ -1,4 +1,8 @@
-import { forwardRef, useImperativeHandle, useState, ChangeEvent } from 'react';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { PostSchema, postSchema } from '@/lib/service/post/constraints';
+import { useToast } from '@/components/hooks/use-toast';
 
 interface TitleInputProps {
   initialTitle: string;
@@ -7,25 +11,46 @@ interface TitleInputProps {
 
 const PostTitle = forwardRef<{ getTitle: () => string }, TitleInputProps>(
   ({ initialTitle, readOnly = false }, ref) => {
-    const [title, setTitle] = useState(initialTitle);
-    const [showError, setShowError] = useState(false);
-
-    const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setTitle(e.target.value);
-    };
-
-    const handleBlur = () => {
-      setShowError(title.length < 2 || title.length > 30);
-    };
+    const { toast, dismiss } = useToast();
+    const {
+      register,
+      getValues,
+      formState: { errors },
+      setValue,
+    } = useForm<PostSchema>({
+      resolver: zodResolver(postSchema),
+      defaultValues: {
+        title: initialTitle,
+      },
+      mode: 'onChange',
+    });
 
     useImperativeHandle(ref, () => ({
-      getTitle: () => title,
+      getTitle: () => getValues('title'),
     }));
+
+    useEffect(() => {
+      if (errors.title) {
+        toast({
+          description: errors.title.message,
+          variant: 'destructive',
+        });
+        const title = getValues('title');
+        if (errors.title && title.length > 100) {
+          setValue('title', title.slice(0, 100), {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+        }
+      } else {
+        dismiss();
+      }
+    }, [errors.title, setValue, toast]);
 
     if (readOnly) {
       return (
         <div className="flex flex-shrink-0 items-center justify-center p-4">
-          <h1 className="text-center text-3xl font-semibold">{title}</h1>
+          <h1 className="text-center text-3xl font-semibold">{initialTitle}</h1>
         </div>
       );
     }
@@ -34,16 +59,10 @@ const PostTitle = forwardRef<{ getTitle: () => string }, TitleInputProps>(
       <div className="flex flex-shrink-0 items-center justify-center p-4">
         <div className="flex flex-col">
           <input
-            value={title}
-            onChange={handleTitleChange}
+            {...register('title')}
+            placeholder="제목을 입력하세요"
             className="flex-1 bg-transparent text-center text-3xl font-semibold"
-            onBlur={handleBlur}
           />
-          {showError && (
-            <p className="text-error-400">
-              제목은 2자 이상 30자 이하여야 합니다.
-            </p>
-          )}
         </div>
       </div>
     );
