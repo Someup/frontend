@@ -1,4 +1,5 @@
 import clientEnv from '@/lib/env/client-env';
+import httpClient from '@/lib/http-client';
 import token from '@/lib/service/auth/token';
 import { LoginResponse, ReissueTokenResponse } from '@/types/auth-types';
 import axios from 'axios';
@@ -38,4 +39,8 @@ export function reissueToken() {
       withCredentials: true,
     },
   );
+}
+
+export function withdrawAccount() {
+  return httpClient.delete<void>('/auth/withdraw');
 }
