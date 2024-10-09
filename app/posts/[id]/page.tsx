@@ -4,6 +4,7 @@ import PostDetail from '@/components/post/post-detail';
 import postQuerys from '@/lib/service/post/post-queries';
 import { Metadata } from 'next';
 import { fetchPost } from '@/lib/service/post/post-service';
+import Spinner from '@/components/ui/spinner';
 
 interface Props {
   params: { id: string };
@@ -23,15 +24,13 @@ function PostsPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PrefetchBoundary
-          fetchQueryOptions={postQuerys.detail({ id, status: 'published' })}
-        >
-          <PostDetail id={id} readOnly={true} status="published" />
-        </PrefetchBoundary>
-      </Suspense>
-    </>
+    <Suspense fallback={<Spinner />}>
+      <PrefetchBoundary
+        fetchQueryOptions={postQuerys.detail({ id, status: 'published' })}
+      >
+        <PostDetail id={id} readOnly={true} status="published" />
+      </PrefetchBoundary>
+    </Suspense>
   );
 }
 

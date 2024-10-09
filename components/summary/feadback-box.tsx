@@ -22,23 +22,21 @@ const FeedbackBox: FunctionComponent = () => {
     });
   };
   return (
-    <div>
-      <div
-        className={cn(
-          typography({ scale: 'title-3' }),
-          'mx-auto my-5 flex h-24 w-full max-w-[1156px] items-center justify-between rounded-2 bg-gray-50 px-5',
-        )}
-      >
-        요약이 마음에 안드시나요?
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button type="button" variant="outlined" size="lg">
-              재요약하기
-            </Button>
-          </DialogTrigger>
-          <OptionDialog onConfirm={handleConfirm} initialOptions={options} />
-        </Dialog>
-      </div>
+    <div
+      className={cn(
+        typography({ scale: 'title-3' }),
+        'mx-auto my-5 flex min-h-24 w-full max-w-[1156px] items-center justify-between rounded-2 bg-gray-50 px-5',
+      )}
+    >
+      요약이 마음에 안드시나요?
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button type="button" variant="outlined" size="lg">
+            재요약하기
+          </Button>
+        </DialogTrigger>
+        <OptionDialog onConfirm={handleConfirm} initialOptions={options} />
+      </Dialog>
     </div>
   );
 };
