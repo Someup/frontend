@@ -1,5 +1,10 @@
 import PostEditor from '@/components/post/post-editor';
 import { PostStatus } from '@/types/post-types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '요약 수정하기',
+};
 
 const WritePage = ({
   params,

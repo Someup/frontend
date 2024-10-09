@@ -4,6 +4,11 @@ import PostDetail from '@/components/post/post-detail';
 import postQuerys from '@/lib/service/post/post-queries';
 import FeedbackBox from '@/components/summary/feadback-box';
 import SummarySaveButton from '@/components/summary/summary-save-button';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '요약 결과보기',
+};
 
 function ResultPage({ params }: { params: { id: string } }) {
   const { id } = params;
