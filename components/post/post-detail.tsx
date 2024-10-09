@@ -40,7 +40,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
     <div className="mx-auto w-full max-w-[960px]">
       {isPublished && (
         <Link
-          href={`/archive/${archiveId}`}
+          href={`/archive?id=${archiveId}`}
           className={cn(typography({ scale: 'body-2' }))}
         >
           {archiveName}
