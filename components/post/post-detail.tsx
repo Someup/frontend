@@ -22,13 +22,30 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
   readOnly,
 }) => {
   const {
-    data: { content, url, title, memoContent, memoCreatedAt, tagList },
+    data: {
+      archiveId,
+      archiveName,
+      content,
+      url,
+      title,
+      memoContent,
+      memoCreatedAt,
+      tagList,
+    },
   } = usePostDetail({ id, status });
 
   const isPublished = status === 'published';
 
   return (
-    <div className="mx-auto flex-1">
+    <div className="mx-auto w-full max-w-[960px]">
+      {isPublished && (
+        <Link
+          href={`/archive/${archiveId}`}
+          className={cn(typography({ scale: 'body-2' }))}
+        >
+          {archiveName}
+        </Link>
+      )}
       <PostTitle initialTitle={title} readOnly />
       {isPublished && (
         <div className="flex h-15 items-center justify-end">

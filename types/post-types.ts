@@ -8,8 +8,10 @@ export interface Post {
   url: string;
   tagList: string[];
   createdAt: string;
-  memoContent: string;
-  memoCreatedAt: string;
+  archiveId?: number;
+  archiveName?: string;
+  memoContent?: string;
+  memoCreatedAt?: string;
 }
 
 export interface CreatePostRequest {

@@ -24,7 +24,7 @@ interface PostEditorProps {
 
 const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   const {
-    data: { content, title, tagList },
+    data: { content, title, tagList, archiveId },
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
   const titleRef = useRef<{ getTitle: () => string }>(null);
@@ -113,7 +113,10 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
                     저장하기
                   </Button>
                 </DialogTrigger>
-                <SavePostDialog onSubmit={updatePost} />
+                <SavePostDialog
+                  onSubmit={updatePost}
+                  initialArchiveId={archiveId}
+                />
               </Dialog>
             </div>
           </div>
