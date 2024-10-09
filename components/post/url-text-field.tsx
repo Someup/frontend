@@ -28,7 +28,7 @@ const URLTextField = () => {
     tone: 'casual',
     language: 'kr',
   });
-  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState<string | null>(null); // 다이얼로그 메시지 상태
 
   const handleConfirm = (options: SummaryOptions) => {
     setOptions(options);
@@ -39,13 +39,22 @@ const URLTextField = () => {
   const handleSummary = () => {
     const isValidUrl = isValidURL(url);
     if (!isValidUrl) {
-      setIsErrorDialogOpen(true);
+      setDialogMessage('유효하지 않은 형식의 URL 입니다.');
       return;
     }
-    mutate({
-      url,
-      options,
-    });
+    mutate(
+      {
+        url,
+        options,
+      },
+      {
+        onError: () => {
+          setDialogMessage(
+            '요약을 생성하는 데 문제가 발생했습니다.\n URL을 다시 확인하거나 잠시 후 다시 시도해 주세요.',
+          );
+        },
+      },
+    );
   };
 
   const handleKeyDown = async (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -62,16 +71,20 @@ const URLTextField = () => {
 
   return (
     <div className="mx-auto w-full max-w-[912px] p-4">
-      <Dialog open={isErrorDialogOpen} onOpenChange={setIsErrorDialogOpen}>
+      <Dialog
+        open={!!dialogMessage}
+        onOpenChange={() => setDialogMessage(null)}
+      >
         <DialogContent className="text-center">
-          유효하지 않은 형식의 URL 입니다.
+          {dialogMessage}
           <DialogFooter>
-            <Button size="lg" onClick={() => setIsErrorDialogOpen(false)}>
+            <Button size="lg" onClick={() => setDialogMessage(null)}>
               확인
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
       <Dialog>
         <DialogTrigger asChild>
           <button
