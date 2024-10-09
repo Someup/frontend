@@ -16,7 +16,7 @@ const MainHeader: FunctionComponent = () => {
 
   if (!isHome) {
     return (
-      <div className="fixed top-0 z-50 flex h-15 w-full cursor-pointer items-center justify-between bg-white px-6">
+      <div className="fixed top-0 z-50 flex h-15 w-full cursor-pointer items-center justify-between bg-white px-6 shadow-[0_4px_4px_0_rgba(0,0,0,0.08)]">
         <Link href="/">
           <Image src="/header_logo.png" width={150} height={60} alt="logo" />
         </Link>
