@@ -50,7 +50,7 @@ const DialogContent: React.ForwardRefExoticComponent<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-8 rounded-2 bg-white px-8 py-8',
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-8 whitespace-pre-wrap rounded-2 bg-white px-8 py-8',
         className,
       )}
       {...props}
