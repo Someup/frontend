@@ -24,15 +24,19 @@ import {
   deletePost,
   updateMemo,
 } from '@/lib/service/post/post-service';
+import { useRouter } from 'next/navigation';
 
 export function useCreatePostMutation() {
   const queryClient = useQueryClient();
+  const router = useRouter();
   return useMutation<CreatePostResponse, Error, CreatePostRequest>({
     mutationFn: createPost,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const { postId } = data;
       void queryClient.invalidateQueries({
         queryKey: postQuerys.detail._def,
       });
+      router.push(`/result/${postId}`);
     },
   });
 }

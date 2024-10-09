@@ -20,7 +20,7 @@ export interface CreatePostRequest {
 }
 
 export interface CreatePostResponse {
-  postId: number;
+  postId: string;
 }
 
 export interface GetPostRequest {
