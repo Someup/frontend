@@ -5,7 +5,6 @@ import { typography } from '@/styles/typography';
 import { cn } from '@/lib/utils';
 import Editor from '@/components/editor/editor';
 import { PostStatus } from '@/types/post-types';
-import PostTitle from '@/components/post/post-title';
 import MemoTextField from '@/components/post/memo-text-field';
 import PostTags from '@/components/post/post-tags';
 import Link from 'next/link';
@@ -46,7 +45,9 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
           {archiveName}
         </Link>
       )}
-      <PostTitle initialTitle={title} readOnly />
+      <div className="flex flex-shrink-0 items-center justify-center p-4">
+        <h1 className="text-center text-3xl font-semibold">{title}</h1>
+      </div>
       {isPublished && (
         <div className="flex h-15 items-center justify-end">
           <Link
