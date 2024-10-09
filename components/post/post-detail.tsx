@@ -55,10 +55,7 @@ const PostDetail: FunctionComponent<PostDetailProps> = ({
           >
             수정
           </Link>
-          {/**
-           * @todo fetchPost 응답으로 archiveId 받아 props 전달 필요
-           */}
-          <DeletePostButton postId={id} archiveId={''} />
+          <DeletePostButton postId={id} archiveId={archiveId} />
         </div>
       )}
       <a
