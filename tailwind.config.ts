@@ -21,7 +21,7 @@ const config: Config = {
     './styles/**/*.{js,ts,jsx,tsx,mdx}',
     ...(isStorybook ? ['./stories/**/*.{js,ts,jsx,tsx,mdx}'] : []),
   ],
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')],
   theme: {
     fontSize,
     fontWeight,
