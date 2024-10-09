@@ -20,15 +20,13 @@ import {
   SummaryToneLabels,
 } from '@/constants/SummaryOptionLabels';
 import { useCreatePostMutation } from '@/lib/service/post/use-post-service';
+import { useRouter } from 'next/navigation';
+import { useSummaryStore } from '@/store/useSummaryStore';
 
 const URLTextField = () => {
-  const [url, setUrl] = useState('');
-  const [options, setOptions] = useState<SummaryOptions>({
-    level: 'base',
-    tone: 'casual',
-    language: 'kr',
-  });
-  const [dialogMessage, setDialogMessage] = useState<string | null>(null); // 다이얼로그 메시지 상태
+  const { url, setUrl, options, setOptions } = useSummaryStore();
+  const [dialogMessage, setDialogMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleConfirm = (options: SummaryOptions) => {
     setOptions(options);
@@ -52,6 +50,9 @@ const URLTextField = () => {
           setDialogMessage(
             '요약을 생성하는 데 문제가 발생했습니다.\n URL을 다시 확인하거나 잠시 후 다시 시도해 주세요.',
           );
+        },
+        onSuccess: ({ postId }) => {
+          router.push(`/result/${postId}`);
         },
       },
     );
