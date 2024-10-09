@@ -1,10 +1,19 @@
+import { cn } from '@/lib/utils';
+import { typography } from '@/styles/typography';
+
 interface SpinnerProps {
   className?: string;
+  showText?: boolean;
 }
 
-export default function Spinner({ className = '' }: SpinnerProps) {
+export default function Spinner({
+  className = '',
+  showText = true,
+}: SpinnerProps) {
   return (
-    <div className={`flex items-center justify-center ${className}`}>
+    <div
+      className={`m-auto flex flex-col items-center justify-center ${className}`}
+    >
       <svg
         width="96"
         height="96"
@@ -89,6 +98,13 @@ export default function Spinner({ className = '' }: SpinnerProps) {
           style={{ animationDelay: '0s' }}
         />
       </svg>
+      {showText && (
+        <span
+          className={cn(typography({ scale: 'body-1' }), 'mt-11 text-gray-500')}
+        >
+          잠시만 기다려주세요.
+        </span>
+      )}
     </div>
   );
 }

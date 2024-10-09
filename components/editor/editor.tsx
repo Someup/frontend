@@ -1,11 +1,13 @@
 import dynamic from 'next/dynamic';
 import { forwardRef } from 'react';
 import { type MDXEditorProps, type MDXEditorMethods } from '@mdxeditor/editor';
+import Spinner from '@/components/ui/spinner';
 
 const InitializedMDXEditor = dynamic(
   () => import('@/components/editor/initalized-mdx-editor'),
   {
     ssr: false,
+    loading: () => <Spinner />,
   },
 );
 

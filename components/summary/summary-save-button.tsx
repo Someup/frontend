@@ -27,7 +27,7 @@ const SummarySaveButton: FunctionComponent<SummarySaveButtonProps> = ({
       type="button"
       variant="filled"
       size="lg"
-      className="ml-auto"
+      className="ml-auto mt-auto"
       onClick={handleClick}
     >
       저장하기
