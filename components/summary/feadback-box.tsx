@@ -1,19 +1,23 @@
 'use client';
 
+import LoginDialog from '@/components/auth/login-dialog';
 import OptionDialog from '@/components/summary/option-dialog';
 import Button from '@/components/ui/Button';
 import { DialogTrigger } from '@/components/ui/Dialog';
 import { useCreatePostMutation } from '@/lib/service/post/use-post-service';
+import { useUserProfile } from '@/lib/service/user/use-user-service';
 import { cn } from '@/lib/utils';
 import { useSummaryStore } from '@/store/useSummaryStore';
 import { typography } from '@/styles/typography';
 import { SummaryOptions } from '@/types/summary-types';
 import { Dialog } from '@radix-ui/react-dialog';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, Suspense } from 'react';
 
 const FeedbackBox: FunctionComponent = () => {
   const { url, options, setOptions } = useSummaryStore();
   const { mutate } = useCreatePostMutation();
+  const isLogin = useUserProfile().data !== undefined;
+
   const handleConfirm = (newOptions: SummaryOptions) => {
     setOptions(options);
     mutate({
@@ -21,6 +25,7 @@ const FeedbackBox: FunctionComponent = () => {
       options: newOptions,
     });
   };
+
   return (
     <div
       className={cn(
@@ -35,7 +40,13 @@ const FeedbackBox: FunctionComponent = () => {
             재요약하기
           </Button>
         </DialogTrigger>
-        <OptionDialog onConfirm={handleConfirm} initialOptions={options} />
+        {isLogin ? (
+          <OptionDialog onConfirm={handleConfirm} initialOptions={options} />
+        ) : (
+          <Suspense>
+            <LoginDialog />
+          </Suspense>
+        )}
       </Dialog>
     </div>
   );
