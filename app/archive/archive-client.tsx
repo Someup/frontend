@@ -4,7 +4,8 @@ import PostList from '@/components/post/post-list';
 import PostSearchBar from '@/components/post/post-search-bar';
 import { useArchives } from '@/lib/service/archive/use-archive-service';
 import Link from 'next/link';
-import React, { Suspense } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { Suspense, useEffect } from 'react';
 
 interface ArchiveClientProps {
   id?: number;
@@ -15,9 +16,15 @@ export default function ArchiveClient({ id, search }: ArchiveClientProps) {
   const {
     data: { archives },
   } = useArchives();
-
+  const router = useRouter();
   const selectedArchive = archives.find((archive) => archive.id === id);
   const title = selectedArchive ? selectedArchive.name : '전체';
+
+  useEffect(() => {
+    if (id && !selectedArchive) {
+      router.push('/archive');
+    }
+  }, [id, router, selectedArchive]);
 
   return (
     <div className="mt-17">
