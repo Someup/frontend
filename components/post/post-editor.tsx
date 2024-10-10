@@ -1,5 +1,5 @@
 'use client';
-import { FunctionComponent, useState, useRef } from 'react';
+import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import { AxiosError } from 'axios';
 import {
   usePostDetail,
@@ -11,11 +11,15 @@ import FoldIcon from '@/assets/unfold.svg';
 import { type MDXEditorMethods } from '@mdxeditor/editor';
 import { cn } from '@/lib/utils';
 import { PostStatus } from '@/types/post-types';
-import PostTitle from '@/components/post/post-title';
+import PostTitleInput from '@/components/post/post-title-input';
 import PostTags from '@/components/post/post-tags';
-import { DialogTrigger, Dialog } from '@/components/ui/Dialog';
+import { Dialog } from '@/components/ui/Dialog';
 import SavePostDialog from '@/components/post/post-save-dialog';
 import { useRouter } from 'next/navigation';
+import { FieldErrors, useForm } from 'react-hook-form';
+import { useToast } from '@/components/hooks/use-toast';
+import { PostSchema, postSchema } from '@/lib/service/post/constraints';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface PostEditorProps {
   id: string;
@@ -27,7 +31,6 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
     data: { content, title, tagList, archiveId },
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
-  const titleRef = useRef<{ getTitle: () => string }>(null);
   const tagListRef = useRef<{ getTagList: () => string[] }>(null);
 
   const editorRef = useRef<MDXEditorMethods>(null);
@@ -36,15 +39,33 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
 
   const [fold, setFold] = useState(false);
 
+  const { toast, dismiss } = useToast();
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<PostSchema>({
+    resolver: zodResolver(postSchema),
+    defaultValues: {
+      title: title,
+    },
+  });
+
+  useEffect(() => {
+    if (!errors.title) {
+      dismiss();
+    }
+  }, [errors.title]);
+
   const router = useRouter();
 
   const updatePost = (archiveId: number) => {
-    const newTitle = titleRef.current?.getTitle() ?? '';
     updatePostMutate(
       {
         id,
         body: {
-          title: newTitle,
+          title: getValues('title'),
           content: editorRef.current?.getMarkdown().trim() ?? '',
           tagList: tagListRef.current?.getTagList() ?? [],
           memo: null,
@@ -72,6 +93,21 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
     setFold(!fold);
   };
 
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const onInvalid = (error: FieldErrors) => {
+    if (error.title) {
+      toast({
+        description: error.title.message?.toString(),
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const onSubmit = () => {
+    setDialogOpen(true); // 유효성 검사를 통과하면 다이얼로그 열기
+  };
+
   return (
     <div className="flex h-full flex-col pt-15">
       <div className="flex flex-grow overflow-hidden">
@@ -92,34 +128,37 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               <FoldIcon className={fold ? 'rotate-180' : ''} />
             </Button>
           </div>
-          <PostTitle initialTitle={title} ref={titleRef} readOnly={false} />
-          <PostTags
-            initialTagList={tagList}
-            ref={tagListRef}
-            className="mb-4 ml-10"
-          />
-          <Editor
-            markdown={content}
-            ref={editorRef}
-            onChange={handleChange}
-            className="flex flex-grow basis-0 flex-col px-4"
-          />
-          <div className="flex-shrink-0 bg-white p-5">
-            <div className="flex flex-col items-end gap-4">
-              <span className="text-gray-600">{`${textLength}/5000`}</span>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button size="lg" type="button" variant="filled">
-                    저장하기
-                  </Button>
-                </DialogTrigger>
-                <SavePostDialog
-                  onSubmit={updatePost}
-                  initialArchiveId={archiveId}
-                />
-              </Dialog>
+          <form
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            className="flex h-full flex-col"
+          >
+            <PostTitleInput register={register} />
+            <PostTags
+              initialTagList={tagList}
+              ref={tagListRef}
+              className="mb-4 ml-10"
+            />
+            <Editor
+              markdown={content}
+              ref={editorRef}
+              onChange={handleChange}
+              className="flex flex-grow basis-0 flex-col px-4"
+            />
+            <div className="flex-shrink-0 bg-white p-5">
+              <div className="flex flex-col items-end gap-4">
+                <span className="text-gray-600">{`${textLength}/5000`}</span>
+                <Button size="lg" type="submit" variant="filled">
+                  저장하기
+                </Button>
+                <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
+                  <SavePostDialog
+                    onSubmit={updatePost}
+                    initialArchiveId={archiveId}
+                  />
+                </Dialog>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
         <div
           className={cn(
@@ -134,7 +173,9 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               fold ? 'opacity-0' : 'opacity-100',
             )}
           >
-            <PostTitle initialTitle={title} ref={titleRef} readOnly />
+            <div className="flex flex-shrink-0 items-center justify-center p-4">
+              <h1 className="text-center text-3xl font-semibold">{title}</h1>
+            </div>
             <Editor
               markdown={content}
               readOnly
