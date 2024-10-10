@@ -14,7 +14,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 interface PostDeleteButtonProps {
-  archiveId: string;
+  archiveId?: number;
   postId: string;
 }
 
@@ -68,7 +68,13 @@ const PostDeleteButton = ({ archiveId, postId }: PostDeleteButtonProps) => {
             요약본이 삭제되었습니다.
           </DialogDescription>
           <DialogFooter>
-            <Link href={`/archive?id=${archiveId}`}>
+            <Link
+              href={
+                archiveId !== undefined
+                  ? '/archive'
+                  : `/archive?id=${archiveId}`
+              }
+            >
               <Button size="lg" onClick={handleAcceptButtonClick}>
                 확인
               </Button>
