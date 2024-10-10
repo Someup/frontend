@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, Suspense } from 'react';
 import TextField from '@/components/ui/TextField';
 import Button from '@/components/ui/Button';
 import { typography } from '@/styles/typography';
@@ -21,10 +21,13 @@ import {
 } from '@/constants/SummaryOptionLabels';
 import { useCreatePostMutation } from '@/lib/service/post/use-post-service';
 import { useSummaryStore } from '@/store/useSummaryStore';
+import LoginDialog from '@/components/auth/login-dialog';
+import { useUserProfile } from '@/lib/service/user/use-user-service';
 
 const URLTextField = () => {
   const { url, setUrl, options, setOptions } = useSummaryStore();
   const [dialogMessage, setDialogMessage] = useState<string | null>(null);
+  const isLogin = useUserProfile().data !== undefined;
 
   const handleConfirm = (options: SummaryOptions) => {
     setOptions(options);
@@ -94,7 +97,13 @@ const URLTextField = () => {
             설정
           </button>
         </DialogTrigger>
-        <OptionDialog onConfirm={handleConfirm} />
+        {isLogin ? (
+          <OptionDialog onConfirm={handleConfirm} />
+        ) : (
+          <Suspense>
+            <LoginDialog />
+          </Suspense>
+        )}
       </Dialog>
       <TextField
         placeholder="URL을 입력해주세요."

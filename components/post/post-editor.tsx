@@ -1,5 +1,11 @@
 'use client';
-import { FunctionComponent, useState, useRef, useEffect } from 'react';
+import {
+  FunctionComponent,
+  useState,
+  useRef,
+  useEffect,
+  Suspense,
+} from 'react';
 import { AxiosError } from 'axios';
 import {
   usePostDetail,
@@ -20,6 +26,8 @@ import { FieldErrors, useForm } from 'react-hook-form';
 import { useToast } from '@/components/hooks/use-toast';
 import { PostSchema, postSchema } from '@/lib/service/post/constraints';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useUserProfile } from '@/lib/service/user/use-user-service';
+import LoginDialog from '@/components/auth/login-dialog';
 
 interface PostEditorProps {
   id: string;
@@ -32,6 +40,7 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
   const tagListRef = useRef<{ getTagList: () => string[] }>(null);
+  const isLogin = useUserProfile().data !== undefined;
 
   const editorRef = useRef<MDXEditorMethods>(null);
 
@@ -151,10 +160,16 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
                   저장하기
                 </Button>
                 <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-                  <SavePostDialog
-                    onSubmit={updatePost}
-                    initialArchiveId={archiveId}
-                  />
+                  {isLogin ? (
+                    <SavePostDialog
+                      onSubmit={updatePost}
+                      initialArchiveId={archiveId}
+                    />
+                  ) : (
+                    <Suspense>
+                      <LoginDialog />
+                    </Suspense>
+                  )}
                 </Dialog>
               </div>
             </div>
