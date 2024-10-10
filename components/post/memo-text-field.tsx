@@ -38,7 +38,7 @@ const MemoTextField = ({
       memo: initialMemo,
     },
   });
-  const memo = watch('memo');
+  const memo = watch('memo', '');
   const textCounter = `${memo.length} / ${maxLength}`;
 
   const updateMemo = () => {
