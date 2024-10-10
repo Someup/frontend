@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 'use client';
 import { useIntersectionObserver } from 'usehooks-ts';
@@ -55,9 +56,23 @@ export default function PostList({
 
   if (allPosts.length === 0) {
     return (
-      <p className={cn(typography({ scale: 'title-3' }), 'py-12 text-center')}>
-        요약본이 없습니다.
-      </p>
+      <div className="mt-16">
+        <img
+          src="/folder.png"
+          alt="folder"
+          width={289}
+          height={288}
+          className="mx-auto"
+        />
+        <p
+          className={cn(
+            typography({ scale: 'title-1' }),
+            'py-0 text-center text-gray-300',
+          )}
+        >
+          아카이브가 비어있습니다 :&gt;
+        </p>
+      </div>
     );
   }
 
