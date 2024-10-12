@@ -48,6 +48,12 @@ const config: Config = {
           '100%': { fill: '#d4d4d4' },
         },
       },
+      backgroundImage: {
+        'card-1': "url('/images/card-1.png')",
+        'card-2': "url('/images/card-2.png')",
+        'card-3': "url('/images/card-3.png')",
+        'doodle-circle': "url('/images/doodle-circle.svg')",
+      },
     },
   },
 };
