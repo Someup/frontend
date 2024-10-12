@@ -21,7 +21,7 @@ interface MemoTextFieldProps {
 
 const MemoTextField = ({
   postId,
-  initialMemo = '',
+  initialMemo,
   createdAt,
 }: MemoTextFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -35,10 +35,10 @@ const MemoTextField = ({
   } = useForm<PostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      memo: initialMemo,
+      memo: initialMemo || '',
     },
   });
-  const memo = watch('memo', '');
+  const memo = watch('memo');
   const textCounter = `${memo.length} / ${maxLength}`;
 
   const updateMemo = () => {
