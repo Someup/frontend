@@ -12,6 +12,10 @@ export const POST_CONTENT_MAX_LENGTH: number = 5000;
 const POST_MEMO_MIN_LENGTH: number = 0;
 export const POST_MEMO_MAX_LENGTH: number = 1000;
 
+export const memoSchema = z.object({
+  memo: z.string().min(POST_MEMO_MIN_LENGTH).max(POST_MEMO_MAX_LENGTH),
+});
+
 export const postSchema = z.object({
   title: z
     .string()
@@ -21,7 +25,7 @@ export const postSchema = z.object({
     .string()
     .min(POST_CONTENT_MIN_LENGTH, POST_CONTENT_MIN_LENGTH_ERROR)
     .max(POST_CONTENT_MAX_LENGTH, POST_CONTENT_MAX_LENGTH_ERROR),
-  memo: z.string().min(POST_MEMO_MIN_LENGTH).max(POST_MEMO_MAX_LENGTH),
 });
 
 export type PostSchema = z.infer<typeof postSchema>;
+export type MemoSchema = z.infer<typeof memoSchema>;

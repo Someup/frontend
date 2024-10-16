@@ -2,9 +2,9 @@
 import Button from '@/components/ui/Button';
 import TextField from '@/components/ui/TextField';
 import {
+  memoSchema,
+  MemoSchema,
   POST_MEMO_MAX_LENGTH,
-  postSchema,
-  PostSchema,
 } from '@/lib/service/post/constraints';
 import { useUpdateMemo } from '@/lib/service/post/use-post-service';
 import { cn } from '@/lib/utils';
@@ -32,8 +32,8 @@ const MemoTextField = ({
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<PostSchema>({
-    resolver: zodResolver(postSchema),
+  } = useForm<MemoSchema>({
+    resolver: zodResolver(memoSchema),
     defaultValues: {
       memo: initialMemo || '',
     },
