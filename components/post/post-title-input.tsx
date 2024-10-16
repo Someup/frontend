@@ -13,7 +13,7 @@ const PostTitleInput: FunctionComponent<PostTitleInputProps> = ({
     <div className="flex flex-shrink-0 items-center justify-center p-4">
       <div className="flex flex-col">
         <input
-          {...register('memo')}
+          {...register('title')}
           placeholder="제목을 입력하세요"
           className="flex-1 bg-transparent text-center text-3xl font-semibold"
         />
