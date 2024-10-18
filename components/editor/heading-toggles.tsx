@@ -1,5 +1,10 @@
 import { FunctionComponent } from 'react';
-import { usePublisher, convertSelectionToNode$ } from '@mdxeditor/editor';
+import {
+  usePublisher,
+  convertSelectionToNode$,
+  currentBlockType$,
+  useCellValues,
+} from '@mdxeditor/editor';
 import { $createHeadingNode, type HeadingTagType } from '@lexical/rich-text';
 import { $createParagraphNode } from 'lexical';
 import Heading1Icon from '@/assets/heading-1.svg';
@@ -9,6 +14,7 @@ import Heading3Icon from '@/assets/heading-3.svg';
 import { ToolbarToggleGroup, ToolbarToggleItem } from '@/components/ui/Toolbar';
 
 const HeadingToggles: FunctionComponent = () => {
+  const [currentBlockType] = useCellValues(currentBlockType$);
   const convertSelectionToNode = usePublisher(convertSelectionToNode$);
   const handleChange = (blockType: HeadingTagType) => {
     if (blockType.startsWith('h')) {
@@ -20,6 +26,7 @@ const HeadingToggles: FunctionComponent = () => {
   return (
     <ToolbarToggleGroup
       type="single"
+      value={currentBlockType}
       onValueChange={handleChange}
       className="flex gap-1"
     >
