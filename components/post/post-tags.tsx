@@ -44,6 +44,11 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
         addNewTag();
       }
     };
+    const preventDefault = (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    };
 
     useImperativeHandle(ref, () => ({
       getTagList: () => tagList,
@@ -62,6 +67,7 @@ const PostTags = forwardRef<{ getTagList: () => string[] }, PostTagsProps>(
             placeholder="태그를 입력하세요"
             value={tag}
             onKeyUp={handleKeyUp}
+            onKeyDown={preventDefault}
             onChange={handleTagChange}
             onBlur={addNewTag}
             className="px-2 py-1"

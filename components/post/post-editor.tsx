@@ -22,9 +22,13 @@ import PostTags from '@/components/post/post-tags';
 import { Dialog } from '@/components/ui/Dialog';
 import SavePostDialog from '@/components/post/post-save-dialog';
 import { useRouter } from 'next/navigation';
-import { FieldErrors, useForm } from 'react-hook-form';
+import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useToast } from '@/components/hooks/use-toast';
-import { PostSchema, postSchema } from '@/lib/service/post/constraints';
+import {
+  POST_CONTENT_MAX_LENGTH,
+  PostSchema,
+  postSchema,
+} from '@/lib/service/post/constraints';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUserProfile } from '@/lib/service/user/use-user-service';
 import LoginDialog from '@/components/auth/login-dialog';
@@ -36,7 +40,7 @@ interface PostEditorProps {
 
 const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   const {
-    data: { content, title, tagList, archiveId },
+    data: { content, title, tagList, archiveId, memoContent },
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
   const tagListRef = useRef<{ getTagList: () => string[] }>(null);
@@ -44,22 +48,27 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
 
   const editorRef = useRef<MDXEditorMethods>(null);
 
-  const [textLength, setTextLength] = useState(content.trim().length);
-
   const [fold, setFold] = useState(false);
 
   const { toast, dismiss } = useToast();
   const {
+    watch,
+    control,
     register,
     getValues,
+    setFocus,
     handleSubmit,
     formState: { errors },
   } = useForm<PostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: title,
+      content: content,
     },
+    mode: 'onChange',
   });
+
+  const textLength = watch('content').length;
 
   useEffect(() => {
     if (!errors.title) {
@@ -77,8 +86,8 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           title: getValues('title'),
           content: editorRef.current?.getMarkdown().trim() ?? '',
           tagList: tagListRef.current?.getTagList() ?? [],
-          memo: null,
-          archiveId: archiveId === -1 ? null : archiveId,
+          memo: memoContent,
+          archiveId: archiveId === -1 ? undefined : archiveId,
         },
       },
       {
@@ -98,10 +107,6 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
     );
   };
 
-  const handleChange = (value: string) => {
-    setTextLength(value.trim().length);
-  };
-
   const toggleFold = () => {
     setFold(!fold);
   };
@@ -114,6 +119,14 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
         description: error.title.message?.toString(),
         variant: 'destructive',
       });
+      setFocus('title');
+    }
+    if (error.content) {
+      toast({
+        description: error.content.message?.toString(),
+        variant: 'destructive',
+      });
+      setFocus('content');
     }
   };
 
@@ -151,15 +164,26 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
               ref={tagListRef}
               className="mb-4 ml-10"
             />
-            <Editor
-              markdown={content}
-              ref={editorRef}
-              onChange={handleChange}
-              className="flex flex-grow basis-0 flex-col px-4"
+            <Controller
+              name="content"
+              control={control}
+              defaultValue={content}
+              render={({ field: { onChange, value } }) => (
+                <Editor
+                  markdown={value}
+                  ref={editorRef}
+                  onChange={onChange}
+                  className="flex flex-grow basis-0 flex-col px-4"
+                />
+              )}
             />
             <div className="flex-shrink-0 bg-white p-5">
               <div className="flex flex-col items-end gap-4">
-                <span className="text-gray-600">{`${textLength}/5000`}</span>
+                <span
+                  className={
+                    errors.content?.message ? 'text-error-400' : 'text-gray-600'
+                  }
+                >{`${textLength}/${POST_CONTENT_MAX_LENGTH}`}</span>
                 <Button size="lg" type="submit" variant="filled">
                   저장하기
                 </Button>

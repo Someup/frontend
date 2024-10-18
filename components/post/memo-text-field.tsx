@@ -2,9 +2,9 @@
 import Button from '@/components/ui/Button';
 import TextField from '@/components/ui/TextField';
 import {
+  memoSchema,
+  MemoSchema,
   POST_MEMO_MAX_LENGTH,
-  postSchema,
-  PostSchema,
 } from '@/lib/service/post/constraints';
 import { useUpdateMemo } from '@/lib/service/post/use-post-service';
 import { cn } from '@/lib/utils';
@@ -32,11 +32,12 @@ const MemoTextField = ({
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<PostSchema>({
-    resolver: zodResolver(postSchema),
+  } = useForm<MemoSchema>({
+    resolver: zodResolver(memoSchema),
     defaultValues: {
       memo: initialMemo || '',
     },
+    mode: 'onChange',
   });
   const memo = watch('memo');
   const textCounter = `${memo.length} / ${maxLength}`;
@@ -50,9 +51,9 @@ const MemoTextField = ({
 
   const textFieldRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isEditing) {
-      updateMemo();
+      await handleSubmit(updateMemo)();
     } else {
       setIsEditing(true);
       textFieldRef.current?.focus();
@@ -90,7 +91,7 @@ const MemoTextField = ({
           <Button
             variant="rounded"
             size="lg"
-            type="submit"
+            type="button"
             onClick={handleClick}
             className="round-13"
             disabled={Boolean(errors.memo)}

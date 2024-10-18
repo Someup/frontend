@@ -34,8 +34,8 @@ export interface UpdatePostBody {
   content: string;
   title: string;
   tagList: string[];
-  archiveId: number | null;
-  memo: string | null;
+  archiveId?: number;
+  memo?: string;
 }
 
 export interface FetchPostsRequest {
