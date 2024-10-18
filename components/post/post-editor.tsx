@@ -40,7 +40,7 @@ interface PostEditorProps {
 
 const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
   const {
-    data: { content, title, tagList, archiveId },
+    data: { content, title, tagList, archiveId, memoContent },
   } = usePostDetail({ id, status });
   const { mutate: updatePostMutate } = useUpdatePostMutation();
   const tagListRef = useRef<{ getTagList: () => string[] }>(null);
@@ -86,8 +86,8 @@ const PostEditor: FunctionComponent<PostEditorProps> = ({ id, status }) => {
           title: getValues('title'),
           content: editorRef.current?.getMarkdown().trim() ?? '',
           tagList: tagListRef.current?.getTagList() ?? [],
-          memo: null,
-          archiveId: archiveId === -1 ? null : archiveId,
+          memo: memoContent,
+          archiveId: archiveId === -1 ? undefined : archiveId,
         },
       },
       {
