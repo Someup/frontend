@@ -10,7 +10,7 @@ const POST_CONTENT_MAX_LENGTH_ERROR: string =
   '5000자를 초과하여 입력할 수 없습니다.';
 export const POST_CONTENT_MAX_LENGTH: number = 5000;
 const POST_MEMO_MIN_LENGTH: number = 0;
-export const POST_MEMO_MAX_LENGTH: number = 1000;
+export const POST_MEMO_MAX_LENGTH: number = 2000;
 
 export const memoSchema = z.object({
   memo: z.string().min(POST_MEMO_MIN_LENGTH).max(POST_MEMO_MAX_LENGTH),

@@ -37,6 +37,7 @@ const MemoTextField = ({
     defaultValues: {
       memo: initialMemo || '',
     },
+    mode: 'onChange',
   });
   const memo = watch('memo');
   const textCounter = `${memo.length} / ${maxLength}`;
@@ -50,9 +51,9 @@ const MemoTextField = ({
 
   const textFieldRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isEditing) {
-      updateMemo();
+      await handleSubmit(updateMemo)();
     } else {
       setIsEditing(true);
       textFieldRef.current?.focus();
@@ -90,7 +91,7 @@ const MemoTextField = ({
           <Button
             variant="rounded"
             size="lg"
-            type="submit"
+            type="button"
             onClick={handleClick}
             className="round-13"
             disabled={Boolean(errors.memo)}
