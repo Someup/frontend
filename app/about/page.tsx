@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable @next/next/no-img-element */
 import { cn } from '@/lib/utils';
 import { typography } from '@/styles/typography';
@@ -438,16 +439,9 @@ function VideoSection(): React.JSX.Element {
             alt="double twinkle"
             className="absolute -right-13 -top-6 -translate-y-full translate-x-full"
           />
-          <iframe
-            width="1009"
-            height="575"
-            src="https://www.youtube.com/embed/tE68vioSJfk"
-            title='[4K] "Gravity" by FIFTY FIFTY live performance [MMT LIVE]'
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            className="mx-auto"
-          />
+          <video width="1009" height="575" controls className="mx-auto">
+            <source src="/videos/project-demo.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </section>
