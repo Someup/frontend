@@ -28,16 +28,16 @@ export default function AboutPage(): React.JSX.Element {
 function HeroSection(): React.JSX.Element {
   return (
     <section className="h-screen w-full bg-white">
-      <div className="h-full w-full p-12.5">
+      <div className="h-full w-full p-12.5 pt-17">
         <div className="flex h-full flex-col items-center rounded-15 bg-primary-400">
           <h1
-            className={cn(typography({ scale: 'head-1' }), 'mt-18 text-center')}
+            className={cn(typography({ scale: 'head-1' }), 'mt-11 text-center')}
           >
             요약부터 아카이빙까지 한번에
           </h1>
           <p
             className={
-              (cn(typography({ scale: 'body-2' })), 'mt-8 text-center')
+              (cn(typography({ scale: 'body-2' })), 'mt-1 text-center')
             }
           >
             Someup!을 통해 당신만의 요약본을 몇초만에 만들어보세요!{' '}
